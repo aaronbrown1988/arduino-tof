@@ -20,11 +20,11 @@ void setup() {
 }
 
 void loop() {
-  unsigned long int time = 0;
+  unsigned long  time = 0;
   
   value = analogRead(sensorPin);
   //Serial.println(value);
-  digitalWrite(ledPin, HIGH);
+  
   if(value > midpoint){
     high++;
     
@@ -33,6 +33,7 @@ void loop() {
   }
   
   if (broken == 1 && high == 0) {
+    digitalWrite(ledPin, HIGH);
     broken = 0;
     Serial.print("1 ");
     time = millis();
@@ -40,7 +41,7 @@ void loop() {
     Serial.println(" 1");
   }
   
-  if(high > 2){
+  if(high > 2 && broken == 0){
     digitalWrite(ledPin, LOW);
     Serial.print("1 ");
     time = millis();
