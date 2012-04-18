@@ -226,28 +226,28 @@ public class TrampolineUI extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         grpFiletype = new javax.swing.ButtonGroup();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
-        PanelToF = new javax.swing.JPanel();
+        tabPane = new javax.swing.JTabbedPane();
+        pnlToF = new javax.swing.JPanel();
         pnlStart = new javax.swing.JPanel();
         btnGo = new javax.swing.JButton();
         txtNumberOfBounces = new javax.swing.JTextField();
         txtPassName = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        labNumberOfBounces = new javax.swing.JLabel();
+        labNameForData = new javax.swing.JLabel();
         selDeviceName = new javax.swing.JComboBox();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        labSelectTof = new javax.swing.JLabel();
+        labGymnast = new javax.swing.JLabel();
         selComboBox1 = new javax.swing.JComboBox();
         chkBeamStatusBox1 = new javax.swing.JCheckBox();
         chkBeamStatusBox2 = new javax.swing.JCheckBox();
         chkBeamStatusBox3 = new javax.swing.JCheckBox();
         pnlData = new javax.swing.JPanel();
         btnClear = new javax.swing.JButton();
-        jPanelDataTable = new javax.swing.JPanel();
+        pnlDataTable = new javax.swing.JPanel();
         pnlStats = new javax.swing.JPanel();
         pnlGraph = new javax.swing.JPanel();
-        PanelStats = new javax.swing.JPanel();
-        PanelAdmin = new javax.swing.JPanel();
+        pnlStatistics = new javax.swing.JPanel();
+        pnlAdmin = new javax.swing.JPanel();
         pnlExport = new javax.swing.JPanel();
         lblUser = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
@@ -264,7 +264,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
         txtUserName = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
         pnlJumpers = new javax.swing.JPanel();
         pnlImport = new javax.swing.JPanel();
         pnlReset = new javax.swing.JPanel();
@@ -274,7 +274,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         txtPassword1 = new javax.swing.JTextField();
         btnResetAll = new javax.swing.JButton();
         btnNewPassword = new javax.swing.JButton();
-        jMenuBar2 = new javax.swing.JMenuBar();
+        menBar = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
@@ -305,9 +305,9 @@ public class TrampolineUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Number of Bounces:");
+        labNumberOfBounces.setText("Number of Bounces:");
 
-        jLabel2.setText("Name for Data:");
+        labNameForData.setText("Name for Data:");
 
         selDeviceName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -315,9 +315,9 @@ public class TrampolineUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Select a ToF Device:");
+        labSelectTof.setText("Select a ToF Device:");
 
-        jLabel4.setText("Select a Gymnast:");
+        labGymnast.setText("Select a Gymnast:");
 
         selComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Gymnast A", "Gymnast B", "Other people" }));
 
@@ -346,10 +346,10 @@ public class TrampolineUI extends javax.swing.JFrame {
                             .addGroup(pnlStartLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(pnlStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3))))
+                                    .addComponent(labNumberOfBounces)
+                                    .addComponent(labNameForData)
+                                    .addComponent(labGymnast)
+                                    .addComponent(labSelectTof))))
                         .addGap(18, 18, 18)
                         .addGroup(pnlStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(selDeviceName, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -366,7 +366,7 @@ public class TrampolineUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlStartLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(labSelectTof)
                     .addComponent(selDeviceName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(chkBeamStatusBox1)
@@ -376,15 +376,15 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addComponent(chkBeamStatusBox3)
                 .addGap(5, 5, 5)
                 .addGroup(pnlStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(labGymnast)
                     .addComponent(selComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(labNumberOfBounces)
                     .addComponent(txtNumberOfBounces, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(labNameForData)
                     .addComponent(txtPassName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnGo)
@@ -402,14 +402,14 @@ public class TrampolineUI extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanelDataTableLayout = new javax.swing.GroupLayout(jPanelDataTable);
-        jPanelDataTable.setLayout(jPanelDataTableLayout);
-        jPanelDataTableLayout.setHorizontalGroup(
-            jPanelDataTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlDataTableLayout = new javax.swing.GroupLayout(pnlDataTable);
+        pnlDataTable.setLayout(pnlDataTableLayout);
+        pnlDataTableLayout.setHorizontalGroup(
+            pnlDataTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanelDataTableLayout.setVerticalGroup(
-            jPanelDataTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnlDataTableLayout.setVerticalGroup(
+            pnlDataTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 302, Short.MAX_VALUE)
         );
 
@@ -421,14 +421,14 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addGap(57, 57, 57)
                 .addGroup(pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnClear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelDataTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnlDataTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(136, Short.MAX_VALUE))
         );
         pnlDataLayout.setVerticalGroup(
             pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDataLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addComponent(jPanelDataTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlDataTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(58, 58, 58)
                 .addComponent(btnClear)
                 .addContainerGap(67, Short.MAX_VALUE))
@@ -460,27 +460,27 @@ public class TrampolineUI extends javax.swing.JFrame {
             .addGap(0, 189, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout PanelToFLayout = new javax.swing.GroupLayout(PanelToF);
-        PanelToF.setLayout(PanelToFLayout);
-        PanelToFLayout.setHorizontalGroup(
-            PanelToFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelToFLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlToFLayout = new javax.swing.GroupLayout(pnlToF);
+        pnlToF.setLayout(pnlToFLayout);
+        pnlToFLayout.setHorizontalGroup(
+            pnlToFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlToFLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelToFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlToFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pnlStats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(11, Short.MAX_VALUE))
         );
-        PanelToFLayout.setVerticalGroup(
-            PanelToFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelToFLayout.createSequentialGroup()
+        pnlToFLayout.setVerticalGroup(
+            pnlToFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlToFLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelToFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelToFLayout.createSequentialGroup()
+                .addGroup(pnlToFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlToFLayout.createSequentialGroup()
                         .addComponent(pnlStats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -489,20 +489,20 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane2.addTab("Time of Flight", PanelToF);
+        tabPane.addTab("Time of Flight", pnlToF);
 
-        javax.swing.GroupLayout PanelStatsLayout = new javax.swing.GroupLayout(PanelStats);
-        PanelStats.setLayout(PanelStatsLayout);
-        PanelStatsLayout.setHorizontalGroup(
-            PanelStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlStatisticsLayout = new javax.swing.GroupLayout(pnlStatistics);
+        pnlStatistics.setLayout(pnlStatisticsLayout);
+        pnlStatisticsLayout.setHorizontalGroup(
+            pnlStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 996, Short.MAX_VALUE)
         );
-        PanelStatsLayout.setVerticalGroup(
-            PanelStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnlStatisticsLayout.setVerticalGroup(
+            pnlStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 567, Short.MAX_VALUE)
         );
 
-        jTabbedPane2.addTab("Stats", PanelStats);
+        tabPane.addTab("Statistics", pnlStatistics);
 
         pnlExport.setBorder(javax.swing.BorderFactory.createTitledBorder("Export"));
 
@@ -529,7 +529,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         grpFiletype.add(jRadioButton3);
         jRadioButton3.setText("Excel");
 
-        jTextField1.setText("jTextField1");
+        txtName.setText("jTextField1");
 
         javax.swing.GroupLayout pnlExportLayout = new javax.swing.GroupLayout(pnlExport);
         pnlExport.setLayout(pnlExportLayout);
@@ -544,7 +544,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                     .addComponent(lblName))
                 .addGap(18, 18, 18)
                 .addGroup(pnlExportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlExportLayout.createSequentialGroup()
                         .addComponent(selDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -571,7 +571,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(pnlExportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblName)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlExportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDoB)
@@ -671,50 +671,50 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addGap(0, 35, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout PanelAdminLayout = new javax.swing.GroupLayout(PanelAdmin);
-        PanelAdmin.setLayout(PanelAdminLayout);
-        PanelAdminLayout.setHorizontalGroup(
-            PanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelAdminLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlAdminLayout = new javax.swing.GroupLayout(pnlAdmin);
+        pnlAdmin.setLayout(pnlAdminLayout);
+        pnlAdminLayout.setHorizontalGroup(
+            pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlAdminLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlJumpers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(PanelAdminLayout.createSequentialGroup()
+                    .addGroup(pnlAdminLayout.createSequentialGroup()
                         .addComponent(pnlImport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        PanelAdminLayout.setVerticalGroup(
-            PanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelAdminLayout.createSequentialGroup()
+        pnlAdminLayout.setVerticalGroup(
+            pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlAdminLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelAdminLayout.createSequentialGroup()
+                .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlAdminLayout.createSequentialGroup()
                         .addComponent(pnlJumpers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(PanelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(pnlImport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(pnlReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(pnlExport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        jTabbedPane2.addTab("Administrate", PanelAdmin);
+        tabPane.addTab("Administrate", pnlAdmin);
 
         jMenu3.setText("File");
 
         jMenuItem1.setText("jMenuItem1");
         jMenu3.add(jMenuItem1);
 
-        jMenuBar2.add(jMenu3);
+        menBar.add(jMenu3);
 
         jMenu4.setText("Edit");
-        jMenuBar2.add(jMenu4);
+        menBar.add(jMenu4);
 
-        setJMenuBar(jMenuBar2);
+        setJMenuBar(menBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -722,14 +722,14 @@ public class TrampolineUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1001, Short.MAX_VALUE)
+                .addComponent(tabPane)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane2)
+                .addComponent(tabPane)
                 .addContainerGap())
         );
 
@@ -739,23 +739,23 @@ public class TrampolineUI extends javax.swing.JFrame {
     private void initComponentsNonGenerated() {
         //Make the labels that we require for the centre panel. 
         labelArray = new JLabel[4][10];
-        jPanelDataTable.setLayout(new GridLayout(11,4));
-        jPanelDataTable.add(new JLabel("Number"));
-        jPanelDataTable.add(new JLabel("ToF"));
-        jPanelDataTable.add(new JLabel("ToN"));
-        jPanelDataTable.add(new JLabel("Total"));
+        pnlDataTable.setLayout(new GridLayout(11,4));
+        pnlDataTable.add(new JLabel("Number"));
+        pnlDataTable.add(new JLabel("ToF"));
+        pnlDataTable.add(new JLabel("ToN"));
+        pnlDataTable.add(new JLabel("Total"));
         for (int i = 0; i < 10; i++) {
             labelArray[0][i] = new JLabel("labNumber"+i);
             labelArray[1][i] = new JLabel("labTOF"+i);
             labelArray[2][i] = new JLabel("labTON"+i);
             labelArray[3][i] = new JLabel("labTotal"+i);
             for (int j = 0; j < 4; j++) {
-                jPanelDataTable.add(labelArray[j][i]);
+                pnlDataTable.add(labelArray[j][i]);
                 labelArray[j][i].setText("");
             }
             labelArray[0][i].setText("Jump "+(i+1));
         }
-        jPanelDataTable.repaint();
+        pnlDataTable.repaint();
         
         //Set the numbers for the date of birth entries.
         for (int k = 1; k <= 31; k++) {
@@ -885,9 +885,6 @@ public class TrampolineUI extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel PanelAdmin;
-    private javax.swing.JPanel PanelStats;
-    private javax.swing.JPanel PanelToF;
     private javax.swing.JButton btnAddModifyUser;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDeleteUser;
@@ -899,43 +896,46 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkBeamStatusBox2;
     private javax.swing.JCheckBox chkBeamStatusBox3;
     private javax.swing.ButtonGroup grpFiletype;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JPanel jPanelDataTable;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel labGymnast;
+    private javax.swing.JLabel labNameForData;
+    private javax.swing.JLabel labNumberOfBounces;
+    private javax.swing.JLabel labSelectTof;
     private javax.swing.JLabel lblCategory;
     private javax.swing.JLabel lblDoB;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblNewPassword;
     private javax.swing.JLabel lblNewPassword2;
     private javax.swing.JLabel lblUser;
+    private javax.swing.JMenuBar menBar;
+    private javax.swing.JPanel pnlAdmin;
     private javax.swing.JPanel pnlData;
+    private javax.swing.JPanel pnlDataTable;
     private javax.swing.JPanel pnlExport;
     private javax.swing.JPanel pnlGraph;
     private javax.swing.JPanel pnlImport;
     private javax.swing.JPanel pnlJumpers;
     private javax.swing.JPanel pnlReset;
     private javax.swing.JPanel pnlStart;
+    private javax.swing.JPanel pnlStatistics;
     private javax.swing.JPanel pnlStats;
+    private javax.swing.JPanel pnlToF;
     private javax.swing.JComboBox selCategory;
     private javax.swing.JComboBox selComboBox1;
     private javax.swing.JComboBox selDate;
     private javax.swing.JComboBox selDeviceName;
     private javax.swing.JComboBox selMonth;
     private javax.swing.JComboBox selYear;
+    private javax.swing.JTabbedPane tabPane;
+    private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtNumberOfBounces;
     private javax.swing.JTextField txtPassName;
     private javax.swing.JTextField txtPassword1;
