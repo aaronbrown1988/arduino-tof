@@ -17,9 +17,11 @@ import java.text.SimpleDateFormat;
  */
 public class TrampolineUI extends javax.swing.JFrame {
     
-    public final ArrayList<HardwareInterface> interfaceList = new ArrayList<HardwareInterface>();
-    public final ArrayList<String> stringList;
-    public HardwareInterface selectedHardware;
+    public final ArrayList<PortController> portsAvaliable_;
+    public final ArrayList<String> portStrings_;
+    public final ArrayList<Integer> noOfTof_;
+    public TofInterface currentInterface_;
+	
     javax.swing.Timer beamStatusTimer;
     javax.swing.Timer pageRefreshTimer;
     private int refresh;
@@ -30,9 +32,9 @@ public class TrampolineUI extends javax.swing.JFrame {
     private Chart chartObject;
     private JLabel[][] labelArray; //labelArray[column][row]
     
-    ActionListener beamstatus = new ActionListener() {
+   ActionListener beamstatus = new ActionListener() {
         public void actionPerformed(ActionEvent evt) {
-            int beamStatus[] = selectedHardware.getBeamStatus();
+            int beamStatus[] = currentInterface_.getBeamStatus();
             if(beamStatus[0]==1){
                 chkBeamStatusBox1.setSelected(true);
             } else {
@@ -54,18 +56,17 @@ public class TrampolineUI extends javax.swing.JFrame {
     };
     
     ActionListener updatepage = new ActionListener(){
-        public void actionPerformed(ActionEvent evt){
-                        
+        public void actionPerformed(ActionEvent evt){        
             if(refresh>0){
-                if(selectedHardware.getJumps().size() >= nextJumpToFill){
-                    JLabel[] labels = createLabels("N" + Integer.toString(nextJumpToFill));
-                    Jump thisJump = selectedHardware.getJumps().get(nextJumpToFill-1);
+                if(currentInterface_.getJumps().size() >= nextJumpToFill){
+                    //JLabel[] labels = createLabels("N" + Integer.toString(nextJumpToFill));
+                    Jump thisJump = currentInterface_.getJumps().get(nextJumpToFill-1);
                     
-                    labels[0].setText(thisJump.getTof()+"");
-                    labels[1].setText(thisJump.getTon()+"");
-                    labels[2].setText(thisJump.getTotal()+"");
+                    //labels[0].setText(thisJump.getTof()+"");
+                    //labels[1].setText(thisJump.getTon()+"");
+                    //labels[2].setText(thisJump.getTotal()+"");
                     
-                    /** UPDATE BAR GRAPH**/
+                    // UPDATE BAR GRAPH
                     chartValues[nextJumpToFill-1] = thisJump.getTof();
 
                     updateChart(chartValues, chartNames);
@@ -74,7 +75,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                 refresh--;
             } else {
                 pageRefreshTimer.stop();
-            }         
+            }     
         }
     };
     
@@ -84,19 +85,21 @@ public class TrampolineUI extends javax.swing.JFrame {
     public TrampolineUI() {
         initComponents();
         
-        HardwareInterface hi = new HardwareInterface();
-        stringList = hi.getPorts();
+        PortController thisPort = new PortController();
+        this.portsAvaliable_ = new ArrayList<PortController>();
+        this.portStrings_ = thisPort.getPorts();
+        this.noOfTof_ = thisPort.getNoTof();
         
-        for (String s:stringList) {
-            hi = new HardwareInterface(s);
-            interfaceList.add(hi);
-            selDeviceName.addItem(s);
+        for (int i=0; i<portStrings_.size();i++) {
+            String s = this.portStrings_.get(i);
+            thisPort = new PortController(s);
+            this.portsAvaliable_.add(thisPort);
+            for(int j=1;j<=this.noOfTof_.get(i);j++){
+                drpDeviceName.addItem(s+" Device "+j);
+            }
         }
         
-        selectedHardware = idToHardware(stringList.get(0));
-        /*
-         * if (stringList.length == 1) deviceName.visible = false;
-         */
+        this.currentInterface_ = this.stringToTof(drpDeviceName.getSelectedItem().toString());
                 
         beamStatusTimer = new javax.swing.Timer(1, beamstatus);
         beamStatusTimer.start();
@@ -131,10 +134,16 @@ public class TrampolineUI extends javax.swing.JFrame {
         initComponentsNonGenerated();
     }
     
-    public HardwareInterface idToHardware(String s) {
-        int id = stringList.indexOf(s);
-        HardwareInterface hi = interfaceList.get(id);
-        return hi;
+    public TofInterface stringToTof(String s) {
+        String split[] = s.split(" ");
+        
+        if(split.length == 3){
+            int id = this.portStrings_.indexOf(split[0]);
+            return this.portsAvaliable_.get(id).getInterface(Integer.parseInt(split[2])-1);
+        }else{
+            int id = this.portStrings_.indexOf(split[0]);
+            return this.portsAvaliable_.get(id).getInterface(0);
+        }
     }
     
     public String passnameToFilename(String s) {
@@ -158,8 +167,8 @@ public class TrampolineUI extends javax.swing.JFrame {
     }
     
     public void callOnClose() {
-        for (HardwareInterface hi:interfaceList) {
-            hi.close();
+        for (PortController thisPort : this.portsAvaliable_) {
+            thisPort.close();
         }
         beamStatusTimer.stop();
     }
@@ -234,7 +243,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         txtPassName = new javax.swing.JTextField();
         labNumberOfBounces = new javax.swing.JLabel();
         labNameForData = new javax.swing.JLabel();
-        selDeviceName = new javax.swing.JComboBox();
+        drpDeviceName = new javax.swing.JComboBox();
         labSelectTof = new javax.swing.JLabel();
         labGymnast = new javax.swing.JLabel();
         selComboBox1 = new javax.swing.JComboBox();
@@ -309,9 +318,9 @@ public class TrampolineUI extends javax.swing.JFrame {
 
         labNameForData.setText("Name for Data:");
 
-        selDeviceName.addActionListener(new java.awt.event.ActionListener() {
+        drpDeviceName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selDeviceNameActionPerformed(evt);
+                drpDeviceNameActionPerformed(evt);
             }
         });
 
@@ -352,7 +361,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                                     .addComponent(labSelectTof))))
                         .addGap(18, 18, 18)
                         .addGroup(pnlStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(selDeviceName, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(drpDeviceName, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(selComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPassName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNumberOfBounces, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -367,7 +376,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labSelectTof)
-                    .addComponent(selDeviceName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(drpDeviceName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(chkBeamStatusBox1)
                 .addGap(1, 1, 1)
@@ -781,53 +790,13 @@ public class TrampolineUI extends javax.swing.JFrame {
     }
     
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        /*JLabel[] labelList;
-        
-        labelList = createLabels("N4");
-        
-        for (int i = 0; i < labelList.length; i++) {  // i indexes each element successively.
-            labelList[i].setText("fdsdf");
-        }
-        
-        System.out.println(deviceName.getSelectedItem().toString());
-        
-        System.out.println(deviceName.getSelectedItem().toString());
-        
-        for(Jump thisJump : this.selectedHardware.getJumps()){
-            System.out.println(thisJump);
-        }*/
-        
-        JLabel[] labelList;
-        
-        labelList = createLabels("ALL");
-        for (int i = 0; i < labelList.length; i++) {
-            labelList[i].setText("0.00");
-        }
+        // ADD CODE TO CLEAR SCREEN HERE
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnGoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoActionPerformed
-        /*String bouncenum = jTextField1.getText();
-        String break1    = jTextField2.getText();
-        String engage    = jTextField3.getText();
-        String break2    = jTextField2.getText();
-        
-        JLabel[] labelList;
-        labelList = createLabels("N"+bouncenum);
-        
-        Jump j;
-        j = new Jump(break1, engage, break2);
-        
-        updateJumpTime(bouncenum, j);
-        *
-        */
-       
-        selectedHardware.collectBounces(Integer.parseInt(txtNumberOfBounces.getText()), "data/testfile.xml", txtPassName.getText());
+        this.currentInterface_.collectBounces(Integer.parseInt(txtNumberOfBounces.getText()), "data/testfile.xml", txtPassName.getText());
         refresh = REFRESH_TIME;
         nextJumpToFill = 1;
-        JLabel[] labels = createLabels("ALL");
-        for(JLabel label : labels){
-            label.setText("");
-        }
         pageRefreshTimer.start();
     }//GEN-LAST:event_btnGoActionPerformed
 
@@ -835,9 +804,9 @@ public class TrampolineUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNumberOfBouncesActionPerformed
 
-    private void selDeviceNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selDeviceNameActionPerformed
-        selectedHardware = idToHardware(selDeviceName.getSelectedItem().toString());
-    }//GEN-LAST:event_selDeviceNameActionPerformed
+    private void drpDeviceNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpDeviceNameActionPerformed
+        this.currentInterface_ = this.stringToTof(drpDeviceName.getSelectedItem().toString());
+    }//GEN-LAST:event_drpDeviceNameActionPerformed
 
     private void chkBeamStatusBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkBeamStatusBox2ActionPerformed
         // TODO add your handling code here:
@@ -895,6 +864,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JCheckBox chkBeamStatusBox1;
     private javax.swing.JCheckBox chkBeamStatusBox2;
     private javax.swing.JCheckBox chkBeamStatusBox3;
+    private javax.swing.JComboBox drpDeviceName;
     private javax.swing.ButtonGroup grpFiletype;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -931,7 +901,6 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JComboBox selCategory;
     private javax.swing.JComboBox selComboBox1;
     private javax.swing.JComboBox selDate;
-    private javax.swing.JComboBox selDeviceName;
     private javax.swing.JComboBox selMonth;
     private javax.swing.JComboBox selYear;
     private javax.swing.JTabbedPane tabPane;

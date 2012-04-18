@@ -166,7 +166,7 @@
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="selDeviceName" min="-2" pref="124" max="-2" attributes="0"/>
+                                      <Component id="drpDeviceName" min="-2" pref="124" max="-2" attributes="0"/>
                                       <Component id="selComboBox1" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtPassName" min="-2" pref="100" max="-2" attributes="0"/>
                                       <Component id="txtNumberOfBounces" min="-2" pref="48" max="-2" attributes="0"/>
@@ -187,7 +187,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="labSelectTof" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="selDeviceName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="drpDeviceName" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="chkBeamStatusBox1" min="-2" max="-2" attributes="0"/>
@@ -250,14 +250,14 @@
                     <Property name="text" type="java.lang.String" value="Name for Data:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="selDeviceName">
+                <Component class="javax.swing.JComboBox" name="drpDeviceName">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="0"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selDeviceNameActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="drpDeviceNameActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="labSelectTof">
