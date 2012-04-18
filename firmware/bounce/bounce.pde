@@ -50,6 +50,17 @@ void loop() {
     broken = 1;
    // Serial.println("Beam Broken");
   }
-  
+  if (Serial.available() > 0 ) {
+   handleData();
+  }
   delayMicroseconds(10);
 };
+
+
+
+void handleData() {
+ 
+ // WOrk out if hand shake or command or what
+ 
+ 
+}
