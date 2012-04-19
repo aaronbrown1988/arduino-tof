@@ -33,7 +33,8 @@ public class TofInterface {
     private BufferedWriter outputBuff_;         // File to write XML out to.
     private PortController myPort_;             // Refernce to the PortController which owns this TofInterface
     private int jumpData_[];                    // Jump data to be converted into a jump object.
-    private ArrayList<Jump> jumpEvents_;        // Array to hold calculated jumps
+    private Jump jumps_[];                      // Array to hold calculate jumps
+    private int noJumpsInArray_;                 // Number of jumps currently in array
     
     TofInterface(){
         this.beamStatus_ = new int[3];
@@ -50,8 +51,8 @@ public class TofInterface {
         this.noToCollect_ = 0;
         this.nextType_ = 1;
         this.outputBuff_ = null;
-        this.jumpEvents_ = new ArrayList<Jump>();
-        
+        this.jumps_ = new Jump[21];
+        this.noJumpsInArray_ = 0;
     }
     
     TofInterface(PortController myPort){
@@ -108,8 +109,8 @@ public class TofInterface {
         this.jumpData_[0] = -1;
         this.jumpData_[1] = -1;
         this.jumpData_[2] = -1;
-        this.jumpEvents_.clear();
         this.nextType_ = 1;
+        this.noJumpsInArray_ = 0;
         this.noToCollect_ = noOfBounces*2 + 1;
     }
      
@@ -153,8 +154,8 @@ public class TofInterface {
             this.jumpData_[1] = time;
         }else if(this.jumpData_[2] == -1){
             this.jumpData_[2] = time;
-            Jump thisJump = new Jump(this.jumpData_[0], this.jumpData_[1], this.jumpData_[2]);
-            this.jumpEvents_.add(thisJump);
+            this.jumps_[this.noJumpsInArray_] = new Jump(this.jumpData_[0], this.jumpData_[1], this.jumpData_[2]);
+            this.noJumpsInArray_++;
             this.jumpData_[0] = this.jumpData_[2];
             this.jumpData_[1] = -1;
             this.jumpData_[2] = -1;
@@ -177,8 +178,8 @@ public class TofInterface {
         return this.beamStatus_;
     }
     
-    public ArrayList<Jump> getJumps(){
-        return this.jumpEvents_;
+    public Jump[] getJumps(){
+        return this.jumps_;
     }
     
     public PortController getPort(){
