@@ -94,26 +94,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     /**
      * Creates new form TrampolineUI
      */
-    
-    private static void appInit()
-    {
-        for (int i = 1; i <= 10; i++)
-        {   // pretend we have 10 things to do
-            int pctDone = i * 10;       // this is about the only time I could calculate rather than guess progress
-            splashText("Doing task #" + i);     // tell the user what initialization task is being done
-            splashProgress(pctDone);            // give them an idea how much we have completed
-            try
-            {
-                Thread.sleep(1000);             // wait a second
-            }
-            catch (InterruptedException ex)
-            {
-                break;
-            }
-        }
-    }
-    
-    
+        
     public TrampolineUI() {
         initComponents();
         
