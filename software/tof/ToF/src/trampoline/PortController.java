@@ -15,6 +15,43 @@ import java.util.*;
  *
  * @author Kieran
  */
+class Handshake implements SerialPortEventListener{
+    private InputStream input_;
+    private String response_;
+    private int error_;
+    
+    Handshake(InputStream input){
+        this.input_ = input;
+        this.response_ = "";
+        this.error_ = 0;
+    }
+    
+    public synchronized void serialEvent(SerialPortEvent oEvent){
+        if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
+            try{   
+                StringBuilder tempStr = new StringBuilder();
+
+                byte chunk = (byte)this.input_.read();
+                while((char)chunk!='\n'){
+                    tempStr.append((char)chunk);
+                    chunk = (byte)this.input_.read();
+                }
+                this.response_= tempStr.toString();
+            }catch (Exception e){
+                this.error_ = 1;
+            }
+        }
+    }
+    
+    public String getResponse(){
+        return this.response_;
+    }
+    
+    public int getError(){
+        return this.error_;
+    }
+}
+
 public class PortController implements SerialPortEventListener{
     
     private String errorList_[] = {
@@ -36,7 +73,6 @@ public class PortController implements SerialPortEventListener{
     private int error_;                                 // Error Flag.
     private int timeOut_;                               // Milliseconds to block while waiting for port open.
     private int dataRate_;                              // Default bits per second for COM port.
-    private String portsToCheck_[];                     // The port we're going to check for ToFs.
     private SerialPort serialPort_;                     // Serial Port associated with this object.
     private InputStream input_;                         // Buffered input stream from the port.
     private OutputStream output_;                       // The output stream to the port.
@@ -46,7 +82,6 @@ public class PortController implements SerialPortEventListener{
         this.portsInUse_ = new ArrayList<CommPortIdentifier>();
         this.nameOfPorts_ = new ArrayList<String>();
         this.noOfTof_ = new ArrayList<Integer>();
-        this.portsToCheck_ = null;
         this.error_ = 0;
         this.serialPort_ = null;
         this.input_ = null;
@@ -80,10 +115,6 @@ public class PortController implements SerialPortEventListener{
                 if(split[0].equals("timeout")){
                     this.timeOut_= Integer.parseInt(split[1]);
                 }
-
-                if(split[0].equals("portstocheck")){
-                    this.portsToCheck_ = split[1].split(";");
-                }
             }
         } catch (FileNotFoundException e) {
             this.error_ = 5;
@@ -115,18 +146,14 @@ public class PortController implements SerialPortEventListener{
         while(portEnum.hasMoreElements()){
             CommPortIdentifier currPortId = (CommPortIdentifier) portEnum.nextElement();
 
-            // If the port is on our list to check...
-            for (String portName : this.portsToCheck_){
-
-                //...And it passes the test (currently just matched the name!)
-                if (currPortId.getName().equals(portName)){
-                    //Add it to our lists
-                    int noOfTof = 2;
-                    
-                    this.portsInUse_.add(currPortId);
-                    this.nameOfPorts_.add(currPortId.getName());
-                    this.noOfTof_.add(noOfTof);
-                }
+            String s = this.handshake(currPortId);
+ 
+            if(!(s.equals("Failed"))){      
+                //Add it to our lists
+                String split[] = s.split(" ");                               
+                this.portsInUse_.add(currPortId);
+                this.nameOfPorts_.add(split[1]);
+                this.noOfTof_.add(Integer.parseInt(split[2]));
             }
         }
 
@@ -135,6 +162,51 @@ public class PortController implements SerialPortEventListener{
             this.errorList_[0] = "ToF not Found.";
         }
     }
+    
+    private String handshake(CommPortIdentifier thisComm){
+        String result = "";
+        SerialPort serialPort  = null;
+        try{
+           serialPort = (SerialPort) thisComm.open(this.getClass().getName(),timeOut_);
+           serialPort.setSerialPortParams(this.dataRate_,
+                                SerialPort.DATABITS_8,
+                                SerialPort.STOPBITS_1,
+                                SerialPort.PARITY_NONE);
+            
+            InputStream input = serialPort.getInputStream();
+            OutputStream output = serialPort.getOutputStream();
+            Handshake handshakeListener = new Handshake(input);
+            // add event listeners
+            this.serialPort_.addEventListener(handshakeListener);
+            this.serialPort_.notifyOnDataAvailable(true);
+                                   
+            Thread.sleep(1500);
+            String messageString = "TOF\r\n";
+            output.write(messageString.getBytes()); 
+            
+            while(result.equals("")){
+                result = handshakeListener.getResponse();
+            }
+            
+            String split[] = result.split(" ");
+            
+            if(!(split[0].equals("TOF"))){
+                result = "Failed";
+            }
+            
+            serialPort.removeEventListener();
+            serialPort.close();
+            result = "Failed";
+        }catch (Exception e) {
+            result = "Failed";
+
+            if(serialPort!=null){
+                serialPort.close();
+            }
+        }
+        return result;
+    }
+    
     
     public void initialise(String portName) {
         int index = this.nameOfPorts_.indexOf(portName);
@@ -250,4 +322,7 @@ public class PortController implements SerialPortEventListener{
         return this.portOpen_;
     }
     
+    public static void main(String args[]){
+        PortController port = new PortController();
+    }
 }

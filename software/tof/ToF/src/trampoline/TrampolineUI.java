@@ -34,23 +34,25 @@ public class TrampolineUI extends javax.swing.JFrame {
     
    ActionListener beamstatus = new ActionListener() {
         public void actionPerformed(ActionEvent evt) {
-            int beamStatus[] = currentInterface_.getBeamStatus();
-            if(beamStatus[0]==1){
-                chkBeamStatusBox1.setSelected(true);
-            } else {
-                chkBeamStatusBox1.setSelected(false);
-            }
-            
-            if(beamStatus[1]==1){
-                chkBeamStatusBox2.setSelected(true);
-            } else {
-                chkBeamStatusBox2.setSelected(false);
-            }
-            
-            if(beamStatus[2]==1){
-                chkBeamStatusBox3.setSelected(true);
-            } else {
-                chkBeamStatusBox3.setSelected(false);
+            if(currentInterface_ != null){
+                int beamStatus[] = currentInterface_.getBeamStatus();
+                if(beamStatus[0]==1){
+                    chkBeamStatusBox1.setSelected(true);
+                } else {
+                    chkBeamStatusBox1.setSelected(false);
+                }
+
+                if(beamStatus[1]==1){
+                    chkBeamStatusBox2.setSelected(true);
+                } else {
+                    chkBeamStatusBox2.setSelected(false);
+                }
+
+                if(beamStatus[2]==1){
+                    chkBeamStatusBox3.setSelected(true);
+                } else {
+                    chkBeamStatusBox3.setSelected(false);
+                }
             }
         }
     };
@@ -90,6 +92,10 @@ public class TrampolineUI extends javax.swing.JFrame {
         this.portStrings_ = thisPort.getPorts();
         this.noOfTof_ = thisPort.getNoTof();
         
+        if(portStrings_.size()==0){
+            drpDeviceName.addItem("<<No ToF Connected>>");
+        }
+        
         for (int i=0; i<portStrings_.size();i++) {
             String s = this.portStrings_.get(i);
             thisPort = new PortController(s);
@@ -99,8 +105,12 @@ public class TrampolineUI extends javax.swing.JFrame {
             }
         }
         
-        this.currentInterface_ = this.stringToTof(drpDeviceName.getSelectedItem().toString());
-                
+        String currentlySelected = drpDeviceName.getSelectedItem().toString();
+        if (currentlySelected.equals("<<No ToF Connected>>")){
+            this.currentInterface_ = null;
+        }else{
+            this.currentInterface_ = this.stringToTof(currentlySelected);
+        }
         beamStatusTimer = new javax.swing.Timer(1, beamstatus);
         beamStatusTimer.start();
         
@@ -361,14 +371,17 @@ public class TrampolineUI extends javax.swing.JFrame {
                                     .addComponent(labSelectTof))))
                         .addGap(18, 18, 18)
                         .addGroup(pnlStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(drpDeviceName, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(selComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPassName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNumberOfBounces, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(drpDeviceName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(pnlStartLayout.createSequentialGroup()
+                                .addGroup(pnlStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(selComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPassName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNumberOfBounces, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 49, Short.MAX_VALUE))))
                     .addGroup(pnlStartLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnGo)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap())
         );
         pnlStartLayout.setVerticalGroup(
             pnlStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -794,10 +807,12 @@ public class TrampolineUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnGoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoActionPerformed
-        this.currentInterface_.collectBounces(Integer.parseInt(txtNumberOfBounces.getText()), "data/testfile.xml", txtPassName.getText());
-        refresh = REFRESH_TIME;
-        nextJumpToFill = 1;
-        pageRefreshTimer.start();
+        if(this.currentInterface_!=null){
+            this.currentInterface_.collectBounces(Integer.parseInt(txtNumberOfBounces.getText()), "data/testfile.xml", txtPassName.getText());
+            refresh = REFRESH_TIME;
+            nextJumpToFill = 1;
+            pageRefreshTimer.start();
+        }
     }//GEN-LAST:event_btnGoActionPerformed
 
     private void txtNumberOfBouncesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumberOfBouncesActionPerformed
@@ -805,7 +820,9 @@ public class TrampolineUI extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumberOfBouncesActionPerformed
 
     private void drpDeviceNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpDeviceNameActionPerformed
-        this.currentInterface_ = this.stringToTof(drpDeviceName.getSelectedItem().toString());
+        if(!(drpDeviceName.getSelectedItem().toString().equals("<<No ToF Connected>>"))){
+            this.currentInterface_ = this.stringToTof(drpDeviceName.getSelectedItem().toString());
+        }       
     }//GEN-LAST:event_drpDeviceNameActionPerformed
 
     private void chkBeamStatusBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkBeamStatusBox2ActionPerformed
