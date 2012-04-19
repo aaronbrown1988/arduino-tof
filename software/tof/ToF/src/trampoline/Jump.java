@@ -84,6 +84,10 @@ public class Jump {
         return this.breakEnd_;
     }
     
+    public double getHeight() {
+        return 0.5*9.8*getTof()*getTof()*0.5;
+    }
+    
     /**
      * Get the ToF
      * @return 

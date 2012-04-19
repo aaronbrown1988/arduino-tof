@@ -458,7 +458,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="pnlExport" min="-2" max="-2" attributes="0"/>
+                      <Component id="pnlGymnast" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="pnlJumpers" max="32767" attributes="0"/>
@@ -485,7 +485,7 @@
                                   <Component id="pnlReset" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="pnlExport" max="32767" attributes="0"/>
+                          <Component id="pnlGymnast" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -493,11 +493,11 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="pnlExport">
+            <Container class="javax.swing.JPanel" name="pnlGymnast">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Export"/>
+                    <TitledBorder title="Gymnast"/>
                   </Border>
                 </Property>
               </Properties>
@@ -515,8 +515,7 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtName" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtUserName" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtName" min="-2" pref="100" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="selDate" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -531,6 +530,7 @@
                               <Component id="jRadioButton1" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jRadioButton2" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jRadioButton3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="selUserName" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -542,7 +542,7 @@
                           <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lblUser" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtUserName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="selUserName" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -573,7 +573,7 @@
                           <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jRadioButton3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="123" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -631,6 +631,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Add / Modify User"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddModifyUserActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnDeleteUser">
                   <Properties>
@@ -666,11 +669,13 @@
                     <Property name="text" type="java.lang.String" value="Excel"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtUserName">
-                </Component>
                 <Component class="javax.swing.JTextField" name="txtName">
+                </Component>
+                <Component class="javax.swing.JComboBox" name="selUserName">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="jTextField1"/>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="0"/>
+                    </Property>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -739,15 +744,15 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtPassword1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtPassword2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtPassword1" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                              <Component id="txtPassword2" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="btnNewPassword" min="-2" max="-2" attributes="0"/>
                               <Component id="btnResetAll" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="72" max="32767" attributes="0"/>
+                          <EmptySpace pref="31" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -782,14 +787,8 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtPassword2">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="jTextField2"/>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtPassword1">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="jTextField2"/>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnResetAll">
                   <Properties>
