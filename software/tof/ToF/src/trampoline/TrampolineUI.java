@@ -10,6 +10,10 @@ import java.awt.event.*;
 import java.awt.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import javax.xml.parsers.*;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.*;
+import javax.xml.transform.stream.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.*;
@@ -168,6 +172,28 @@ public class TrampolineUI extends javax.swing.JFrame {
             elName = doc.createElement("name");
             elName.appendChild(doc.createTextNode(txtName.getText()));
             elGymnast.appendChild(elName);
+            elName = doc.createElement("date");
+            elName.appendChild(doc.createTextNode(selDate.getSelectedItem()+""));
+            elGymnast.appendChild(elName);
+            elName = doc.createElement("month");
+            elName.appendChild(doc.createTextNode(selMonth.getSelectedItem()+""));
+            elGymnast.appendChild(elName);
+            elName = doc.createElement("year");
+            elName.appendChild(doc.createTextNode(selYear.getSelectedItem()+""));
+            elGymnast.appendChild(elName);
+            elName = doc.createElement("category");
+            elName.appendChild(doc.createTextNode(selDate.getSelectedItem()+""));
+            elGymnast.appendChild(elName);
+            
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(file);
+            transformer.transform(source, result);
+            
+            //For testing.
+            result = new StreamResult(file);
+            transformer.transform(source, result);
             
             /*
             Element port = doc.createElement("port");
