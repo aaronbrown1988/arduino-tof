@@ -38,7 +38,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     private String[] chartNames;
     private Chart chartObject_;
     private Chart chartObjectStats_;
-    private JLabel[][] labelArray; //labelArray[column][row]
+    private JLabel[] labelArray_;
     
    ActionListener beamstatus = new ActionListener() {
         public void actionPerformed(ActionEvent evt) {
@@ -119,7 +119,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         
         pageRefreshTimer = new javax.swing.Timer(1000, updatepage);
         
-        //FIRST ONE        
+        //Create a dummy chart to add to essentially reserve the space on the relevant panels.        
         double[] values = new double[3];
         String[] names = new String[3];
         values[0] = 1;
@@ -879,23 +879,26 @@ public class TrampolineUI extends javax.swing.JFrame {
 
     private void initComponentsNonGenerated() {
         //Make the labels that we require for the centre panel. 
-        labelArray = new JLabel[4][10];
+        labelArray_ = new JLabel[40];
         pnlDataTable.setLayout(new GridLayout(11,4));
         pnlDataTable.add(new JLabel("Number"));
         pnlDataTable.add(new JLabel("ToF"));
         pnlDataTable.add(new JLabel("ToN"));
         pnlDataTable.add(new JLabel("Total"));
+        
         for (int i = 0; i < 10; i++) {
-            labelArray[0][i] = new JLabel("labNumber"+i);
-            labelArray[1][i] = new JLabel("labTOF"+i);
-            labelArray[2][i] = new JLabel("labTON"+i);
-            labelArray[3][i] = new JLabel("labTotal"+i);
-            for (int j = 0; j < 4; j++) {
-                pnlDataTable.add(labelArray[j][i]);
-                labelArray[j][i].setText("");
-            }
-            labelArray[0][i].setText("Jump "+(i+1));
+            labelArray_[i*4]   = new JLabel("labNumber"+i);
+            labelArray_[i*4+1] = new JLabel("labTOF"+i);
+            labelArray_[i*4+2] = new JLabel("labTON"+i);
+            labelArray_[i*4+3] = new JLabel("labTotal"+i);
+            //labelArray[0][i].setText("Jump "+(i+1));
         }
+        
+        for (int j = 0; j < 40; j++) {
+            pnlDataTable.add(labelArray_[j]);
+            labelArray_[j].setText("Test "+j);
+        }
+        
         pnlDataTable.repaint();
         
         //Set the numbers for the date of birth entries.
