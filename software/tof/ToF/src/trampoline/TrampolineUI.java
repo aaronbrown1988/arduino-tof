@@ -29,6 +29,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     public final ArrayList<String> portStrings_;
     public final ArrayList<Integer> noOfTof_;
     public TofInterface currentInterface_;
+    public DBConnect db_;
     
     static SplashScreen mySplash_;
     static Graphics2D splashGraphics;               // graphics context for overlay of the splash image
@@ -96,6 +97,7 @@ public class TrampolineUI extends javax.swing.JFrame {
      */
         
     public TrampolineUI() {
+        db_ = new DBConnect();
         initComponents();
         
         this.splashText("Finding ToF Devices on system.");
