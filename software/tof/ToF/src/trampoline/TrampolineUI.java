@@ -8,6 +8,7 @@ import java.io.*;
 import java.util.*;
 import java.awt.event.*;
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import javax.xml.parsers.*;
@@ -28,6 +29,12 @@ public class TrampolineUI extends javax.swing.JFrame {
     public final ArrayList<String> portStrings_;
     public final ArrayList<Integer> noOfTof_;
     public TofInterface currentInterface_;
+    
+    static SplashScreen mySplash_;
+    static Graphics2D splashGraphics;               // graphics context for overlay of the splash image
+    static Rectangle2D.Double splashTextArea;       // area where we draw the text
+    static Rectangle2D.Double splashProgressArea;   // area where we draw the progress bar
+    static Font font;                               // used to draw our text
 	
     javax.swing.Timer beamStatusTimer;
     javax.swing.Timer pageRefreshTimer;
@@ -87,9 +94,12 @@ public class TrampolineUI extends javax.swing.JFrame {
     /**
      * Creates new form TrampolineUI
      */
+        
     public TrampolineUI() {
         initComponents();
         
+        this.splashText("Finding ToF Devices on system.");
+        this.splashProgress(0);
         PortController thisPort = new PortController();
         this.portsAvaliable_ = new ArrayList<PortController>();
         this.portStrings_ = thisPort.getPorts();
@@ -99,6 +109,8 @@ public class TrampolineUI extends javax.swing.JFrame {
             drpDeviceName.addItem("<<No ToF Connected>>");
         }
         
+        this.splashText("Connecting to available ToF Devices.");
+        this.splashProgress(33);
         for (int i=0; i<portStrings_.size();i++) {
             String s = this.portStrings_.get(i);
             thisPort = new PortController(s);
@@ -114,6 +126,9 @@ public class TrampolineUI extends javax.swing.JFrame {
         }else{
             this.currentInterface_ = this.stringToTof(currentlySelected);
         }
+        
+        this.splashText("Getting beam status from ToF.");
+        this.splashProgress(66);
         beamStatusTimer = new javax.swing.Timer(1, beamstatus);
         beamStatusTimer.start();
         
@@ -149,7 +164,11 @@ public class TrampolineUI extends javax.swing.JFrame {
             chartNames[i]  = "Bounce "+i;
         }
         
+        this.splashText("Setting up GUI.");
+        this.splashProgress(90);
         initComponentsNonGenerated();
+        if (mySplash_ != null)   // check if we really had a spash screen
+            mySplash_.close();   // we're done with it
     }
     
     //Takes the information presented and adds to gymnasts.xml.
@@ -1026,10 +1045,12 @@ public class TrampolineUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TrampolineUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
         /*
          * Create and display the form
-         */
+         */    
+        
+        splashInit();           // initialize splash overlay drawing parameters
+               
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
@@ -1037,6 +1058,88 @@ public class TrampolineUI extends javax.swing.JFrame {
             }
         });
     }
+    
+    private static void splashInit(){
+        // the splash screen object is created by the JVM, if it is displaying a splash image
+        
+        mySplash_ = SplashScreen.getSplashScreen();
+        // if there are any problems displaying the splash image
+        // the call to getSplashScreen will returned null
+
+        if (mySplash_ != null)
+        {
+            System.out.println("here");
+            // get the size of the image now being displayed
+            Dimension ssDim = mySplash_.getSize();
+            int height = ssDim.height;
+            int width = ssDim.width;
+
+            // stake out some area for our status information
+            splashTextArea = new Rectangle2D.Double(15., height*0.898, width * .45, 20);
+            splashProgressArea = new Rectangle2D.Double(width * .55, height*.92, width*.4, 12);
+
+            // create the Graphics environment for drawing status info
+            splashGraphics = mySplash_.createGraphics();
+            font = new Font("Dialog", Font.PLAIN, 14);
+            splashGraphics.setFont(font);
+
+            // initialize the status info
+            splashText("Starting...");
+            splashProgress(0);
+        }
+    }
+    
+    public static void splashText(String str)
+    {
+        if (mySplash_ != null && mySplash_.isVisible())
+        {   // important to check here so no other methods need to know if there
+            // really is a Splash being displayed
+
+            // erase the last status text
+            splashGraphics.setPaint(Color.WHITE);
+            splashGraphics.fill(splashTextArea);
+
+            // draw the text
+            splashGraphics.setPaint(Color.BLUE);
+            splashGraphics.drawString(str, (int)(splashTextArea.getX() + 10),(int)(splashTextArea.getY() + 15));
+
+            // make sure it's displayed
+            mySplash_.update();
+        }
+    }
+    
+     public static void splashProgress(int pct)
+    {
+        if (mySplash_ != null && mySplash_.isVisible())
+        {
+
+            // Note: 3 colors are used here to demonstrate steps
+            // erase the old one
+            splashGraphics.setPaint(Color.WHITE);
+            splashGraphics.fill(splashProgressArea);
+
+            // draw an outline
+            splashGraphics.setPaint(Color.BLUE);
+            splashGraphics.draw(splashProgressArea);
+
+            // Calculate the width corresponding to the correct percentage
+            int x = (int) splashProgressArea.getMinX();
+            int y = (int) splashProgressArea.getMinY();
+            int wid = (int) splashProgressArea.getWidth();
+            int hgt = (int) splashProgressArea.getHeight();
+
+            int doneWidth = Math.round(pct*wid/100.f);
+            doneWidth = Math.max(0, Math.min(doneWidth, wid-1));  // limit 0-width
+
+            // fill the done part one pixel smaller than the outline
+            splashGraphics.setPaint(Color.RED);
+            splashGraphics.fillRect(x, y+1, doneWidth, hgt-1);
+
+            // make sure it's displayed
+            mySplash_.update();
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddModifyUser;
     private javax.swing.JButton btnClear;
