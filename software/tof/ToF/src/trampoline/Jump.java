@@ -32,6 +32,13 @@ public class Jump {
         this.breakEnd_ = breakEnd;
     }
     
+    //Shortcut function.
+    public Jump(String breakStart, String engage, String breakEnd) {
+        this.breakStart_ = Integer.parseInt(breakStart);
+        this.engage_ = Integer.parseInt(engage);
+        this.breakEnd_ = Integer.parseInt(breakEnd);
+    }
+    
     /** Setters **/
        
     /**

@@ -20,9 +20,22 @@ public class Routine {
     private double totalTime_;
     private int worstJumpForLosingHeight_;
     
-    Routine(int numberOfJumps) {
+    Routine (Jump[] jumpList) {
+        numberOfJumps_ = jumpList.length;
+        jumpArray_     = new Jump[numberOfJumps_];
+        statsHeights_  = new double[numberOfJumps_];
+        statsTimes_    = new double[numberOfJumps_];
+        numberOfJumpsUsed_ = 0;
+        for (Jump j:jumpList) {
+            addJump(j);
+        }
+    }
+    
+    Routine (int numberOfJumps) {
         numberOfJumps_ = numberOfJumps;
-        jumpArray_ = new Jump[numberOfJumps_];
+        jumpArray_     = new Jump[numberOfJumps_];
+        statsHeights_  = new double[numberOfJumps_];
+        statsTimes_    = new double[numberOfJumps_];
         numberOfJumpsUsed_ = 0;
     }
     
@@ -73,5 +86,13 @@ public class Routine {
     
     public int getNumberOfJumps() {
         return numberOfJumps_;
+    }
+    
+    public double[] getStatsHeights() {
+        return statsHeights_;
+    }
+    
+    public double[] getStatsTimes() {
+        return statsTimes_;
     }
 }
