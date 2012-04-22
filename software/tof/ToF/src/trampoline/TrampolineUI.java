@@ -75,8 +75,8 @@ public class TrampolineUI extends javax.swing.JFrame {
     ActionListener updatepage = new ActionListener(){
         public void actionPerformed(ActionEvent evt){        
             if(refresh>0){
-                if(currentInterface_.getJumps().size() >= nextJumpToFill){
-                    Jump thisJump = currentInterface_.getJumps().get(nextJumpToFill-1);
+                if(currentInterface_.getJumps().length >= nextJumpToFill){
+                    Jump thisJump = currentInterface_.getJumps()[nextJumpToFill-1];
                     
                     // UPDATE BAR GRAPH
                     chartValues[nextJumpToFill-1] = thisJump.getTof();
