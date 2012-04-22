@@ -69,12 +69,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         public void actionPerformed(ActionEvent evt){        
             if(refresh>0){
                 if(currentInterface_.getJumps().size() >= nextJumpToFill){
-                    //JLabel[] labels = createLabels("N" + Integer.toString(nextJumpToFill));
                     Jump thisJump = currentInterface_.getJumps().get(nextJumpToFill-1);
-                    
-                    //labels[0].setText(thisJump.getTof()+"");
-                    //labels[1].setText(thisJump.getTon()+"");
-                    //labels[2].setText(thisJump.getTotal()+"");
                     
                     // UPDATE BAR GRAPH
                     chartValues[nextJumpToFill-1] = thisJump.getTof();
@@ -240,25 +235,6 @@ public class TrampolineUI extends javax.swing.JFrame {
         beamStatusTimer.stop();
     }
     
-    /**
-     * This function provides us with an array of items as necessary. 
-     */
-    public JLabel[] createLabels(String something) {
-        
-        JLabelName somethingenum = JLabelName.valueOf(something);
-        int numberOfLabels;
-        
-        if (isNumeric(something)) {
-            numberOfLabels = 3;
-        } else if (something.startsWith("Type")) {
-            numberOfLabels = 10;
-        } else {
-            numberOfLabels = 30;
-        }
-        JLabel[] labels = new JLabel [numberOfLabels];
-        return labels;
-    }
-    
     public static boolean isNumeric(String str) {
         return str.matches("-?\\d+(.\\d+)?");
     }
@@ -267,6 +243,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         N1, N2, N3, N4, N5, N6, N7, N8, N9, N10, TOF, TON, TOTAL, ALL;
     }
     
+    //This function updates the mini chart on each bounce. 
     public void updateChart(double[] values, String[] names, String title, JPanel pan) {        
         chartObject_.updateInfo(values, names, title);
 
@@ -288,18 +265,15 @@ public class TrampolineUI extends javax.swing.JFrame {
     }
     
     public void updateJumpTime(String jumpNum, Jump j) {
-        JLabel[] labelList;
-        
-        labelList = createLabels("N"+jumpNum);
-        labelList[0].setText(String.valueOf(j.getTof()));
-        labelList[1].setText(String.valueOf(j.getTon()));
-        labelList[2].setText(String.valueOf(j.getTotal()));
+        //This needs to be written to take account of the new JLabels for the times. 
     }
     
     public void updateJumpTime(int jumpNum, Jump j) {
         updateJumpTime(String.valueOf(jumpNum), j);
     }
     
+    //Given a routine, this function will update the main Statistics panel with a graph as well
+    //as textual information (the exact nature of which is to be decided).
     public void updateStatistics(Routine r) {
         double[] times  = r.getStatsTimes();
         double[] values = new double[r.getNumberOfJumps()];
