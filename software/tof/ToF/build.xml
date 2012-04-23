@@ -82,7 +82,7 @@
     <target name="dist-all" depends="jar"
             description="Bundles a stand-alone OneJAR distribution">
                 
-        <echo>Bundling: OneJAR is copying natives to ${dist.jar.dir}/natives </echo>
+        <echo>Bundling: OneJAR is copying SharedLibraries to ${dist.jar.dir}/lib </echo>
         <copy todir="${dist.jar.dir}/lib">
             <fileset file="./SharedLibraries/lib/*.*" />
         </copy>
