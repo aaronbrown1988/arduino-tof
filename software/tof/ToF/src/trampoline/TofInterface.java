@@ -37,10 +37,15 @@ public class TofInterface {
     private int noJumpsInArray_;                 // Number of jumps currently in array
     
     TofInterface(){
-        this.beamStatus_ = new int[3];
+        this.beamStatus_ = new int[8];
         this.beamStatus_[0] = 0;
         this.beamStatus_[1] = 0;
         this.beamStatus_[2] = 0;
+        this.beamStatus_[3] = 0;
+        this.beamStatus_[4] = 0;
+        this.beamStatus_[5] = 0;
+        this.beamStatus_[6] = 0;
+        this.beamStatus_[7] = 0;
         
         this.jumpData_ = new int[3];
         this.jumpData_[0] = -1;
@@ -79,6 +84,11 @@ public class TofInterface {
         this.beamStatus_[0] = broken;
         this.beamStatus_[1] = broken;
         this.beamStatus_[2] = broken;
+        this.beamStatus_[3] = broken;
+        this.beamStatus_[4] = broken;
+        this.beamStatus_[5] = broken;
+        this.beamStatus_[6] = broken;
+        this.beamStatus_[7] = broken;
     }
     
      public void collectBounces(int noOfBounces, String filename, String passName){
