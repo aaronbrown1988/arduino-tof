@@ -177,6 +177,8 @@ public class TrampolineUI extends javax.swing.JFrame {
         initComponentsNonGenerated();
         if (mySplash_ != null)   // check if we really had a spash screen
             mySplash_.close();   // we're done with it
+        
+        
     }
     
     //Takes the information presented and adds to gymnasts.xml.
