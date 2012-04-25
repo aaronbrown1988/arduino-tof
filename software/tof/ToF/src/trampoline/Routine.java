@@ -18,6 +18,8 @@ public class Routine {
     private double[] statsHeights_;
     private double[] statsTimes_;
     private double totalTime_;
+    private double totalTof_;
+    private double totalTon_;
     private int worstJumpForLosingHeight_;
     
     Routine (Jump[] jumpList) {
@@ -79,6 +81,8 @@ public class Routine {
             }
             
             totalTime_ += jumpArray_[i].getTotal();
+            totalTof_  += jumpArray_[i].getTof();
+            totalTon_  += jumpArray_[i].getTon();
         }
         
         averageJumpTime_ = totalTime_ / 10.0;
@@ -94,5 +98,17 @@ public class Routine {
     
     public double[] getStatsTimes() {
         return statsTimes_;
+    }
+    
+    public double getTotalTime() {
+        return totalTime_;
+    }
+    
+    public double getTotalTof() {
+        return totalTof_;
+    }
+    
+    public double getTotalTon() {
+        return totalTon_;
     }
 }

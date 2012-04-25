@@ -372,6 +372,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         pnlStatisticsSmall = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         btnReadFile = new javax.swing.JButton();
+        btnTestSQL = new javax.swing.JButton();
         pnlImportExport = new javax.swing.JPanel();
         pnlImport = new javax.swing.JPanel();
         pnlExport = new javax.swing.JPanel();
@@ -703,13 +704,22 @@ public class TrampolineUI extends javax.swing.JFrame {
             }
         });
 
+        btnTestSQL.setText("Test SQL");
+        btnTestSQL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTestSQLActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnReadFile)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnReadFile)
+                    .addComponent(btnTestSQL))
                 .addContainerGap(706, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -717,7 +727,9 @@ public class TrampolineUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnReadFile)
-                .addContainerGap(897, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnTestSQL)
+                .addContainerGap(856, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlStatisticsLayout = new javax.swing.GroupLayout(pnlStatistics);
@@ -1207,6 +1219,10 @@ public class TrampolineUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnClearDataActionPerformed
 
+    private void btnTestSQLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestSQLActionPerformed
+        db_.addJump(1,1,1.0,1.0,1.0,1.0,2.0,2.0,"");
+    }//GEN-LAST:event_btnTestSQLActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1342,6 +1358,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JButton btnReadFile;
     private javax.swing.JButton btnResetAll;
     private javax.swing.JButton btnSaveComments;
+    private javax.swing.JButton btnTestSQL;
     private javax.swing.JComboBox drpDeviceName;
     private javax.swing.ButtonGroup grpFiletype;
     private javax.swing.JButton jButton1;
