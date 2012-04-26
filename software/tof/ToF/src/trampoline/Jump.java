@@ -12,7 +12,7 @@ public class Jump {
     private int breakStart_;
     private int engage_;
     private int breakEnd_;
-    private String position_;
+    private String location_;
     
     /**
      * Null constructor
@@ -27,19 +27,19 @@ public class Jump {
      * @param engage
      * @param breakEnd 
      */
-    public Jump(int breakStart, int engage, int breakEnd, String position) {
+    public Jump(int breakStart, int engage, int breakEnd, String location) {
         this.breakStart_ = breakStart;
         this.engage_ = engage;
         this.breakEnd_ = breakEnd;
-        this.position_ = position;
+        this.location_ = location;
     }
     
     //Shortcut function.
-    public Jump(String breakStart, String engage, String breakEnd, String position) {
+    public Jump(String breakStart, String engage, String breakEnd, String location) {
         this.breakStart_ = Integer.parseInt(breakStart);
         this.engage_ = Integer.parseInt(engage);
         this.breakEnd_ = Integer.parseInt(breakEnd);
-        this.position_ = position;
+        this.location_ = location;
     }
     
     /** Setters **/
@@ -68,30 +68,18 @@ public class Jump {
         this.breakEnd_ = breakEnd;
     }
     
-    public void setPosition(String position){
-        this.position_ = position;
+    public void setlocation(String location){
+        this.location_ = location;
     }
-    /** Getters **/
-    /**
-     * Get the BreakStart time
-     * @return 
-     */
+    
     public int getBreakStart(){
         return this.breakStart_;
     }
     
-    /**
-     * Get the Engage time
-     * @return 
-     */
     public int getEngage(){
         return this.engage_;
     }
     
-    /** 
-     * Get the BreakEnd time
-     * @return 
-     */
     public int getBreakEnd(){
         return this.breakEnd_;
     }
@@ -100,38 +88,22 @@ public class Jump {
         return 0.5*9.8*getTof()*getTof()*0.5;
     }
     
-    /**
-     * Get the ToF
-     * @return 
-     */
     public double getTof(){
        return (this.breakEnd_ - this.engage_)/1000.0;
     }
     
-    /**
-     * Get the Ton
-     * @return 
-     */
     public double getTon(){
         return (this.engage_ - this.breakStart_)/1000.0;
     }
     
-    /**
-     * Get the Total jump time
-     * @return 
-     */
     public double getTotal(){
         return (this.breakEnd_ - this.breakStart_)/1000.0;
     }
     
-    public String getPosition(){
-        return this.position_;
+    public String getlocation(){
+        return this.location_;
     }
     
-    /**
-     * To String method for function calls
-     * @return 
-     */
     public String toString(){
         return ("ToF: " + this.getTof() + 
                 " ToN: " + this.getTon() + " Total: " + this.getTotal());
