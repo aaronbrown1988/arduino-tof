@@ -47,12 +47,12 @@ public class DBConnect {
     Jump getJump(int jid) {
         executeQuery("SELECT * FROM jumps WHERE jid = '"+jid+"'");
         
-        return new Jump(resultGetInt("break1"), resultGetInt("engage"), resultGetInt("break2");
+        return new Jump(resultGetInt("break1"), resultGetInt("engage"), resultGetInt("break2"), "A0");
     }
     
     //If we know we've already got the jump row loaded into "rs_" then use this. 
     Jump getJump() {
-        return new Jump(resultGetInt("break1"), resultGetInt("engage"), resultGetInt("break2"));
+        return new Jump(resultGetInt("break1"), resultGetInt("engage"), resultGetInt("break2"),"A0");
     }
     
     Routine getRoutine(int rid) {

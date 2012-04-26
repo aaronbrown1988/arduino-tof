@@ -30,34 +30,35 @@ public class TofInterface {
     private boolean beamStatus_[];              // Status of 8 beams in the ToF
     private int noToCollect_;                   // Flag for collecting data.
     private boolean gridStatus_;                // Status of grid
-    private BufferedWriter outputBuff_;         // File to write XML out to.
     private PortController myPort_;             // Refernce to the PortController which owns this TofInterface
+    private DBConnect db_;                      // Database object
+    private Routine routine_;                   // Temp routine holder
+    private Jump jump_;                         // Temp jump holder
     private int jumpData_[];                    // Jump data to be converted into a jump object.
-    private Jump jumps_[];                      // Array to hold calculate jumps
-    private int noJumpsInArray_;                 // Number of jumps currently in array
+    private int breakOrder_[];                  // Array to list the beamBreaks.
+    private int noBeamsBroken_;                 // Number of breaks in an event.
+    private int gymnast_;                       // ID of gymnast currently jumping.
+    
     
     TofInterface(){
         this.beamStatus_ = new boolean[8];
-        this.beamStatus_[0] = false;
-        this.beamStatus_[1] = false;
-        this.beamStatus_[2] = false;
-        this.beamStatus_[3] = false;
-        this.beamStatus_[4] = false;
-        this.beamStatus_[5] = false;
-        this.beamStatus_[6] = false;
-        this.beamStatus_[7] = false;
+        for(int i=0;i<7;i++){
+            this.beamStatus_[i] = false;
+        }
+
+        this.error_ = 0;
+        this.noToCollect_ = 0;
+        this.gridStatus_ = true;
+        this.db_ = null;
+        this.routine_ = null;
+        this.jump_ = null;        
         
         this.jumpData_ = new int[3];
         this.jumpData_[0] = -1;
         this.jumpData_[1] = -1;
         this.jumpData_[2] = -1;
-        
-        this.error_ = 0;
-        this.noToCollect_ = 0;
-        this.gridStatus_ = true;
-        this.outputBuff_ = null;
-        this.jumps_ = new Jump[21];
-        this.noJumpsInArray_ = 0;
+        this.breakOrder_ = new int[8];
+        this.noBeamsBroken_ = 0;
     }
     
     TofInterface(PortController myPort){
@@ -77,114 +78,68 @@ public class TofInterface {
             if(this.gridStatus_==true && broken!=255){
                 //grid was intact and is now broken
                 this.noToCollect_--;
-                this.write(time,broken);
+                this.write(time);
             }else if(this.gridStatus_==false && broken==255){
                 //grid was broken and now is intact
                 this.noToCollect_--;
-                this.write(time,broken);
+                this.write(time);
                 
-                //USE THE ARRAY OF BEAM BREAK ORDERS TO CALCULATE THE POSITION TO SEND WITH THE WRITE
+                //USE THE ARRAY OF BEAM BREAK ORDERS TO CALCULATE THE LOCATION TO SEND WITH THE WRITE
             }else{
-                //INPUT CODE HERE TO DETERMINE THE POSITION
-                // ADD TO AN ARRAY OF INTS THE ORDER WHICH THE BEAMS WERE BROKEN THEN RECONNECTED
+                for(int i=0;i<8;i++){
+                    if(chrBeamStatus[i]=='0' && this.beamStatus_[i] == true){
+                        this.breakOrder_[this.noBeamsBroken_] = i;
+                        this.noBeamsBroken_++;
+                    }
+                }
             }
         }
             
         this.gridStatus_ = (broken==255);    
        
-        for(int i=0;i<7;i++){
+        for(int i=0;i<8;i++){
             this.beamStatus_[i] = (chrBeamStatus[i]=='1');
         }
     }
     
-     public void collectBounces(int noOfBounces, String filename, String passName){
-        
-         //REWRITE WITH DATABASE
+     public void collectBounces(int noOfBounces, DBConnect database, int gymnast){
          
-         try{
-            FileWriter fstream = new FileWriter(filename,true);
-            this.outputBuff_ = new BufferedWriter(fstream);
-            
-            StringBuilder tempStr = new StringBuilder();
-            tempStr.append("<data>\n");
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Date date = new Date();
-            tempStr.append("\t<timestamp>"+dateFormat.format(date)+"</timestamp>\n");
-            
-            if(passName.equals("")){
-                tempStr.append("\t<passname> --No Name Provided -- </passname>\n");
-            }else{
-                tempStr.append("\t<passname>"+passName+"</passname>\n");
-            }
-            
-            this.outputBuff_.write(tempStr.toString());
-        }catch(IOException e){
-            this.errorList_[0]=e.toString();
-            error_ = 7;
-        }
-           
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        this.myPort_.clearBuffer();       
-        this.jumpData_[0] = -1;
-        this.jumpData_[1] = -1;
-        this.jumpData_[2] = -1;
-        this.noJumpsInArray_ = 0;
-        this.noToCollect_ = noOfBounces*2 + 1;
-    }
+         this.db_ = database;
+         this.gymnast_ = gymnast;
+         this.routine_ = new Routine(noOfBounces);
+         
+         this.myPort_.clearBuffer();       
+         this.jumpData_[0] = -1;
+         this.jumpData_[1] = -1;
+         this.jumpData_[2] = -1;
+         this.noBeamsBroken_ = 0;
+         for(int i=0;i<8;i++){
+             this.breakOrder_[i]=0;
+         }
+         this.noToCollect_ = noOfBounces*2 + 1;
+}
      
-     private void write(int time, int broken){
-        try{
-            StringBuilder tempStr = new StringBuilder();
-            tempStr.append("\t<event>\n");
-            tempStr.append("\t\t<time>");
-            tempStr.append(time);
-            tempStr.append("</time>\n");
-            tempStr.append("\t\t<type>");
-            
-            if(broken==1){
-                tempStr.append("break");
-            }else{
-                tempStr.append("engage");
-            }
-            
-            tempStr.append("</type>\n");
-            tempStr.append("\t</event>\n");
-            
-            this.outputBuff_.write(tempStr.toString());
-        }catch(IOException e){
-            this.error_ = 8;
-            this.errorList_[0] = e.toString();
-        }
-        
-        if(this.noToCollect_==0 && this.outputBuff_!=null){
-            try{
-                this.outputBuff_.write("</data>\n\n");
-                this.outputBuff_.close();
-            }catch(IOException e){
-                this.error_ = 6;
-                this.errorList_[0] = e.toString();
-            }
-        }
-        
+     private void write(int time){
         if(this.jumpData_[0] == -1){
             this.jumpData_[0] = time;
         }else if(this.jumpData_[1] == -1){
             this.jumpData_[1] = time;
         }else if(this.jumpData_[2] == -1){
             this.jumpData_[2] = time;
-            this.jumps_[this.noJumpsInArray_] = new Jump(this.jumpData_[0], this.jumpData_[1], this.jumpData_[2],"A0");
-            this.noJumpsInArray_++;
+            this.jump_ = new Jump(this.jumpData_[0], this.jumpData_[1], this.jumpData_[2],"A0");
+            this.routine_.addJump(this.jump_);
             this.jumpData_[0] = this.jumpData_[2];
             this.jumpData_[1] = -1;
             this.jumpData_[2] = -1;
+        }
+        
+        if(this.noToCollect_ ==0){
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date date = new Date();
+            
+            if(this.db_.addRoutine(this.routine_, this.gymnast_, dateFormat.format(date))==0){
+                //add Routine failed. Run error code.
+            }
         }
     }
     
@@ -204,8 +159,8 @@ public class TofInterface {
         return this.beamStatus_;
     }
     
-    public Jump[] getJumps(){
-        return this.jumps_;
+    public Routine getRoutine(){
+        return this.routine_;
     }
     
     public PortController getPort(){
