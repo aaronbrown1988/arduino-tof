@@ -54,11 +54,10 @@ public class TrampolineUI extends javax.swing.JFrame {
    ActionListener beamstatus = new ActionListener() {
         public void actionPerformed(ActionEvent evt) {
             if(currentInterface_ != null){
-                int beamStatus[] = currentInterface_.getBeamStatus();
-                
-                
+                boolean beamStatus[] = currentInterface_.getBeamStatus();
+
                 for(int i=0;i<8;i++){
-                    if(beamStatus[0]==1){
+                    if(beamStatus[0]==true){
                         beamStatusRedArray_[2*i].setVisible(false);
                         beamStatusRedArray_[2*i+1].setVisible(false);
                         beamStatusGreenArray_[2*i].setVisible(true);
