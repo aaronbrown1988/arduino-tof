@@ -26,36 +26,48 @@ public class DBConnect {
         }
     }
     
-    int addClub(String name) {
+    public int addClub(String name) {
         return executeUpdate("INSERT INTO clubs (name) VALUES ('"+name+"')");
     }
     
-    int addGymnast(int cid, String name) {
+    public int addGymnast(int cid, String name) {
         return executeUpdate("INSERT INTO gymnasts (cid, name) VALUES ('"+cid+"', '"+name+"')");
     }
     
-    int addJump(int routineid, int jumpnumber, double b1, double en, double b2, double tof, double ton, double total, String location) {
+    private int addJump(int routineid, int jumpnumber, double b1, double en, double b2, double tof, double ton, double total, String location) {
         return executeUpdate("INSERT INTO jumps (routineid, jumpnumber, break1, engage, break2, tof, ton, total, location) "
                 + "VALUES ('"+routineid+"', '"+jumpnumber+"', '"+b1+"', '"+en+"', '"+b2+"', '"+tof+"', '"+ton+"', '"+total+"', '"+location+"')");
     }
     
-    int addRoutine(Routine r, int gid, String datetime) {
-        return executeUpdate("INSERT INTO routines (gymnastid, totaltof, totalton, totaltime, datetime, numberofjumps) "
-            + "VALUES ('"+gid+"', '"+r.getTotalTof()+"', '"+r.getTotalTon()+"', '"+r.getTotalTime()+"', '"+datetime+"', '"+r.getNumberOfJumps()+"')");
+    private int addJump2(Jump j, int routineid, int jumpnumber) {
+        //return addJump(routineid, jumpnumber, j.getBreakStart(), j.getEngage(), j.getBreakEnd())
+        return 1;
     }
     
-    Jump getJump(int jid) {
+    public int addRoutine(Routine r, int gid, String datetime) {
+        int rid = executeUpdate("INSERT INTO routines (gymnastid, totaltof, totalton, totaltime, datetime, numberofjumps) "
+            + "VALUES ('"+gid+"', '"+r.getTotalTof()+"', '"+r.getTotalTon()+"', '"+r.getTotalTime()+"', '"+datetime+"', '"+r.getNumberOfJumps()+"')");
+        Jump[] jumpArray = r.getJumps();
+        
+        for (Jump j:jumpArray) {
+            
+        }
+        
+        return rid;
+    }
+    
+    public Jump getJump(int jid) {
         executeQuery("SELECT * FROM jumps WHERE jid = '"+jid+"'");
         
         return new Jump(resultGetInt("break1"), resultGetInt("engage"), resultGetInt("break2"));
     }
     
     //If we know we've already got the jump row loaded into "rs_" then use this. 
-    Jump getJump() {
+    public Jump getJump() {
         return new Jump(resultGetInt("break1"), resultGetInt("engage"), resultGetInt("break2"));
     }
     
-    Routine getRoutine(int rid) {
+    public Routine getRoutine(int rid) {
         executeQuery("SELECT * FROM routine WHERE rid = '"+rid+"'");
         int numberOfJumps = resultGetInt("numberofjumps");
 
@@ -76,7 +88,7 @@ public class DBConnect {
     }
     
     //We run this, then just use the class variable "rs_" to get our result set. 
-    boolean executeQuery(String s) {
+    private boolean executeQuery(String s) {
         System.out.println("Execute: "+s);
         try {
             conn_ = DriverManager.getConnection("jdbc:sqlite:data/database");
@@ -92,7 +104,7 @@ public class DBConnect {
     }
     
     //We run this, then just use the class variable "rs_" to get our result set. 
-    int executeUpdate(String s) {
+    private int executeUpdate(String s) {
         int i = 0;
         System.out.println("Execute Update: "+s);
         try {
@@ -113,7 +125,7 @@ public class DBConnect {
         return i;
     }
     
-    int resultGetInt(String recordName) {
+    private int resultGetInt(String recordName) {
         int i = 0;
         
         try {
@@ -127,7 +139,7 @@ public class DBConnect {
         return i;
     }
     
-    String resultGetString(String recordName) {
+    private String resultGetString(String recordName) {
         String s = "";
         
         try {
