@@ -12,12 +12,13 @@ public class Jump {
     private int breakStart_;
     private int engage_;
     private int breakEnd_;
+    private String position_;
     
     /**
      * Null constructor
      */
     public Jump(){
-        this(0,0,0);
+        this(0,0,0,"A0");
     }
     
     /**
@@ -26,17 +27,19 @@ public class Jump {
      * @param engage
      * @param breakEnd 
      */
-    public Jump(int breakStart, int engage, int breakEnd) {
+    public Jump(int breakStart, int engage, int breakEnd, String position) {
         this.breakStart_ = breakStart;
         this.engage_ = engage;
         this.breakEnd_ = breakEnd;
+        this.position_ = position;
     }
     
     //Shortcut function.
-    public Jump(String breakStart, String engage, String breakEnd) {
+    public Jump(String breakStart, String engage, String breakEnd, String position) {
         this.breakStart_ = Integer.parseInt(breakStart);
         this.engage_ = Integer.parseInt(engage);
         this.breakEnd_ = Integer.parseInt(breakEnd);
+        this.position_ = position;
     }
     
     /** Setters **/
@@ -65,7 +68,9 @@ public class Jump {
         this.breakEnd_ = breakEnd;
     }
     
-    
+    public void setPosition(String position){
+        this.position_ = position;
+    }
     /** Getters **/
     /**
      * Get the BreakStart time
@@ -117,6 +122,10 @@ public class Jump {
      */
     public double getTotal(){
         return (this.breakEnd_ - this.breakStart_)/1000.0;
+    }
+    
+    public String getPosition(){
+        return this.position_;
     }
     
     /**
