@@ -16,10 +16,9 @@ public class DBConnect {
     
     DBConnect() {
         try {
-            Class.forName("SQLite.JDBCDriver");
-
+            Class.forName("org.sqlite.JDBC");
             // connect to the database
-            Connection conn_ = DriverManager.getConnection("jdbc:data/database");
+            Connection conn_ = DriverManager.getConnection("jdbc:sqlite:data/database");
             Statement stat_ = conn_.createStatement();
 
             ResultSet rs_ = stat_.executeQuery("SELECT * FROM jumps");
