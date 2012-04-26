@@ -34,7 +34,7 @@ public class Read {
             //System.out.println(i+ "a - "+ stringList[i*2]);
             //System.out.println(i+ "b - "+ stringList[i*2+1]);
             //System.out.println(i+ "c - "+ stringList[i*2+2]);
-            jumpList[i] = new Jump(stringList[i*2], stringList[i*2+1], stringList[i*2+2]);
+            jumpList[i] = new Jump(stringList[i*2], stringList[i*2+1], stringList[i*2+2], "location not set in read.java");
         }
         
         return jumpList;

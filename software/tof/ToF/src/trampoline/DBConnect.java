@@ -39,9 +39,8 @@ public class DBConnect {
                 + "VALUES ('"+routineid+"', '"+jumpnumber+"', '"+b1+"', '"+en+"', '"+b2+"', '"+tof+"', '"+ton+"', '"+total+"', '"+location+"')");
     }
     
-    private int addJump2(Jump j, int routineid, int jumpnumber) {
-        //return addJump(routineid, jumpnumber, j.getBreakStart(), j.getEngage(), j.getBreakEnd())
-        return 1;
+    private int addJump2(Jump j, int routineid, int jumpnumber, String location) {
+        return addJump(routineid, jumpnumber, j.getBreakStart(), j.getEngage(), j.getBreakEnd(), j.getTof(), j.getTon(), j.getTotal(), location);
     }
     
     public int addRoutine(Routine r, int gid, String datetime) {
@@ -59,12 +58,12 @@ public class DBConnect {
     public Jump getJump(int jid) {
         executeQuery("SELECT * FROM jumps WHERE jid = '"+jid+"'");
         
-        return new Jump(resultGetInt("break1"), resultGetInt("engage"), resultGetInt("break2");
+        return new Jump(resultGetInt("break1"), resultGetInt("engage"), resultGetInt("break2"), resultGetString("location"));
     }
     
     //If we know we've already got the jump row loaded into "rs_" then use this. 
     public Jump getJump() {
-        return new Jump(resultGetInt("break1"), resultGetInt("engage"), resultGetInt("break2"));
+        return new Jump(resultGetInt("break1"), resultGetInt("engage"), resultGetInt("break2"), resultGetString("location"));
     }
     
     public Routine getRoutine(int rid) {
