@@ -88,6 +88,10 @@ public class Routine {
         averageJumpTime_ = totalTime_ / 10.0;
     }
     
+    public Jump[] getJumps() {
+        return jumpArray_;
+    }
+    
     public int getNumberOfJumps() {
         return numberOfJumps_;
     }

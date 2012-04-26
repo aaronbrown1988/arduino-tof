@@ -10,24 +10,16 @@ import java.sql.*;
  * @author Andreas
  */
 public class DBConnect {
-    Connection conn_;
-    Statement stat_;
-    ResultSet rs_;
+    public Connection conn_;
+    public Statement stat_;
+    public ResultSet rs_;
     
     DBConnect() {
         try {
             Class.forName("org.sqlite.JDBC");
-            // connect to the database
-            Connection conn_ = DriverManager.getConnection("jdbc:sqlite:data/database");
-            Statement stat_ = conn_.createStatement();
-
-            ResultSet rs_ = stat_.executeQuery("SELECT * FROM jumps");
-
-            while (rs_.next()) {
-                System.out.println("word = " + rs_.getString("jid"));
-            }
-
-            
+            //connect to the database
+            conn_ = DriverManager.getConnection("jdbc:sqlite:data/database");
+            stat_ = conn_.createStatement();
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -42,14 +34,14 @@ public class DBConnect {
         return executeQuery("INSERT INTO gymnasts (cid, name) VALUES ('"+cid+"', '"+name+"')");
     }
     
-    boolean addJump(int routineid, int jumpnumber, double b1, double en, double b2, double tof, double ton, double total, String location) {
-        return executeQuery("INSERT INTO jumps (routineid, jumpnumber, break1, engage, break2, tof, ton, total, location) "
+    int addJump(int routineid, int jumpnumber, double b1, double en, double b2, double tof, double ton, double total, String location) {
+        return executeUpdate("INSERT INTO jumps (routineid, jumpnumber, break1, engage, break2, tof, ton, total, location) "
                 + "VALUES ('"+routineid+"', '"+jumpnumber+"', '"+b1+"', '"+en+"', '"+b2+"', '"+tof+"', '"+ton+"', '"+total+"', '"+location+"')");
     }
     
-    boolean addRoutine(Routine r, int gid, String datetime) {
-        return executeQuery("INSERT INTO routines (gymnastid, totaltof, totalton, totaltime, datetime, numberofjumps) "
-                + "VALUES ('"+gid+"', '"+r.getTotalTof()+"', '"+r.getTotalTon()+"', '"+r.getTotalTime()+"', '"+datetime+"', '"+r.getNumberOfJumps()+"')");
+    int addRoutine(Routine r, int gid, String datetime) {
+        return executeUpdate("INSERT INTO routines (gymnastid, totaltof, totalton, totaltime, datetime, numberofjumps) "
+            + "VALUES ('"+gid+"', '"+r.getTotalTof()+"', '"+r.getTotalTon()+"', '"+r.getTotalTime()+"', '"+datetime+"', '"+r.getNumberOfJumps()+"')");
     }
     
     Jump getJump(int jid) {
@@ -68,9 +60,10 @@ public class DBConnect {
         int numberOfJumps = resultGetInt("numberofjumps");
 
         Routine r = new Routine(numberOfJumps);
-        executeQuery("SELECT * FROM jumps WHERE routineid = '"+rid+"' ORDER BY jumpnumber ASC");
+        //executeQuery("SELECT * FROM jumps WHERE routineid = '"+rid+"' ORDER BY jumpnumber ASC");
         
         try {
+            rs_ = stat_.executeQuery("SELECT * FROM jumps WHERE routineid = '"+rid+"' ORDER BY jumpnumber ASC");
             while (rs_.next()) {
                 r.addJump(getJump());
             }
@@ -84,8 +77,11 @@ public class DBConnect {
     
     //We run this, then just use the class variable "rs_" to get our result set. 
     boolean executeQuery(String s) {
+        System.out.println("Execute: "+s);
         try {
-            ResultSet rs_ = stat_.executeQuery(s);
+            conn_ = DriverManager.getConnection("jdbc:sqlite:data/database");
+            stat_ = conn_.createStatement();
+            rs_ = stat_.executeQuery(s);
         }
 
         catch (Exception e) {
@@ -93,6 +89,22 @@ public class DBConnect {
         }
 
         return true;
+    }
+    
+    //We run this, then just use the class variable "rs_" to get our result set. 
+    int executeUpdate(String s) {
+        int i = 0;
+        System.out.println("Execute Update: "+s);
+        try {
+            stat_ = conn_.createStatement();
+            i = stat_.executeUpdate(s);
+        }
+
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return i;
     }
     
     int resultGetInt(String recordName) {
@@ -107,5 +119,19 @@ public class DBConnect {
         }
 
         return i;
+    }
+    
+    String resultGetString(String recordName) {
+        String s = "";
+        
+        try {
+            s = rs_.getString(recordName);
+        }
+
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return s;
     }
 }
