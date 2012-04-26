@@ -26,12 +26,12 @@ public class DBConnect {
         }
     }
     
-    boolean addClub(String name) {
-        return executeQuery("INSERT INTO clubs (name) VALUES ('"+name+"')");
+    int addClub(String name) {
+        return executeUpdate("INSERT INTO clubs (name) VALUES ('"+name+"')");
     }
     
-    boolean addGymnast(int cid, String name) {
-        return executeQuery("INSERT INTO gymnasts (cid, name) VALUES ('"+cid+"', '"+name+"')");
+    int addGymnast(int cid, String name) {
+        return executeUpdate("INSERT INTO gymnasts (cid, name) VALUES ('"+cid+"', '"+name+"')");
     }
     
     int addJump(int routineid, int jumpnumber, double b1, double en, double b2, double tof, double ton, double total, String location) {
@@ -98,12 +98,18 @@ public class DBConnect {
         try {
             stat_ = conn_.createStatement();
             i = stat_.executeUpdate(s);
+        
+            ResultSet keys = stat_.getGeneratedKeys();  
+
+            keys.next();  
+            i = keys.getInt(1);
         }
 
         catch (Exception e) {
             e.printStackTrace();
         }
-
+        
+        System.out.println("Update:"+i);
         return i;
     }
     
