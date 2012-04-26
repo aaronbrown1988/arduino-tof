@@ -1220,7 +1220,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearDataActionPerformed
 
     private void btnTestSQLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestSQLActionPerformed
-        db_.addJump(1,1,1.0,1.0,1.0,1.0,2.0,2.0,"c");
+        //db_.addJump(1,1,1.0,1.0,1.0,1.0,2.0,2.0,"c");
     }//GEN-LAST:event_btnTestSQLActionPerformed
 
     /**
