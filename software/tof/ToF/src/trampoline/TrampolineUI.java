@@ -25,9 +25,9 @@ import org.w3c.dom.*;
  */
 public class TrampolineUI extends javax.swing.JFrame {
     
-    public final ArrayList<PortController> portsAvaliable_;
-    public final ArrayList<String> portStrings_;
-    public final ArrayList<Integer> noOfTof_;
+    public ArrayList<PortController> portsAvaliable_;
+    public ArrayList<String> portStrings_;
+    public ArrayList<Integer> noOfTof_;
     public TofInterface currentInterface_;
     public DBConnect db_;
     
@@ -76,8 +76,8 @@ public class TrampolineUI extends javax.swing.JFrame {
     ActionListener updatepage = new ActionListener(){
         public void actionPerformed(ActionEvent evt){        
             if(refresh>0){
-                if(currentInterface_.getJumps().length >= nextJumpToFill){
-                    Jump thisJump = currentInterface_.getJumps()[nextJumpToFill-1];
+                if(currentInterface_.getRoutine().getJumps().length >= nextJumpToFill){
+                    Jump thisJump = currentInterface_.getRoutine().getJumps()[nextJumpToFill-1];
                     
                     labelArray_[(nextJumpToFill-1)*4].setVisible(true);
                     labelArray_[(nextJumpToFill-1)*4+1].setText(thisJump.getTof()+"");
@@ -102,9 +102,22 @@ public class TrampolineUI extends javax.swing.JFrame {
      */
         
     public TrampolineUI() {
-        db_ = new DBConnect();
+        this.splashText("Setting up Hardware.");
+        this.splashProgress(1);
+        initHardware();
+        this.splashText("Setting up Database.");
+        this.splashProgress(50);
+        initDatabase();
+        this.splashText("Setting up GUI.");
+        this.splashProgress(75);
         initComponents();
-        
+        initComponentsNonGenerated();
+   
+        if (mySplash_ != null)   // check if we really had a spash screen
+            mySplash_.close();   // we're done with it
+    }
+    
+    private void initHardware(){
         this.splashText("Finding ToF Devices on system.");
         this.splashProgress(0);
         PortController thisPort = new PortController();
@@ -140,7 +153,156 @@ public class TrampolineUI extends javax.swing.JFrame {
         beamStatusTimer.start();
         
         pageRefreshTimer = new javax.swing.Timer(1000, updatepage);
+    }
+    
+    private void initComponentsNonGenerated() {
+        Dimension dim = this.getSize();
+        int width = dim.width;
+        int height = dim.height;
         
+        tabPane.setSize(new Dimension(width,height));
+        
+        //Make the labels that we require for the centre panel. 
+        labelArray_ = new JLabel[40];
+        Font labelFont = new Font("Calibri",Font.PLAIN, 16);
+        Font labelTitleFont = new Font("Calibri",Font.PLAIN, 24);
+        Font labelJumpNoFont = new Font("Calibri",Font.PLAIN,24);
+        
+        pnlDataTable.setLayout(new GridLayout(11,4));
+        
+        JLabel lblNumber = new JLabel();
+        lblNumber.setFont(labelTitleFont);
+        lblNumber.setName("lblNumber");
+        lblNumber.setText("");
+        pnlDataTable.add(lblNumber);
+        
+        JLabel lblTof = new JLabel();
+        lblTof.setFont(labelTitleFont);
+        lblTof.setName("lblTof");
+        lblTof.setText("T.o.F.");
+        pnlDataTable.add(lblTof);
+        
+        JLabel lblTon = new JLabel();
+        lblTon.setFont(labelTitleFont);
+        lblTon.setName("lblTon");
+        lblTon.setText("T.o.N.");
+        pnlDataTable.add(lblTon);
+        
+        JLabel lblTotal = new JLabel();
+        lblTotal.setFont(labelTitleFont);
+        lblTotal.setName("lblTotal");
+        lblTotal.setText("Total");
+        pnlDataTable.add(lblTotal);
+               
+              
+        for (int i = 0; i < 10; i++) {
+            labelArray_[i*4]   = new JLabel("labNumber"+i);
+            labelArray_[i*4+1] = new JLabel("labTOF"+i);
+            labelArray_[i*4+2] = new JLabel("labTON"+i);
+            labelArray_[i*4+3] = new JLabel("labTotal"+i);
+            //labelArray[0][i].setText("Jump "+(i+1));
+        }
+        
+        for (int i = 0; i< 10; i++) {
+            pnlDataTable.add(labelArray_[i*4+1]);
+            labelArray_[i*4+1].setText("tes");
+            labelArray_[i*4+1].setFont(labelFont);
+            
+            pnlDataTable.add(labelArray_[i*4+2]);
+            labelArray_[i*4+2].setText("tes");
+            labelArray_[i*4+2].setFont(labelFont);
+            
+            pnlDataTable.add(labelArray_[i*4+3]);
+            labelArray_[i*4+3].setText("tes");
+            labelArray_[i*4+3].setFont(labelFont);
+        }
+        
+        for(int i=0;i<10;i++){
+            labelArray_[i*4].setText("Jump "+(i+1)+":");
+            labelArray_[i*4].setFont(labelJumpNoFont);
+            labelArray_[i*4].setVisible(false);
+        }
+        
+        pnlDataTable.repaint();
+        
+        //Set the numbers for the date of birth entries.
+        for (int k = 1; k <= 31; k++) {
+            selDate.addItem(k+"");
+        }
+        
+        String[] monthName = {"January", "February","March", "April", "May", "June", "July","August", "September", "October", "November","December"};
+         for (String s:monthName) {
+            selMonth.addItem(s);
+        }
+        
+        DateFormat dateFormat = new SimpleDateFormat("yyyy");
+        Date date = new Date();
+        int yearStart = Integer.parseInt(dateFormat.format(date));
+        for (int l = yearStart; l > 1900; l--) {
+            selYear.addItem(l+"");
+        }
+        
+        String[] categoryName = {"A","B","C","D","E","F","G","H","I"};
+         for (String s:categoryName) {
+            selCategory.addItem(s);
+        }
+         
+        // Setup Beam Status images
+         
+        this.beamStatusRedArray_ = new JLabel[16];
+        this.beamStatusGreenArray_ = new JLabel[16];
+        
+        for(int i=0;i<16;i++){
+            beamStatusRedArray_[i] = new JLabel("");
+            beamStatusGreenArray_[i] = new JLabel("");
+            beamStatusRedArray_[i].setIcon(new javax.swing.ImageIcon(getClass().getResource("/trampoline/images/redBeam.png")));
+            beamStatusGreenArray_[i].setIcon(new javax.swing.ImageIcon(getClass().getResource("/trampoline/images/greenBeam.png")));
+            layBeamStatus.add(beamStatusRedArray_[i], javax.swing.JLayeredPane.POPUP_LAYER);
+            layBeamStatus.add(beamStatusGreenArray_[i], javax.swing.JLayeredPane.POPUP_LAYER);
+            beamStatusGreenArray_[i].setVisible(false);
+        }
+        
+        beamStatusRedArray_[0].setBounds(37, 180, 20, 20);
+        beamStatusGreenArray_[0].setBounds(37, 180, 20, 20);
+        beamStatusRedArray_[1].setBounds(333, 180, 20, 20);
+        beamStatusGreenArray_[1].setBounds(333, 180, 20, 20);
+        beamStatusRedArray_[2].setBounds(37, 140, 20, 20);
+        beamStatusGreenArray_[2].setBounds(37, 140, 20, 20);
+        beamStatusRedArray_[3].setBounds(333, 140, 20, 20);
+        beamStatusGreenArray_[3].setBounds(333, 140, 20, 20);
+        beamStatusRedArray_[4].setBounds(37, 100, 20, 20);
+        beamStatusGreenArray_[4].setBounds(37, 100, 20, 20);
+        beamStatusRedArray_[5].setBounds(333, 100, 20, 20);
+        beamStatusGreenArray_[5].setBounds(333, 100, 20, 20);
+        beamStatusRedArray_[6].setBounds(70, 58, 20, 20);
+        beamStatusGreenArray_[6].setBounds(70, 58, 20, 20);
+        beamStatusRedArray_[7].setBounds(70, 217, 20, 20);
+        beamStatusGreenArray_[7].setBounds(70, 217, 20, 20);
+        beamStatusRedArray_[8].setBounds(125, 58, 20, 20);
+        beamStatusGreenArray_[8].setBounds(125, 58, 20, 20);
+        beamStatusRedArray_[9].setBounds(125, 217, 20, 20);
+        beamStatusGreenArray_[9].setBounds(125, 217, 20, 20);
+        beamStatusRedArray_[10].setBounds(188, 58, 20, 20);
+        beamStatusGreenArray_[10].setBounds(188, 58, 20, 20);
+        beamStatusRedArray_[11].setBounds(188, 217, 20, 20);
+        beamStatusGreenArray_[11].setBounds(188, 217, 20, 20);
+        beamStatusRedArray_[12].setBounds(250, 58, 20, 20);
+        beamStatusGreenArray_[12].setBounds(250, 58, 20, 20);
+        beamStatusRedArray_[13].setBounds(250, 217, 20, 20);
+        beamStatusGreenArray_[13].setBounds(250, 217, 20, 20);
+        beamStatusRedArray_[14].setBounds(305, 58, 20, 20);
+        beamStatusGreenArray_[14].setBounds(305, 58, 20, 20);
+        beamStatusRedArray_[15].setBounds(305, 217, 20, 20);
+        beamStatusGreenArray_[15].setBounds(305, 217, 20, 20);
+ 
+        //Set size of list of tags
+        
+        int noItems = lstTags.getModel().getSize()*35;
+        System.out.println(noItems);
+        lstTags.setPreferredSize(new Dimension(128,noItems));
+        lstTags.setSize(new Dimension (128,noItems));
+        
+                
         //Create a dummy chart to add to essentially reserve the space on the relevant panels.        
         double[] values = new double[3];
         String[] names = new String[3];
@@ -170,15 +332,12 @@ public class TrampolineUI extends javax.swing.JFrame {
             chartValues[i] = 0;
             chartNames[i]  = "Bounce "+i;
         }
-        
-        this.splashText("Setting up GUI.");
-        this.splashProgress(90);
-        initComponentsNonGenerated();
-        if (mySplash_ != null)   // check if we really had a spash screen
-            mySplash_.close();   // we're done with it
-        
-        
     }
+    
+    private void initDatabase(){
+        db_ = new DBConnect();
+    }
+    
     
     //Takes the information presented and adds to gymnasts.xml.
     public boolean addGymnast(String name, String date, String month, String year, String category) {
@@ -1017,154 +1176,6 @@ public class TrampolineUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void initComponentsNonGenerated() {
-        Dimension dim = this.getSize();
-        int width = dim.width;
-        int height = dim.height;
-        
-        tabPane.setSize(new Dimension(width,height));
-        
-        //Make the labels that we require for the centre panel. 
-        labelArray_ = new JLabel[40];
-        Font labelFont = new Font("Calibri",Font.PLAIN, 16);
-        Font labelTitleFont = new Font("Calibri",Font.PLAIN, 24);
-        Font labelJumpNoFont = new Font("Calibri",Font.PLAIN,24);
-        
-        pnlDataTable.setLayout(new GridLayout(11,4));
-        
-        JLabel lblNumber = new JLabel();
-        lblNumber.setFont(labelTitleFont);
-        lblNumber.setName("lblNumber");
-        lblNumber.setText("");
-        pnlDataTable.add(lblNumber);
-        
-        JLabel lblTof = new JLabel();
-        lblTof.setFont(labelTitleFont);
-        lblTof.setName("lblTof");
-        lblTof.setText("T.o.F.");
-        pnlDataTable.add(lblTof);
-        
-        JLabel lblTon = new JLabel();
-        lblTon.setFont(labelTitleFont);
-        lblTon.setName("lblTon");
-        lblTon.setText("T.o.N.");
-        pnlDataTable.add(lblTon);
-        
-        JLabel lblTotal = new JLabel();
-        lblTotal.setFont(labelTitleFont);
-        lblTotal.setName("lblTotal");
-        lblTotal.setText("Total");
-        pnlDataTable.add(lblTotal);
-               
-              
-        for (int i = 0; i < 10; i++) {
-            labelArray_[i*4]   = new JLabel("labNumber"+i);
-            labelArray_[i*4+1] = new JLabel("labTOF"+i);
-            labelArray_[i*4+2] = new JLabel("labTON"+i);
-            labelArray_[i*4+3] = new JLabel("labTotal"+i);
-            //labelArray[0][i].setText("Jump "+(i+1));
-        }
-        
-        for (int i = 0; i< 10; i++) {
-            pnlDataTable.add(labelArray_[i*4+1]);
-            labelArray_[i*4+1].setText("tes");
-            labelArray_[i*4+1].setFont(labelFont);
-            
-            pnlDataTable.add(labelArray_[i*4+2]);
-            labelArray_[i*4+2].setText("tes");
-            labelArray_[i*4+2].setFont(labelFont);
-            
-            pnlDataTable.add(labelArray_[i*4+3]);
-            labelArray_[i*4+3].setText("tes");
-            labelArray_[i*4+3].setFont(labelFont);
-        }
-        
-        for(int i=0;i<10;i++){
-            labelArray_[i*4].setText("Jump "+(i+1)+":");
-            labelArray_[i*4].setFont(labelJumpNoFont);
-            labelArray_[i*4].setVisible(false);
-        }
-        
-        pnlDataTable.repaint();
-        
-        //Set the numbers for the date of birth entries.
-        for (int k = 1; k <= 31; k++) {
-            selDate.addItem(k+"");
-        }
-        
-        String[] monthName = {"January", "February","March", "April", "May", "June", "July","August", "September", "October", "November","December"};
-         for (String s:monthName) {
-            selMonth.addItem(s);
-        }
-        
-        DateFormat dateFormat = new SimpleDateFormat("yyyy");
-        Date date = new Date();
-        int yearStart = Integer.parseInt(dateFormat.format(date));
-        for (int l = yearStart; l > 1900; l--) {
-            selYear.addItem(l+"");
-        }
-        
-        String[] categoryName = {"A","B","C","D","E","F","G","H","I"};
-         for (String s:categoryName) {
-            selCategory.addItem(s);
-        }
-         
-        // Setup Beam Status images
-         
-        this.beamStatusRedArray_ = new JLabel[16];
-        this.beamStatusGreenArray_ = new JLabel[16];
-        
-        for(int i=0;i<16;i++){
-            beamStatusRedArray_[i] = new JLabel("");
-            beamStatusGreenArray_[i] = new JLabel("");
-            beamStatusRedArray_[i].setIcon(new javax.swing.ImageIcon(getClass().getResource("/trampoline/images/redBeam.png")));
-            beamStatusGreenArray_[i].setIcon(new javax.swing.ImageIcon(getClass().getResource("/trampoline/images/greenBeam.png")));
-            layBeamStatus.add(beamStatusRedArray_[i], javax.swing.JLayeredPane.POPUP_LAYER);
-            layBeamStatus.add(beamStatusGreenArray_[i], javax.swing.JLayeredPane.POPUP_LAYER);
-            beamStatusGreenArray_[i].setVisible(false);
-        }
-        
-        beamStatusRedArray_[0].setBounds(37, 180, 20, 20);
-        beamStatusGreenArray_[0].setBounds(37, 180, 20, 20);
-        beamStatusRedArray_[1].setBounds(333, 180, 20, 20);
-        beamStatusGreenArray_[1].setBounds(333, 180, 20, 20);
-        beamStatusRedArray_[2].setBounds(37, 140, 20, 20);
-        beamStatusGreenArray_[2].setBounds(37, 140, 20, 20);
-        beamStatusRedArray_[3].setBounds(333, 140, 20, 20);
-        beamStatusGreenArray_[3].setBounds(333, 140, 20, 20);
-        beamStatusRedArray_[4].setBounds(37, 100, 20, 20);
-        beamStatusGreenArray_[4].setBounds(37, 100, 20, 20);
-        beamStatusRedArray_[5].setBounds(333, 100, 20, 20);
-        beamStatusGreenArray_[5].setBounds(333, 100, 20, 20);
-        beamStatusRedArray_[6].setBounds(70, 58, 20, 20);
-        beamStatusGreenArray_[6].setBounds(70, 58, 20, 20);
-        beamStatusRedArray_[7].setBounds(70, 217, 20, 20);
-        beamStatusGreenArray_[7].setBounds(70, 217, 20, 20);
-        beamStatusRedArray_[8].setBounds(125, 58, 20, 20);
-        beamStatusGreenArray_[8].setBounds(125, 58, 20, 20);
-        beamStatusRedArray_[9].setBounds(125, 217, 20, 20);
-        beamStatusGreenArray_[9].setBounds(125, 217, 20, 20);
-        beamStatusRedArray_[10].setBounds(188, 58, 20, 20);
-        beamStatusGreenArray_[10].setBounds(188, 58, 20, 20);
-        beamStatusRedArray_[11].setBounds(188, 217, 20, 20);
-        beamStatusGreenArray_[11].setBounds(188, 217, 20, 20);
-        beamStatusRedArray_[12].setBounds(250, 58, 20, 20);
-        beamStatusGreenArray_[12].setBounds(250, 58, 20, 20);
-        beamStatusRedArray_[13].setBounds(250, 217, 20, 20);
-        beamStatusGreenArray_[13].setBounds(250, 217, 20, 20);
-        beamStatusRedArray_[14].setBounds(305, 58, 20, 20);
-        beamStatusGreenArray_[14].setBounds(305, 58, 20, 20);
-        beamStatusRedArray_[15].setBounds(305, 217, 20, 20);
-        beamStatusGreenArray_[15].setBounds(305, 217, 20, 20);
- 
-        //Set size of list of tags
-        
-        int noItems = lstTags.getModel().getSize()*35;
-        System.out.println(noItems);
-        lstTags.setPreferredSize(new Dimension(128,noItems));
-        lstTags.setSize(new Dimension (128,noItems));
-    }
-    
     private void btnSaveCommentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveCommentsActionPerformed
         // ADD CODE TO CLEAR SCREEN HERE
     }//GEN-LAST:event_btnSaveCommentsActionPerformed
@@ -1172,7 +1183,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     private void btnCollectDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCollectDataActionPerformed
         this.btnClearDataActionPerformed(evt);
         if(this.currentInterface_!=null){
-            this.currentInterface_.collectBounces(Integer.parseInt(txtNumberOfBounces.getText()), "data/testfile.xml", txtComment.getText());
+            this.currentInterface_.collectBounces(Integer.parseInt(txtNumberOfBounces.getText()), this.db_, 1);
             refresh = REFRESH_TIME;
             nextJumpToFill = 1;
             pageRefreshTimer.start();
