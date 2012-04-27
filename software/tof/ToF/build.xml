@@ -88,9 +88,14 @@
         </copy>
         
         <echo>Bundling: OneJAR is copying natives to ${dist.jar.dir}/natives </echo>
-        <copy todir="${dist.jar.dir}/natives/linux">
-            <fileset dir="${natives.dir}"  includes="*.so"/>
-        </copy>
+       
+        <copy file="${natives.dir}/librxtxSerial-x64.so" tofile="${dist.jar.dir}/natives/linux-x64/librxtxSerial.so"/>
+        <copy file="${natives.dir}/librxtxSerial-x86.so" tofile="${dist.jar.dir}/natives/linux-x86/librxtxSerial.so"/>
+        
+        <copy file="${natives.dir}/librxtxSerial-ia64.so" tofile="${dist.jar.dir}/natives/linux-ia64/librxtxSerial.so"/>
+        
+        <copy file="${natives.dir}/librxtxSerial-i686.so" tofile="${dist.jar.dir}/natives/linux-i686/librxtxSerial.so"/>
+        <copy file="${natives.dir}/librxtxParallel-i686.so" tofile="${dist.jar.dir}/natives/linux-i686/librxtxParallel.so"/>
 
         <copy file="${natives.dir}/rxtxParallel-x64.dll" tofile="${dist.jar.dir}/natives/win-x64/rxtxParallel.dll"/>
         <copy file="${natives.dir}/rxtxSerial-x64.dll" tofile="${dist.jar.dir}/natives/win-x64/rxtxSerial.dll"/>
@@ -145,8 +150,8 @@ Run the stand-alone distribution from the command line using:
         </one-jar>
         
         
-        <echo>Bundling: OneJAR is preparing ${standalone.jar.name}-linux.jar</echo>
-        <one-jar destfile="${dist.jar.dir}/${standalone.jar.name}-linux.jar" manifest="onejar.mf" update="true">
+        <echo>Bundling: OneJAR is preparing ${standalone.jar.name}-linux-x86.jar</echo>
+        <one-jar destfile="${dist.jar.dir}/${standalone.jar.name}-linux-x86.jar" manifest="onejar.mf" update="true">
             <main>
                 <fileset dir="${build.classes.dir}/" />
             </main>
@@ -154,9 +159,50 @@ Run the stand-alone distribution from the command line using:
                 <fileset file="${dist.jar.dir}/lib/*.*" />
             </lib>
             <binlib>
-                <fileset file="${dist.jar.dir}/natives/linux/*.*" />
+                <fileset file="${dist.jar.dir}/natives/linux-x86/*.*" />
             </binlib>
         </one-jar>
+        
+        <echo>Bundling: OneJAR is preparing ${standalone.jar.name}-linux-x64.jar</echo>
+        <one-jar destfile="${dist.jar.dir}/${standalone.jar.name}-linux-x64.jar" manifest="onejar.mf" update="true">
+            <main>
+                <fileset dir="${build.classes.dir}/" />
+            </main>
+            <lib>
+                <fileset file="${dist.jar.dir}/lib/*.*" />
+            </lib>
+            <binlib>
+                <fileset file="${dist.jar.dir}/natives/linux-x64/*.*" />
+            </binlib>
+        </one-jar>
+        
+        <echo>Bundling: OneJAR is preparing ${standalone.jar.name}-linux-ia64.jar</echo>
+        <one-jar destfile="${dist.jar.dir}/${standalone.jar.name}-linux-ia64.jar" manifest="onejar.mf" update="true">
+            <main>
+                <fileset dir="${build.classes.dir}/" />
+            </main>
+            <lib>
+                <fileset file="${dist.jar.dir}/lib/*.*" />
+            </lib>
+            <binlib>
+                <fileset file="${dist.jar.dir}/natives/linux-ia64/*.*" />
+            </binlib>
+        </one-jar>
+        
+        <echo>Bundling: OneJAR is preparing ${standalone.jar.name}-linux-i686.jar</echo>
+        <one-jar destfile="${dist.jar.dir}/${standalone.jar.name}-linux-i686.jar" manifest="onejar.mf" update="true">
+            <main>
+                <fileset dir="${build.classes.dir}/" />
+            </main>
+            <lib>
+                <fileset file="${dist.jar.dir}/lib/*.*" />
+            </lib>
+            <binlib>
+                <fileset file="${dist.jar.dir}/natives/linux-i686/*.*" />
+            </binlib>
+        </one-jar>
+        
+        
         <echo>Bundling: OneJAR is preparing ${standalone.jar.name}-mac.jar</echo>
         <one-jar destfile="${dist.jar.dir}/${standalone.jar.name}-mac.jar" manifest="onejar.mf" update="true">
             <main>
@@ -198,31 +244,67 @@ java -jar -splash:splashScreen.jpg -Xmx256m ${standalone.jar.name}-win.jar
             file="${dist.jar.dir}/${standalone.jar.name}-win-x86.jar" />
      <copy todir="${release.dir}/${standalone.jar.name}-win-x86/" file="${dist.jar.dir}/splashScreen.jpg"/>         
             
-     <mkdir  dir="${release.dir}/${standalone.jar.name}-linux" />
-     <echo  file="${release.dir}/${standalone.jar.name}-linux/${standalone.jar.name}.sh">
-ava -jar -splash:splashScreen.jpg -Xmx256m ${standalone.jar.name}-linux.jar
+     <mkdir  dir="${release.dir}/${standalone.jar.name}-linux-x86" />
+     <echo  file="${release.dir}/${standalone.jar.name}-linux-x86/${standalone.jar.name}.sh">
+java -jar -splash:splashScreen.jpg -Xmx256m ${standalone.jar.name}-linux-x86.jar
      </echo>
-     <copy todir="${release.dir}/${standalone.jar.name}-linux/"
-            file="${dist.jar.dir}/${standalone.jar.name}-linux.jar" />
-     <copy todir="${release.dir}/${standalone.jar.name}-linux/" file="${dist.jar.dir}/splashScreen.jpg"/>  
+     <copy todir="${release.dir}/${standalone.jar.name}-linux-x86/"
+            file="${dist.jar.dir}/${standalone.jar.name}-linux-x86.jar" />
+     <copy todir="${release.dir}/${standalone.jar.name}-linux-x86/" file="${dist.jar.dir}/splashScreen.jpg"/>  
+     
+     <mkdir  dir="${release.dir}/${standalone.jar.name}-linux-x64" />
+     <echo  file="${release.dir}/${standalone.jar.name}-linux-x64/${standalone.jar.name}.sh">
+java -jar -splash:splashScreen.jpg -Xmx256m ${standalone.jar.name}-linux-x64.jar
+     </echo>
+     <copy todir="${release.dir}/${standalone.jar.name}-linux-x64/"
+            file="${dist.jar.dir}/${standalone.jar.name}-linux-x64.jar" />
+     <copy todir="${release.dir}/${standalone.jar.name}-linux-x64/" file="${dist.jar.dir}/splashScreen.jpg"/>
+     
+     <mkdir  dir="${release.dir}/${standalone.jar.name}-linux-ia64" />
+     <echo  file="${release.dir}/${standalone.jar.name}-linux-ia64/${standalone.jar.name}.sh">
+java -jar -splash:splashScreen.jpg -Xmx256m ${standalone.jar.name}-linux-ia64.jar
+     </echo>
+     <copy todir="${release.dir}/${standalone.jar.name}-linux-ia64/"
+            file="${dist.jar.dir}/${standalone.jar.name}-linux-ia64.jar" />
+     <copy todir="${release.dir}/${standalone.jar.name}-linux-ia64/" file="${dist.jar.dir}/splashScreen.jpg"/>
+     
+     <mkdir  dir="${release.dir}/${standalone.jar.name}-linux-i686" />
+     <echo  file="${release.dir}/${standalone.jar.name}-linux-i686/${standalone.jar.name}.sh">
+java -jar -splash:splashScreen.jpg -Xmx256m ${standalone.jar.name}-linux-i686.jar
+     </echo>
+     <copy todir="${release.dir}/${standalone.jar.name}-linux-i686/"
+            file="${dist.jar.dir}/${standalone.jar.name}-linux-i686.jar" />
+     <copy todir="${release.dir}/${standalone.jar.name}-linux-i686/" file="${dist.jar.dir}/splashScreen.jpg"/>
      
      <echo>Bundling: Creating ZIP Archives</echo>
      <zip destfile="${release.dir}/${standalone.jar.name}-win-x86.zip"  
           basedir="${release.dir}/${standalone.jar.name}-win-x86" update="true" />
      <zip destfile="${release.dir}/${standalone.jar.name}-win-x64.zip"  
           basedir="${release.dir}/${standalone.jar.name}-win-x64" update="true" />
-     <zip destfile="${release.dir}/${standalone.jar.name}-linux.zip"  
-          basedir="${release.dir}/${standalone.jar.name}-linux" update="true" />
+     <zip destfile="${release.dir}/${standalone.jar.name}-linux-x86.zip"  
+          basedir="${release.dir}/${standalone.jar.name}-linux-x86" update="true" />
+     <zip destfile="${release.dir}/${standalone.jar.name}-linux-x64.zip"  
+          basedir="${release.dir}/${standalone.jar.name}-linux-x64" update="true" />
+     <zip destfile="${release.dir}/${standalone.jar.name}-linux-ia64.zip"  
+          basedir="${release.dir}/${standalone.jar.name}-linux-ia64" update="true" />
+     <zip destfile="${release.dir}/${standalone.jar.name}-linux-i686.zip"  
+          basedir="${release.dir}/${standalone.jar.name}-linux-i686" update="true" />
      <zip destfile="${release.dir}/${standalone.jar.name}-mac.zip"
           basedir="${release.dir}/${standalone.jar.name}-mac" update="true" />
      <echo>Bundling: Cleaning up temporary files</echo>
      <delete dir="${release.dir}/${standalone.jar.name}-win-x86" />
      <delete dir="${release.dir}/${standalone.jar.name}-win-x64" />
-     <delete dir="${release.dir}/${standalone.jar.name}-linux" />
+     <delete dir="${release.dir}/${standalone.jar.name}-linux-x86" />
+     <delete dir="${release.dir}/${standalone.jar.name}-linux-x64" />
+     <delete dir="${release.dir}/${standalone.jar.name}-linux-ia64" />
+     <delete dir="${release.dir}/${standalone.jar.name}-linux-i686" />
      <delete dir="${release.dir}/${standalone.jar.name}-mac" />
      <delete file="${dist.jar.dir}/${standalone.jar.name}-win-x86.jar" />
      <delete file="${dist.jar.dir}/${standalone.jar.name}-win-x64.jar" />
-     <delete file="${dist.jar.dir}/${standalone.jar.name}-linux.jar" />
+     <delete file="${dist.jar.dir}/${standalone.jar.name}-linux-x86.jar" />
+     <delete file="${dist.jar.dir}/${standalone.jar.name}-linux-x64.jar" />
+     <delete file="${dist.jar.dir}/${standalone.jar.name}-linux-ia64.jar" />
+     <delete file="${dist.jar.dir}/${standalone.jar.name}-linux-i686.jar" />
 </target>
 
 <target name="-post-clean">
