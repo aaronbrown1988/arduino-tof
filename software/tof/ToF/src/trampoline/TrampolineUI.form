@@ -641,9 +641,15 @@
                                   <Component id="btnStatisticsUpdate" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lblStatsGymnast" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblStatsGymnast" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblStatsRoutine" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="selStatsGymnast" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="drpStatsRoutine" min="-2" max="-2" attributes="0"/>
+                                      <Component id="selStatsGymnast" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                           <EmptySpace pref="466" max="32767" attributes="0"/>
@@ -668,7 +674,12 @@
                                   <Component id="btnStatisticsUpdate" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="824" max="32767" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblStatsRoutine" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="drpStatsRoutine" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="786" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -701,6 +712,20 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnStatisticsUpdateActionPerformed"/>
                   </Events>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblStatsRoutine">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Select Routine:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="drpStatsRoutine">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="1">
+                        <StringItem index="0" value="&lt;&lt; Select Gymnast First &gt;&gt;"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
                 </Component>
               </SubComponents>
             </Container>

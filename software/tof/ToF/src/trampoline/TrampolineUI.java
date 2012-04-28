@@ -406,27 +406,11 @@ public class TrampolineUI extends javax.swing.JFrame {
         }
     }
     
-    public String passnameToFilename(String s) {
-        s = s.replaceAll("[^[a-zA-Z]]", "");
-        int i = 0;
-        
-        do {
-            File file = new File("data/data-"+s+"-"+i+".xml");
-            i++;
-        } while (false);
-        
-        return s;
-    }
-    
     public void callOnClose() {
         for (PortController thisPort : this.portsAvaliable_) {
             thisPort.close();
         }
         beamStatusTimer.stop();
-    }
-    
-    public static boolean isNumeric(String str) {
-        return str.matches("-?\\d+(.\\d+)?");
     }
     
     public enum JLabelName {
@@ -546,6 +530,8 @@ public class TrampolineUI extends javax.swing.JFrame {
         selStatsGymnast = new javax.swing.JComboBox();
         lblStatsGymnast = new javax.swing.JLabel();
         btnStatisticsUpdate = new javax.swing.JButton();
+        lblStatsRoutine = new javax.swing.JLabel();
+        drpStatsRoutine = new javax.swing.JComboBox();
         pnlImportExport = new javax.swing.JPanel();
         pnlImport = new javax.swing.JPanel();
         pnlExport = new javax.swing.JPanel();
@@ -886,6 +872,10 @@ public class TrampolineUI extends javax.swing.JFrame {
             }
         });
 
+        lblStatsRoutine.setText("Select Routine:");
+
+        drpStatsRoutine.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "<< Select Gymnast First >>" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -898,9 +888,13 @@ public class TrampolineUI extends javax.swing.JFrame {
                         .addGap(117, 117, 117)
                         .addComponent(btnStatisticsUpdate))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblStatsGymnast)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblStatsGymnast)
+                            .addComponent(lblStatsRoutine))
                         .addGap(18, 18, 18)
-                        .addComponent(selStatsGymnast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(drpStatsRoutine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(selStatsGymnast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(466, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -917,7 +911,11 @@ public class TrampolineUI extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(btnStatisticsUpdate)))
-                .addContainerGap(824, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblStatsRoutine)
+                    .addComponent(drpStatsRoutine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(786, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlStatisticsLayout = new javax.swing.GroupLayout(pnlStatistics);
@@ -1260,6 +1258,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearDataActionPerformed
 
     private void btnStatisticsUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatisticsUpdateActionPerformed
+        db_.getJump(3);
         updateGymnastDropDown();
     }//GEN-LAST:event_btnStatisticsUpdateActionPerformed
 
@@ -1400,6 +1399,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JButton btnSaveComments;
     private javax.swing.JButton btnStatisticsUpdate;
     private javax.swing.JComboBox drpDeviceName;
+    private javax.swing.JComboBox drpStatsRoutine;
     private javax.swing.ButtonGroup grpFiletype;
     private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;
@@ -1422,6 +1422,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblNewPassword;
     private javax.swing.JLabel lblNewPassword2;
     private javax.swing.JLabel lblStatsGymnast;
+    private javax.swing.JLabel lblStatsRoutine;
     private javax.swing.JLabel lblTags;
     private javax.swing.JLabel lblTrampoline;
     private javax.swing.JLabel lblUser;
