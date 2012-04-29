@@ -230,11 +230,10 @@ public class TrampolineUI extends javax.swing.JFrame {
             selDate.addItem(k+"");
         }
         
-        //And month on Club Management. 
-        //http://stackoverflow.com/questions/5661556/jcombobox-setting-label-and-value for later
+        //And month on Club Management.
         String[] monthName = {"January", "February","March", "April", "May", "June", "July","August", "September", "October", "November","December"};
         for (int l = 1; l <= 12; l++) {
-            selMonth.addItem(l);
+            selMonth.addItem(new ComboItem(Integer.toString(l), monthName[l-1]));
         }
         
         //Finally the year on Club Management. 

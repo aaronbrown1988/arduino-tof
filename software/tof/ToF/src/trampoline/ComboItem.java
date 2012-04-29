@@ -12,8 +12,13 @@ public class ComboItem {
     private String value;
     private String label;
 
-    public void ComboValue(String value, String label) {
+    public ComboItem(String value, String label) {
         this.value = value;
+        this.label = label;
+    }
+
+    public ComboItem(int value, String label) {
+        this.value = Integer.toString(value);
         this.label = label;
     }
 
@@ -25,7 +30,8 @@ public class ComboItem {
         return this.label;
     }
 
+    @Override
     public String toString() {
-        return this.label;
+        return label;
     }
 }
