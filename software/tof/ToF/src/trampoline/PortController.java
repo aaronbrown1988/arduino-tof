@@ -284,8 +284,4 @@ public class PortController implements SerialPortEventListener{
     public String getCurrentPort(){
         return this.portOpen_;
     }
-    
-    public static void main(String args[]){
-        PortController port = new PortController();
-    }
 }
