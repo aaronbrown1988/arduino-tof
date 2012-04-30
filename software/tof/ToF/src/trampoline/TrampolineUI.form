@@ -80,8 +80,8 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="tabPane" pref="981" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="tabPane" min="-2" pref="711" max="-2" attributes="0"/>
+              <EmptySpace pref="281" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -147,7 +147,7 @@
                           <Group type="102" attributes="0">
                               <Component id="pnlStats" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="pnlGraph" pref="607" max="32767" attributes="0"/>
+                              <Component id="pnlGraph" pref="337" max="32767" attributes="0"/>
                           </Group>
                           <Component id="pnlData" alignment="1" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
@@ -199,7 +199,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="drpDeviceName" alignment="0" max="32767" attributes="0"/>
                               <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
-                              <Component id="selComboBox1" alignment="0" pref="157" max="32767" attributes="0"/>
+                              <Component id="selDataGymnast" alignment="0" pref="157" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="btnClearData" min="-2" pref="123" max="-2" attributes="0"/>
@@ -223,7 +223,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="labGymnast" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="selComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="selDataGymnast" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -294,14 +294,10 @@
                     <Property name="text" type="java.lang.String" value="Select a Gymnast:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="selComboBox1">
+                <Component class="javax.swing.JComboBox" name="selDataGymnast">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="3">
-                        <StringItem index="0" value="Gymnast A"/>
-                        <StringItem index="1" value="Gymnast B"/>
-                        <StringItem index="2" value="Other people"/>
-                      </StringArray>
+                      <StringArray count="0"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -374,9 +370,13 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="pnlDataTable" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
                                   <Component id="labNameForData" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jScrollPane1" min="-2" pref="287" max="-2" attributes="0"/>
@@ -385,10 +385,6 @@
                                       <Component id="btnSaveComments" max="32767" attributes="0"/>
                                       <Component id="jButton1" pref="169" max="32767" attributes="0"/>
                                   </Group>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="pnlDataTable" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -399,8 +395,8 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="pnlDataTable" max="32767" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="pnlDataTable" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -445,7 +441,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="417" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -535,7 +531,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="575" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="305" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -596,7 +592,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jPanel1" max="32767" attributes="0"/>
-                          <Component id="pnlStatisticsSmall" pref="931" max="32767" attributes="0"/>
+                          <Component id="pnlStatisticsSmall" pref="661" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -641,9 +637,15 @@
                                   <Component id="btnStatisticsUpdate" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lblStatsGymnast" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblStatsGymnast" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblStatsRoutine" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="selStatsGymnast" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="drpStatsRoutine" min="-2" max="-2" attributes="0"/>
+                                      <Component id="selStatsGymnast" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                           <EmptySpace pref="466" max="32767" attributes="0"/>
@@ -668,7 +670,12 @@
                                   <Component id="btnStatisticsUpdate" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="824" max="32767" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblStatsRoutine" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="drpStatsRoutine" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="516" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -701,6 +708,20 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnStatisticsUpdateActionPerformed"/>
                   </Events>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblStatsRoutine">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Select Routine:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="drpStatsRoutine">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="1">
+                        <StringItem index="0" value="&lt;&lt; Select Gymnast First &gt;&gt;"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
                 </Component>
               </SubComponents>
             </Container>
@@ -798,7 +819,7 @@
                           <Component id="rdoExportText" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="rdoExportExcel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="776" max="32767" attributes="0"/>
+                          <EmptySpace pref="506" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -897,29 +918,30 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblCategory" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblDoB" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblUser" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblName" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtName" min="-2" pref="100" max="-2" attributes="0"/>
-                              <Component id="btnAddModifyUser" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnDeleteUser" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="selUserName" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="selCategory" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblCategory" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblDoB" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblUser" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblName" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="txtName" min="-2" pref="100" max="-2" attributes="0"/>
                                       <Group type="102" attributes="0">
                                           <Component id="selDate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="selMonth" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="selYear" min="-2" max="-2" attributes="0"/>
                                       </Group>
+                                      <Component id="selCategory" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnAddModifyUser" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnDeleteUser" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="selUserName" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="selYear" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="lblGymnastSuccess" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -954,6 +976,8 @@
                           <Component id="btnAddModifyUser" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnDeleteUser" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="lblGymnastSuccess" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -1030,6 +1054,8 @@
                     </Property>
                   </Properties>
                 </Component>
+                <Component class="javax.swing.JLabel" name="lblGymnastSuccess">
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="pnlRoutines">
@@ -1100,7 +1126,7 @@
                               <Component id="txtPassword2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnNewPassword" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="421" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="151" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

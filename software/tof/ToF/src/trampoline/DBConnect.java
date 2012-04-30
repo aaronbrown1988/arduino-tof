@@ -31,8 +31,16 @@ public class DBConnect {
         return executeUpdate("INSERT INTO clubs (name) VALUES ('"+name+"')");
     }
     
-    public int addGymnast(int cid, String name) {
-        return executeUpdate("INSERT INTO gymnasts (cid, name) VALUES ('"+cid+"', '"+name+"')");
+    public int addGymnast(String name, int dobDay, int dobMonth, int dobYear, String category, int cid) {
+        String dobfull = dobYear+"-"+dobMonth+"-"+dobDay;
+        
+        return executeUpdate("INSERT INTO gymnasts (clubid, gname, dobday, dobmonth, dobyear, dobfull, category) "
+                + "VALUES ('"+cid+"', '"+name+"', '"+dobDay+"', '"+dobMonth+"', '"+dobYear+"', '"+dobfull+"', '"+category+"')");
+    }
+    
+    public int addGymnast(String name, int dobDay, int dobMonth, int dobYear, String category) {
+        //Default to Club 1 for a single-glub gym. 
+        return addGymnast(name, dobDay, dobMonth, dobYear, category, 1);
     }
     
     private int addJump(int routineid, int jumpnumber, double b1, double en, double b2, double tof, double ton, double total, String location) {
