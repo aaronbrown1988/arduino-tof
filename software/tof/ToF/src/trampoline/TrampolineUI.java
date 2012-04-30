@@ -245,7 +245,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         }
         
         //Category on Club Management. 
-        String[] categoryName = {"A","B","C","D","E","F","G","H","I"};
+        String[] categoryName = {"F.I.G. A","F.I.G. B","National C","Regional D","Regional E","Regional F","Regional G","Club H","Club I"};
          for (String s:categoryName) {
             selCategory.addItem(s);
         }
@@ -1019,6 +1019,12 @@ public class TrampolineUI extends javax.swing.JFrame {
 
         tabPane.addTab("Import/Export Data", pnlImportExport);
 
+        pnlAdmin.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                pnlAdminFocusGained(evt);
+            }
+        });
+
         pnlGymnast.setBorder(javax.swing.BorderFactory.createTitledBorder("Gymnast"));
 
         lblUser.setText("User:");
@@ -1052,16 +1058,18 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(pnlGymnastLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlGymnastLayout.createSequentialGroup()
-                        .addComponent(selDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(selMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(selYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(selCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAddModifyUser)
                     .addComponent(btnDeleteUser)
-                    .addComponent(selUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(selUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlGymnastLayout.createSequentialGroup()
+                        .addGroup(pnlGymnastLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(selCategory, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(pnlGymnastLayout.createSequentialGroup()
+                                .addComponent(selDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(selMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(selYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlGymnastLayout.setVerticalGroup(
@@ -1262,6 +1270,10 @@ public class TrampolineUI extends javax.swing.JFrame {
     private void btnStatisticsUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatisticsUpdateActionPerformed
         updateGymnastDropDown();
     }//GEN-LAST:event_btnStatisticsUpdateActionPerformed
+
+    private void pnlAdminFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pnlAdminFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pnlAdminFocusGained
 
     /**
      * @param args the command line arguments
