@@ -12,6 +12,8 @@ import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  *
@@ -85,7 +87,7 @@ public class PasswordPrompt extends javax.swing.JDialog {
         btncancel = new javax.swing.JButton();
         lblcaption1 = new javax.swing.JLabel();
         lblcaption2 = new javax.swing.JLabel();
-        txtpassword = new javax.swing.JTextField();
+        txtpassword = new javax.swing.JPasswordField();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -112,12 +114,6 @@ public class PasswordPrompt extends javax.swing.JDialog {
 
         lblcaption2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblcaption2.setText("access the Admin tab:");
-
-        txtpassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtpasswordActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -147,9 +143,9 @@ public class PasswordPrompt extends javax.swing.JDialog {
                 .addComponent(lblcaption1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblcaption2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btncancel)
                     .addComponent(btnok))
@@ -162,7 +158,9 @@ public class PasswordPrompt extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnokActionPerformed
-        if(this.adminPassword_.equals(txtpassword.getText())){
+        char[] password = txtpassword.getPassword();
+        String testPassword = md5Password(password);
+        if(this.adminPassword_.equals(testPassword)){
             doClose(RET_OK);
         }else{
             doClose(RET_CANCEL);
@@ -179,17 +177,42 @@ public class PasswordPrompt extends javax.swing.JDialog {
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         doClose(RET_CANCEL);
     }//GEN-LAST:event_closeDialog
-
-    private void txtpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtpasswordActionPerformed
     
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);
         dispose();
     }
+   
+    String md5Password(char[] password){
+        String passwordMD5 = null;
+        try {
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            byte[] tmp = new byte[password.length];
+            for(int i=0;i<password.length;i++){
+                tmp[i] = (byte)password[i];
+            }
+            md5.update(tmp);
+            passwordMD5 = byteArrToString(md5.digest());
+        } catch (NoSuchAlgorithmException ex) {
+            System.out.println(ex);
+        }
+      return passwordMD5;
+    }
     
+    private static String byteArrToString(byte[] b){
+        String res;
+        StringBuffer sb = new StringBuffer(b.length * 2);
+        for (int i = 0; i < b.length; i++){
+            int j = b[i] & 0xff;
+            if (j < 16) {
+                sb.append('0');
+            }
+            sb.append(Integer.toHexString(j));
+        }
+        res = sb.toString();
+        return res.toUpperCase();
+    }
 
     /**
      * @param args the command line arguments
@@ -200,7 +223,7 @@ public class PasswordPrompt extends javax.swing.JDialog {
     private javax.swing.JButton btnok;
     private javax.swing.JLabel lblcaption1;
     private javax.swing.JLabel lblcaption2;
-    private javax.swing.JTextField txtpassword;
+    private javax.swing.JPasswordField txtpassword;
     // End of variables declaration//GEN-END:variables
     private int returnStatus = RET_CANCEL;
 }

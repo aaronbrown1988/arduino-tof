@@ -353,7 +353,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         adminAccessGranted_ = false;
         
         // Change to retrieve from database
-        adminPassword_ = "admin";
+        adminPassword_ = "21232F297A57A5A743894A0E4A801FC3";
     }
     
     public TofInterface stringToTof(String s) {
