@@ -14,8 +14,10 @@ public class DBConnect {
     public Connection conn_;
     public Statement stat_;
     public ResultSet rs_;
+    private ErrorHandler errorHandler_; // Error Handler inherited from main class;
     
-    DBConnect() {
+    DBConnect(ErrorHandler errHandl) {
+        this.errorHandler_ = errHandl;
         try {
             Class.forName("org.sqlite.JDBC");
             //connect to the database
@@ -23,7 +25,8 @@ public class DBConnect {
             stat_ = conn_.createStatement();
         }
         catch (Exception e) {
-            e.printStackTrace();
+            this.errorHandler_.setError(1);
+            this.errorHandler_.setMoreDetails(e.toString());
         }
     }
     

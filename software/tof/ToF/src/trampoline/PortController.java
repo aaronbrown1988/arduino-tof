@@ -39,9 +39,10 @@ public class PortController implements SerialPortEventListener{
     private SerialPort serialPort_;                     // Serial Port associated with this object.
     private InputStream input_;                         // Buffered input stream from the port.
     private OutputStream output_;                       // The output stream to the port.
-    private String portOpen_;                           // Name of Serial Port open
+    private String portOpen_;                           // Name of Serial Port open.
+    private ErrorHandler errorHandler_;                 // Error Handler inherited from main project.
     
-    PortController(){
+    PortController(ErrorHandler errHandl){
         this.portsInUse_ = new ArrayList<CommPortIdentifier>();
         this.nameOfPorts_ = new ArrayList<String>();
         this.noOfTof_ = new ArrayList<Integer>();
@@ -51,13 +52,14 @@ public class PortController implements SerialPortEventListener{
         this.output_ = null;
         this.portOpen_ = null;
         this.tofInterfaces_ = null;
+        this.errorHandler_ = errHandl;
         
         this.readSettings();
         this.listPorts();
     }
     
-    PortController(String portName){
-        this();
+    PortController(ErrorHandler errHandl, String portName){
+        this(errHandl);
         this.initialise(portName);
     }
     
@@ -201,7 +203,7 @@ public class PortController implements SerialPortEventListener{
         //Intialise Tof Interfaces for all Tof on the port
         this.tofInterfaces_ = new TofInterface[this.noOfTof_.get(index)];        
         for(int i=0;i<this.noOfTof_.get(index);i++){
-            this.tofInterfaces_[i] = new TofInterface(this);
+            this.tofInterfaces_[i] = new TofInterface(this.errorHandler_, this);
         }
     }
     
