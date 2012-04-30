@@ -246,7 +246,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         
         //Category on Club Management. 
         String[] categoryName = {"A","B","C","D","E","F","G","H","I"};
-         for (String s:categoryName) {
+        for (String s:categoryName) {
             selCategory.addItem(s);
         }
          
@@ -256,7 +256,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         this.beamStatusRedArray_ = new JLabel[16];
         this.beamStatusGreenArray_ = new JLabel[16];
         
-        for(int i=0;i<16;i++){
+        for(int i = 0; i < 16; i++){
             beamStatusRedArray_[i] = new JLabel("");
             beamStatusGreenArray_[i] = new JLabel("");
             beamStatusRedArray_[i].setIcon(new javax.swing.ImageIcon(getClass().getResource("/trampoline/images/redBeam.png")));
@@ -1182,6 +1182,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     private void btnAddModifyUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddModifyUserActionPerformed
         if (selUserName.getSelectedIndex() == 0) {
             //Then we need to add the gymnast. Start by entering the information into the databse. 
+            System.out.println(selMonth.getSelectedItem());
             db_.addGymnast(txtName.getText(), Integer.parseInt(selDate.getSelectedItem().toString()), Integer.parseInt(selMonth.getSelectedItem().toString()), Integer.parseInt(selYear.getSelectedItem().toString()), selCategory.getSelectedItem().toString());
 
             //Add a success message.
