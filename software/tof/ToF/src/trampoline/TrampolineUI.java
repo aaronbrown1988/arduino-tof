@@ -387,10 +387,12 @@ public class TrampolineUI extends javax.swing.JFrame {
         
         for (JComboBox jcb:boxesToUpdate) {
             jcb.removeAllItems();
+            
+            jcb.addItem(new ComboItem(0, "<< Please Select Gymnast >>"));
 
             //Gymnast List on Statistics
             for (Gymnast g:gymnastList) {
-                jcb.addItem(g.getName());
+                jcb.addItem(new ComboItem(g.getID(), g.getName()));
             }
         }
     }
@@ -973,7 +975,7 @@ public class TrampolineUI extends javax.swing.JFrame {
 
         lblCategory.setText("Category:");
 
-        btnAddModifyUser.setText("Add / Modify User");
+        btnAddModifyUser.setText("Add User");
         btnAddModifyUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddModifyUserActionPerformed(evt);
@@ -981,6 +983,17 @@ public class TrampolineUI extends javax.swing.JFrame {
         });
 
         btnDeleteUser.setText("Delete User");
+        btnDeleteUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteUserActionPerformed(evt);
+            }
+        });
+
+        selUserName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selUserNameActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlGymnastLayout = new javax.swing.GroupLayout(pnlGymnast);
         pnlGymnast.setLayout(pnlGymnastLayout);
@@ -1047,7 +1060,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         pnlRoutines.setLayout(pnlRoutinesLayout);
         pnlRoutinesLayout.setHorizontalGroup(
             pnlRoutinesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1058, Short.MAX_VALUE)
+            .addGap(0, 1077, Short.MAX_VALUE)
         );
         pnlRoutinesLayout.setVerticalGroup(
             pnlRoutinesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1181,21 +1194,27 @@ public class TrampolineUI extends javax.swing.JFrame {
 
     private void btnAddModifyUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddModifyUserActionPerformed
         if (selUserName.getSelectedIndex() == 0) {
-            //Then we need to add the gymnast. Start by entering the information into the databse. 
-            System.out.println(selMonth.getSelectedItem());
-            db_.addGymnast(txtName.getText(), Integer.parseInt(selDate.getSelectedItem().toString()), Integer.parseInt(selMonth.getSelectedItem().toString()), Integer.parseInt(selYear.getSelectedItem().toString()), selCategory.getSelectedItem().toString());
+            if (txtName.getText() == "") {
+                lblGymnastSuccess.setText("You must include a gymnast name.");
+            } else {
+                //Then we need to add the gymnast. Start by entering the information into the databse. 
+                ComboItem c = (ComboItem) selMonth.getSelectedItem();
 
-            //Add a success message.
-            lblGymnastSuccess.setText("The Gymnast '"+txtName.getText()+"' has been added.");
-            
-            //Then clear all the items. 
-            txtName.setText("");
-            selDate.setSelectedIndex(0);
+                db_.addGymnast(txtName.getText(), Integer.parseInt(selDate.getSelectedItem().toString()), Integer.parseInt(c.getID()), Integer.parseInt(selYear.getSelectedItem().toString()), selCategory.getSelectedItem().toString());
 
-            //Re-update the drop-down.
-            updateGymnastDropDown();
+                //Add a success message.
+                lblGymnastSuccess.setText("The Gymnast '"+txtName.getText()+"' has been added.");
+
+                //Then clear all the items. 
+                txtName.setText("");
+                selDate.setSelectedIndex(0);
+
+                //Re-update the drop-down.
+                updateGymnastDropDown();
+            }
         } else {
             //Then we have to edit the user selected.
+            
         }
     }//GEN-LAST:event_btnAddModifyUserActionPerformed
 
@@ -1227,6 +1246,31 @@ public class TrampolineUI extends javax.swing.JFrame {
         db_.getJump(3);
         updateGymnastDropDown();
     }//GEN-LAST:event_btnStatisticsUpdateActionPerformed
+
+    private void btnDeleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteUserActionPerformed
+        ComboItem c = (ComboItem) selUserName.getSelectedItem();
+        int confirmInt = (int) JOptionPane.showConfirmDialog(pnlStatistics, "Are you sure you want to Delete '"+c+"'?", "Delete User", 0, 0);
+        
+        if (confirmInt == 0) {
+            lblGymnastSuccess.setText("The Gymnast '"+c+"' has been deleted.");
+            db_.deleteGymnast(c.getNumericID());
+        }
+        
+        updateGymnastDropDown();
+    }//GEN-LAST:event_btnDeleteUserActionPerformed
+
+    private void selUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selUserNameActionPerformed
+        ComboItem c = (ComboItem) selUserName.getSelectedItem();
+        
+        if (c.getID() == "0") {
+            btnAddModifyUser.setText("Add User");
+        } else {
+            Gymnast g = db_.getGymnast(c.getNumericID());
+            txtName.setText(g.getName());
+            selDate.setSelectedIndex(g.getDobDay());
+            btnAddModifyUser.setText("Modify User");
+        }
+    }//GEN-LAST:event_selUserNameActionPerformed
 
     /**
      * @param args the command line arguments

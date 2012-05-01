@@ -64,10 +64,14 @@ public class DBConnect {
         return rid;
     }
     
+    public void deleteGymnast(int gid) {
+        executeQuery("DELETE FROM gymnasts WHERE gid = '"+gid+"'");
+    }
+    
     public Gymnast getGymnast(int gid) {
         executeQuery("SELECT g.*, c.* FROM gymnasts g, clubs c WHERE g.id = '"+gid+"' AND g.clubid = c.id");
         
-        return new Gymnast(resultGetInt("gid"), resultGetString("gname"), resultGetInt("cid"), resultGetString("cname"));
+        return new Gymnast(resultGetInt("gid"), resultGetString("gname"), resultGetInt("cid"), resultGetString("cname"), resultGetInt("dobday"), resultGetInt("dobmonth"), resultGetInt("dobyear"), resultGetString("category"));
     }
     
     public Gymnast[] getAllGymnasts() {
@@ -78,7 +82,7 @@ public class DBConnect {
         
         try {
             while (rs_.next()) {
-                gymnastList.add(new Gymnast(resultGetInt("gid"), resultGetString("gname"), resultGetInt("cid"), resultGetString("cname")));
+                gymnastList.add(new Gymnast(resultGetInt("gid"), resultGetString("gname"), resultGetInt("cid"), resultGetString("cname"), resultGetInt("dobday"), resultGetInt("dobmonth"), resultGetInt("dobyear"), resultGetString("category")));
                 i++;
             }
         }

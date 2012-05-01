@@ -1031,7 +1031,7 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnAddModifyUser">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Add / Modify User"/>
+                    <Property name="text" type="java.lang.String" value="Add User"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddModifyUserActionPerformed"/>
@@ -1041,6 +1041,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Delete User"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteUserActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtName">
                 </Component>
@@ -1050,6 +1053,9 @@
                       <StringArray count="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selUserNameActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblGymnastSuccess">
                 </Component>
@@ -1067,7 +1073,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="1058" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="1077" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">

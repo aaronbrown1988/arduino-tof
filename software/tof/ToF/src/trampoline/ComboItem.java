@@ -9,29 +9,34 @@ package trampoline;
  * @author Andreas
  */
 public class ComboItem {
-    private String value;
-    private String label;
+    private String id;
+    private String name;
 
-    public ComboItem(String value, String label) {
-        this.value = value;
-        this.label = label;
+    public ComboItem(String id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    public ComboItem(int value, String label) {
-        this.value = Integer.toString(value);
-        this.label = label;
+    public ComboItem(int id, String name) {
+        this.id = Integer.toString(id);
+        this.name = name;
     }
 
-    public String getValue() {
-        return this.value;
+    public String getID() {
+        return this.id;
     }
 
-    public String getLabel() {
-        return this.label;
+    //Shortcut only
+    public int getNumericID() {
+        return Integer.parseInt(this.id);
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     @Override
     public String toString() {
-        return label;
+        return name;
     }
 }
