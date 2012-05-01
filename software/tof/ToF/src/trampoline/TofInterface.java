@@ -40,9 +40,10 @@ public class TofInterface {
     private int noBeamsBrokenShort_;            // Number of breaks in an event.
     private int noBeamsBrokenLong_;             // Number of breaks in an event.
     private int gymnast_;                       // ID of gymnast currently jumping.
+    private ErrorHandler errorHandler_;         // Error Handler inherited from main project.
     
     
-    TofInterface(){
+    TofInterface(ErrorHandler errHandl){
         this.beamStatus_ = new boolean[8];
         for(int i=0;i<7;i++){
             this.beamStatus_[i] = false;
@@ -63,10 +64,11 @@ public class TofInterface {
         this.breakOrderLongSide_ = new int[5];
         this.noBeamsBrokenShort_ = 0;
         this.noBeamsBrokenLong_ = 0;
+        this.errorHandler_ = errHandl;
     }
     
-    TofInterface(PortController myPort){
-        this();
+    TofInterface(ErrorHandler errHandl, PortController myPort){
+        this(errHandl);
         this.myPort_ = myPort;
     }
     
