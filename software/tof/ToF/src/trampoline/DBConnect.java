@@ -72,7 +72,7 @@ public class DBConnect {
     }
     
     public Gymnast getGymnast(int gid) {
-        executeQuery("SELECT g.*, c.* FROM gymnasts g, clubs c WHERE g.id = '"+gid+"' AND g.clubid = c.id");
+        executeQuery("SELECT g.*, c.* FROM gymnasts g, clubs c WHERE g.gid = '"+gid+"' AND g.clubid = c.cid");
         
         return new Gymnast(resultGetInt("gid"), resultGetString("gname"), resultGetInt("cid"), resultGetString("cname"), resultGetInt("dobday"), resultGetInt("dobmonth"), resultGetInt("dobyear"), resultGetString("category"));
     }

@@ -1366,12 +1366,20 @@ public class TrampolineUI extends javax.swing.JFrame {
     private void selUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selUserNameActionPerformed
         ComboItem c = (ComboItem) selUserName.getSelectedItem();
         
-        if (c.getID() == "0") {
+        if (c.getNumericID() == 0) {
             btnAddModifyUser.setText("Add User");
+            txtName.setText("");
+            selDate.setSelectedIndex(0);
+            selMonth.setSelectedIndex(0);
+            selYear.setSelectedIndex(0);
+            selCategory.setSelectedIndex(0);
         } else {
             Gymnast g = db_.getGymnast(c.getNumericID());
             txtName.setText(g.getName());
             selDate.setSelectedIndex(g.getDobDay());
+            selMonth.setSelectedIndex(g.getDobMonth());
+            selYear.setSelectedIndex(g.getDobYear());
+            //selCategory.setSelectedIndex(g.getCategory());
             btnAddModifyUser.setText("Modify User");
         }
     }//GEN-LAST:event_selUserNameActionPerformed
