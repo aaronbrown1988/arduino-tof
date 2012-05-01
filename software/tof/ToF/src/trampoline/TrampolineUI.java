@@ -1025,7 +1025,7 @@ public class TrampolineUI extends javax.swing.JFrame {
 
         lblCategory.setText("Category:");
 
-        btnAddModifyUser.setText("Add User");
+        btnAddModifyUser.setText("Add / Modify User");
         btnAddModifyUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddModifyUserActionPerformed(evt);
@@ -1350,6 +1350,31 @@ public class TrampolineUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,this.errorHandler_.getCurrentErrorLong(),this.errorHandler_.getCurrentErrorShort(), JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_lblErrorMouseClicked
+
+    private void btnDeleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteUserActionPerformed
+        ComboItem c = (ComboItem) selUserName.getSelectedItem();
+        int confirmInt = (int) JOptionPane.showConfirmDialog(pnlStatistics, "Are you sure you want to Delete '"+c+"'?", "Delete User", 0, 0);
+        
+        if (confirmInt == 0) {
+            lblGymnastSuccess.setText("The Gymnast '"+c+"' has been deleted.");
+            db_.deleteGymnast(c.getNumericID());
+        }
+        
+        updateGymnastDropDown();
+    }//GEN-LAST:event_btnDeleteUserActionPerformed
+
+    private void selUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selUserNameActionPerformed
+        ComboItem c = (ComboItem) selUserName.getSelectedItem();
+        
+        if (c.getID() == "0") {
+            btnAddModifyUser.setText("Add User");
+        } else {
+            Gymnast g = db_.getGymnast(c.getNumericID());
+            txtName.setText(g.getName());
+            selDate.setSelectedIndex(g.getDobDay());
+            btnAddModifyUser.setText("Modify User");
+        }
+    }//GEN-LAST:event_selUserNameActionPerformed
    
     private void clearError(){
         lblError.setText("");
