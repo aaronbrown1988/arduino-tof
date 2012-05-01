@@ -25,7 +25,7 @@ public class DBConnect {
             stat_ = conn_.createStatement();
         }
         catch (Exception e) {
-            this.errorHandler_.setError(1);
+            this.errorHandler_.setError(2);
             this.errorHandler_.setMoreDetails(e.toString());
         }
     }

@@ -123,8 +123,7 @@ public class PortController implements SerialPortEventListener{
         }
 
         if(this.portsInUse_.isEmpty()){
-            this.error_ = 1;
-            this.errorList_[0] = "ToF not Found.";
+            this.errorHandler_.setError(3);
         }
     }
     

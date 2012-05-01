@@ -77,7 +77,7 @@ public class TrampolineUI extends javax.swing.JFrame {
             }
             
             if(errorHandler_.isError()){
-                lblError.setText("Error: " + errorHandler_.getCurrentErrorShort());
+                lblError.setText("Error: " + errorHandler_.getCurrentErrorShort() + " (Click for more info...)");
             }
         }
     };
@@ -555,13 +555,11 @@ public class TrampolineUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Chronos");
-        setPreferredSize(new java.awt.Dimension(1280, 1024));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 TrampolineUIWindowOpened(evt);
             }
         });
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         layMainLayer.setPreferredSize(new java.awt.Dimension(1280, 1024));
 
@@ -1184,10 +1182,13 @@ public class TrampolineUI extends javax.swing.JFrame {
 
         lblError.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblError.setForeground(new java.awt.Color(255, 0, 0));
-        lblError.setBounds(460, 15, 540, 15);
+        lblError.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblErrorMouseClicked(evt);
+            }
+        });
+        lblError.setBounds(460, 15, 810, 15);
         layMainLayer.add(lblError, javax.swing.JLayeredPane.POPUP_LAYER);
-
-        getContentPane().add(layMainLayer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jMenu3.setText("File");
 
@@ -1200,6 +1201,17 @@ public class TrampolineUI extends javax.swing.JFrame {
         menBar.add(jMenu4);
 
         setJMenuBar(menBar);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(layMainLayer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(layMainLayer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1296,7 +1308,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                     pnlGymnast.setVisible(false);
                     pnlRoutines.setVisible(false);
                     pnlReset.setVisible(false);
-                    this.errorHandler_.setError(0);
+                    this.errorHandler_.setError(1);
                     break;
                 case 1:
                     System.out.println("Here");
@@ -1313,6 +1325,12 @@ public class TrampolineUI extends javax.swing.JFrame {
     private void TrampolineUIWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_TrampolineUIWindowOpened
         // TODO add your handling code here:
     }//GEN-LAST:event_TrampolineUIWindowOpened
+
+    private void lblErrorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblErrorMouseClicked
+        if(errorHandler_.isError()){
+            JOptionPane.showMessageDialog(this,this.errorHandler_.getCurrentErrorLong(),this.errorHandler_.getCurrentErrorShort(), JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_lblErrorMouseClicked
    
     private void clearError(){
         lblError.setText("");
