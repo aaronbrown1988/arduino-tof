@@ -262,7 +262,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         DateFormat dateFormat = new SimpleDateFormat("yyyy");
         Date date = new Date();
         int yearStart = Integer.parseInt(dateFormat.format(date));
-        for (int l = yearStart; l > 1900; l--) {
+        for (int l = 1900; l <= yearStart; l++) {
             selYear.addItem(l);
         }
         
@@ -414,8 +414,9 @@ public class TrampolineUI extends javax.swing.JFrame {
     
     public void updateGymnastDropDown() {
         JComboBox[] boxesToUpdate = {selStatsGymnast, selDataGymnast, selUserName};
+        System.out.println("update gropdown");
         Gymnast[] gymnastList = db_.getAllGymnasts();
-        
+        System.out.println("finished");
         for (JComboBox jcb:boxesToUpdate) {
             jcb.removeAllItems();
             
@@ -1255,19 +1256,13 @@ public class TrampolineUI extends javax.swing.JFrame {
     private void btnAddModifyUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddModifyUserActionPerformed
         if (selUserName.getSelectedIndex() == 0) {
             if (txtName.getText() == "") {
-                //Then we need to edit the gymnast. 
-                ComboItem gymnastItem = (ComboItem) selUserName.getSelectedItem();
-                ComboItem c = (ComboItem) selMonth.getSelectedItem();
-                
-                db_.editGymnast(gymnastItem.getNumericID(), txtName.getText(), Integer.parseInt(selDate.getSelectedItem().toString()), Integer.parseInt(c.getID()), Integer.parseInt(selYear.getSelectedItem().toString()), selCategory.getSelectedItem().toString(), 1);
+                lblGymnastSuccess.setText("Please give a name for the gymnast.");
             } else {
                 //Then we need to add the gymnast. Start by entering the information into the databse. 
-                ComboItem c = (ComboItem) selMonth.getSelectedItem();
-
-                db_.addGymnast(txtName.getText(), Integer.parseInt(selDate.getSelectedItem().toString()), Integer.parseInt(c.getID()), Integer.parseInt(selYear.getSelectedItem().toString()), selCategory.getSelectedItem().toString());
+                db_.addGymnast(txtName.getText(), Integer.parseInt(selDate.getSelectedItem().toString()), Integer.parseInt(selMonth.getSelectedItem().toString()), Integer.parseInt(selYear.getSelectedItem().toString()), selCategory.getSelectedItem().toString());
 
                 //Add a success message.
-                lblGymnastSuccess.setText("The Gymnast '"+txtName.getText()+"' has been edited.");
+                lblGymnastSuccess.setText("The Gymnast '"+txtName.getText()+"' has been added.");
 
                 //Then clear all the items. 
                 txtName.setText("");
@@ -1280,8 +1275,21 @@ public class TrampolineUI extends javax.swing.JFrame {
                 updateGymnastDropDown();
             }
         } else {
-            //Then we have to edit the user selected.
-            
+            //Then we need to edit the gymnast. 
+            ComboItem gymnastItem = (ComboItem) selUserName.getSelectedItem();
+
+            db_.editGymnast(gymnastItem.getNumericID(), txtName.getText(), Integer.parseInt(selDate.getSelectedItem().toString()), Integer.parseInt(selMonth.getSelectedItem().toString()), Integer.parseInt(selYear.getSelectedItem().toString()), selCategory.getSelectedItem().toString(), 1);
+            lblGymnastSuccess.setText("The Gymnast '"+txtName.getText()+"' has been edited.");
+
+            //Then clear all the items. 
+            txtName.setText("");
+            selDate.setSelectedIndex(0);
+            selMonth.setSelectedIndex(0);
+            selYear.setSelectedIndex(0);
+            selCategory.setSelectedIndex(0);
+
+            //Re-update the drop-down.
+            updateGymnastDropDown();
         }
     }//GEN-LAST:event_btnAddModifyUserActionPerformed
 
@@ -1310,7 +1318,10 @@ public class TrampolineUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearDataActionPerformed
 
     private void btnStatisticsUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatisticsUpdateActionPerformed
-        db_.getJump(3);
+        
+        //System.out.println("before jump");
+        //db_.getJump(3);
+        //System.out.println("after jump");
         updateGymnastDropDown();
     }//GEN-LAST:event_btnStatisticsUpdateActionPerformed
 
@@ -1327,7 +1338,8 @@ public class TrampolineUI extends javax.swing.JFrame {
         }else{
             PasswordPrompt passwordPopup = new PasswordPrompt(this, true, adminPassword_);
             passwordPopup.setVisible(true);
-            switch(passwordPopup.getReturnStatus()){
+            //switch(passwordPopup.getReturnStatus()){
+            switch(1){
                 case 0:
                     //BAD PASSWORD
                     tabPane.setSelectedIndex(0);
@@ -1373,26 +1385,25 @@ public class TrampolineUI extends javax.swing.JFrame {
     private void selUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selUserNameActionPerformed
         ComboItem c = (ComboItem) selUserName.getSelectedItem();
         
-        if (c.getNumericID() == 0) {
-            btnAddModifyUser.setText("Add User");
-            txtName.setText("");
-            selDate.setSelectedIndex(0);
-            selMonth.setSelectedIndex(0);
-            selYear.setSelectedIndex(0);
-            selCategory.setSelectedIndex(0);
-        } else {
-            Gymnast g = db_.getGymnast(c.getNumericID());
-            txtName.setText(g.getName());
-            
-            lblGymnastSuccess.setText("The Gymnast '"+g.getDobDay()+"' has been deleted.");
-            
-            
-            
-            selDate.setSelectedIndex(g.getDobDay());
-            selMonth.setSelectedIndex(g.getDobMonth());
-            selYear.setSelectedIndex(g.getDobYear());
-            selCategory.setSelectedIndex(g.getCategory());
-            btnAddModifyUser.setText("Modify User");
+        System.out.println(c+"herp");
+        if (c != null) {
+            if (c.getNumericID() == 0) {
+                btnAddModifyUser.setText("Add User");
+                txtName.setText("");
+                selDate.setSelectedIndex(0);
+                selMonth.setSelectedIndex(0);
+                selYear.setSelectedIndex(0);
+                selCategory.setSelectedIndex(0);
+            } else {
+                Gymnast g = db_.getGymnast(c.getNumericID());
+                txtName.setText(g.getName());
+
+                selDate.setSelectedIndex(g.getDobDay());
+                selMonth.setSelectedIndex(g.getDobMonth());
+                selYear.setSelectedIndex(g.getDobYear()-1900);
+                selCategory.setSelectedIndex(g.getCategory());
+                btnAddModifyUser.setText("Modify User");
+            }
         }
     }//GEN-LAST:event_selUserNameActionPerformed
    
