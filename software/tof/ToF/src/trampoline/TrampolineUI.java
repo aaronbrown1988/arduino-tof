@@ -126,7 +126,11 @@ public class TrampolineUI extends javax.swing.JFrame {
         initDatabase();
         this.splashText("Setting up GUI.");
         this.splashProgress(80);
-        initComponentsNonGenerated();
+        initGeneralUI();
+        initToFPaneUI();
+        initStatisticsPaneUI();
+        initImportExportPaneUI();
+        initClubManagementPaneUI();
    
         if (mySplash_ != null)   // check if we really had a spash screen
             mySplash_.close();   // we're done with it
@@ -173,6 +177,8 @@ public class TrampolineUI extends javax.swing.JFrame {
     private void initToFPaneUI(){
         int screenHeight = this.screenResolution_.height;
         int screenWidth = this.screenResolution_.width;
+        
+        //Resolution specific layout
         if(screenWidth<1280){
             //Code for screens less than 1280 X 1024 assuming size of 1024 x 768
             pnlStats.setVisible(false);
@@ -199,32 +205,6 @@ public class TrampolineUI extends javax.swing.JFrame {
                     .addContainerGap())
             );
         }
-    }
-    
-    private void initComponentsNonGenerated() {
-        
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        this.screenResolution_ = toolkit.getScreenSize();
-        layMainLayer.setSize(screenResolution_);
-        tabPane.setSize(screenResolution_);
-        pnlToF.setSize(screenResolution_);
-        pnlStatistics.setSize(screenResolution_);
-        pnlImportExport.setSize(screenResolution_);
-        pnlAdmin.setSize(screenResolution_);
-        lblError.setText("");
-        
-        GraphicsEnvironment env =
-        GraphicsEnvironment.getLocalGraphicsEnvironment();
-        this.setMaximizedBounds(env.getMaximumWindowBounds ());
-        this.setExtendedState(this.getExtendedState()|JFrame.MAXIMIZED_BOTH); 
-        
-        initToFPaneUI();
-        
-                   
-        
-                 
-        
-        
         
         //Make the labels that we require for the centre panel. 
         labelArray_ = new JLabel[40];
@@ -258,7 +238,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         lblTotal.setName("lblTotal");
         lblTotal.setText("Total");
         pnlDataTable.add(lblTotal);
-               
+        
         //Create the labels for the Numbers themselves. 
         for (int i = 0; i < 10; i++) {
             labelArray_[i*4]   = new JLabel("labNumber"+i);
@@ -288,33 +268,6 @@ public class TrampolineUI extends javax.swing.JFrame {
         }
         
         pnlDataTable.repaint();
-        
-        //Set the numbers for the date of birth entries on Club Management. 
-        for (int k = 1; k <= 31; k++) {
-            selDate.addItem(k);
-        }
-        
-        //And month on Club Management.
-        String[] monthName = {"January", "February","March", "April", "May", "June", "July","August", "September", "October", "November","December"};
-        for (int l = 1; l <= 12; l++) {
-            selMonth.addItem(l);
-        }
-        
-        //Finally the year on Club Management. 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy");
-        Date date = new Date();
-        int yearStart = Integer.parseInt(dateFormat.format(date));
-        for (int l = 1900; l <= yearStart; l++) {
-            selYear.addItem(l);
-        }
-        
-        //Category on Club Management. 
-        String[] categoryName = {"F.I.G. A","F.I.G. B","National C","Regional D","Regional E","Regional F","Regional G","Club H","Club I"};
-        for (int l = 1; l <= categoryName.length; l++) {
-            selCategory.addItem(new ComboItem(Integer.toString(l), categoryName[l-1]));
-        }
-         
-        updateGymnastDropDown();
         
         // Setup Beam Status images
         this.beamStatusRedArray_ = new JLabel[16];
@@ -362,14 +315,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         beamStatusGreenArray_[14].setBounds(305, 58, 20, 20);
         beamStatusRedArray_[15].setBounds(305, 217, 20, 20);
         beamStatusGreenArray_[15].setBounds(305, 217, 20, 20);
- 
-        //Set size of list of tags
-        int noItems = lstTags.getModel().getSize()*35;
-        System.out.println(noItems);
-        lstTags.setPreferredSize(new Dimension(128,noItems));
-        lstTags.setSize(new Dimension (128,noItems));
         
-                
         //Create a dummy chart to add to essentially reserve the space on the relevant panels.        
         double[] values = new double[3];
         String[] names = new String[3];
@@ -384,14 +330,9 @@ public class TrampolineUI extends javax.swing.JFrame {
         
         //Create the chart objects with dummy data.
         chartObject_ = new Chart(values, names, "title");
-        chartObjectStats_ = new Chart(values, names, "title ststs");
-
-        //Set the two graph panels to have the appropriate layouts and add the charts. 
         pnlGraph.setLayout(new java.awt.BorderLayout());
         pnlGraph.add(chartObject_, BorderLayout.CENTER);
-        pnlStatisticsSmall.setLayout(new java.awt.BorderLayout());
-        pnlStatisticsSmall.add(chartObjectStats_, BorderLayout.CENTER);
-         
+        
         //Initially give values to avoid NullPointerExceptions
         chartValues = new double[10];
         chartNames  = new String[10];
@@ -399,11 +340,87 @@ public class TrampolineUI extends javax.swing.JFrame {
             chartValues[i] = 0;
             chartNames[i]  = "Bounce "+i;
         }
+    }
+    
+    private void initStatisticsPaneUI(){
+        //Create a dummy chart to add to essentially reserve the space on the relevant panels.        
+        double[] values = new double[3];
+        String[] names = new String[3];
+        values[0] = 1;
+        names[0] = "Item 1";
+
+        values[1] = 2;
+        names[1] = "Item 2";
+
+        values[2] = 4;
+        names[2] = "Item 3";
         
-        //Make admin tab invisible
+        //Create the chart objects with dummy data.
+        chartObjectStats_ = new Chart(values, names, "title ststs");
+        //Set the two panels to have the appropriate layouts and add the charts. 
+        pnlStatisticsSmall.setLayout(new java.awt.BorderLayout());
+        pnlStatisticsSmall.add(chartObjectStats_, BorderLayout.CENTER);
+    }
+    
+    private void initImportExportPaneUI(){
+        
+    }
+    
+    private void initClubManagementPaneUI(){
+        //Set the numbers for the date of birth entries on Club Management. 
+        for (int k = 1; k <= 31; k++) {
+            selDate.addItem(k);
+        }
+        
+        //And month on Club Management.
+        String[] monthName = {"January", "February","March", "April", "May", "June", "July","August", "September", "October", "November","December"};
+        for (int l = 1; l <= 12; l++) {
+            selMonth.addItem(l);
+        }
+        
+        //Finally the year on Club Management. 
+        DateFormat dateFormat = new SimpleDateFormat("yyyy");
+        Date date = new Date();
+        int yearStart = Integer.parseInt(dateFormat.format(date));
+        for (int l = 1900; l <= yearStart; l++) {
+            selYear.addItem(l);
+        }
+        
+        //Category on Club Management. 
+        String[] categoryName = {"F.I.G. A","F.I.G. B","National C","Regional D","Regional E","Regional F","Regional G","Club H","Club I"};
+        for (int l = 1; l <= categoryName.length; l++) {
+            selCategory.addItem(new ComboItem(Integer.toString(l), categoryName[l-1]));
+        }
+         
+        updateGymnastDropDown();
+        
+        //Make club management tab invisible
         pnlGymnast.setVisible(false);
         pnlRoutines.setVisible(false);
         pnlReset.setVisible(false);
+    }
+            
+    private void initGeneralUI() {
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        this.screenResolution_ = toolkit.getScreenSize();
+        layMainLayer.setSize(screenResolution_);
+        tabPane.setSize(screenResolution_);
+        pnlToF.setSize(screenResolution_);
+        pnlStatistics.setSize(screenResolution_);
+        pnlImportExport.setSize(screenResolution_);
+        pnlClubManagement.setSize(screenResolution_);
+        lblError.setText("");
+        
+        GraphicsEnvironment env =
+        GraphicsEnvironment.getLocalGraphicsEnvironment();
+        this.setMaximizedBounds(env.getMaximumWindowBounds ());
+        this.setExtendedState(this.getExtendedState()|JFrame.MAXIMIZED_BOTH); 
+        
+        //Set size of list of tags
+        int noItems = lstTags.getModel().getSize()*35;
+        System.out.println(noItems);
+        lstTags.setPreferredSize(new Dimension(128,noItems));
+        lstTags.setSize(new Dimension (128,noItems));
     }
     
     private void initDatabase(){
@@ -564,7 +581,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         btnExportUser = new javax.swing.JButton();
         rdoExportText = new javax.swing.JRadioButton();
         rdoExportExcel = new javax.swing.JRadioButton();
-        pnlAdmin = new javax.swing.JPanel();
+        pnlClubManagement = new javax.swing.JPanel();
         pnlGymnast = new javax.swing.JPanel();
         lblUser = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
@@ -1050,14 +1067,14 @@ public class TrampolineUI extends javax.swing.JFrame {
 
         tabPane.addTab("Import/Export Data", pnlImportExport);
 
-        pnlAdmin.addComponentListener(new java.awt.event.ComponentAdapter() {
+        pnlClubManagement.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
-                pnlAdminComponentShown(evt);
+                pnlClubManagementComponentShown(evt);
             }
         });
-        pnlAdmin.addFocusListener(new java.awt.event.FocusAdapter() {
+        pnlClubManagement.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                pnlAdminFocusGained(evt);
+                pnlClubManagementFocusGained(evt);
             }
         });
 
@@ -1213,25 +1230,25 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addGap(0, 247, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout pnlAdminLayout = new javax.swing.GroupLayout(pnlAdmin);
-        pnlAdmin.setLayout(pnlAdminLayout);
-        pnlAdminLayout.setHorizontalGroup(
-            pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAdminLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlClubManagementLayout = new javax.swing.GroupLayout(pnlClubManagement);
+        pnlClubManagement.setLayout(pnlClubManagementLayout);
+        pnlClubManagementLayout.setHorizontalGroup(
+            pnlClubManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlClubManagementLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlGymnast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlClubManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pnlReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlRoutines, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(272, Short.MAX_VALUE))
         );
-        pnlAdminLayout.setVerticalGroup(
-            pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAdminLayout.createSequentialGroup()
+        pnlClubManagementLayout.setVerticalGroup(
+            pnlClubManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlClubManagementLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pnlAdminLayout.createSequentialGroup()
+                .addGroup(pnlClubManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(pnlClubManagementLayout.createSequentialGroup()
                         .addComponent(pnlRoutines, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlReset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1239,7 +1256,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        tabPane.addTab("Club Management", pnlAdmin);
+        tabPane.addTab("Club Management", pnlClubManagement);
 
         tabPane.setBounds(0, 10, 1280, 730);
         layMainLayer.add(tabPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -1380,11 +1397,11 @@ public class TrampolineUI extends javax.swing.JFrame {
         updateGymnastDropDown();
     }//GEN-LAST:event_btnStatisticsUpdateActionPerformed
 
-    private void pnlAdminFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pnlAdminFocusGained
+    private void pnlClubManagementFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pnlClubManagementFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_pnlAdminFocusGained
+    }//GEN-LAST:event_pnlClubManagementFocusGained
 
-    private void pnlAdminComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_pnlAdminComponentShown
+    private void pnlClubManagementComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_pnlClubManagementComponentShown
         // TODO add your handling code here:
         if(this.adminAccessGranted_){
             pnlGymnast.setVisible(true);
@@ -1413,7 +1430,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                     break;
             }
         }
-    }//GEN-LAST:event_pnlAdminComponentShown
+    }//GEN-LAST:event_pnlClubManagementComponentShown
 
     private void TrampolineUIWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_TrampolineUIWindowOpened
         // TODO add your handling code here:
@@ -1634,7 +1651,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblUser;
     private javax.swing.JList lstTags;
     private javax.swing.JMenuBar menBar;
-    private javax.swing.JPanel pnlAdmin;
+    private javax.swing.JPanel pnlClubManagement;
     private javax.swing.JPanel pnlData;
     private javax.swing.JPanel pnlDataTable;
     private javax.swing.JPanel pnlExport;
