@@ -21,6 +21,11 @@ public class ComboItem {
         this.id_ = Integer.toString(id);
         this.name_ = name;
     }
+
+    public ComboItem(int id, int name) {
+        this.id_ = Integer.toString(id);
+        this.name_ = Integer.toString(name);;
+    }
     
     @Override
     public boolean equals(Object obj)
