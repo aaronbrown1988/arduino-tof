@@ -74,8 +74,11 @@ public class DBConnect {
     public int editGymnast(int gid, String name, int dobDay, int dobMonth, int dobYear, String category, int cid) {
         String dobfull = dobYear+"-"+dobMonth+"-"+dobDay;
         
+        System.out.println("UPDATE gymnasts SET clubid = '"+cid+"', gname = '"+name+"', dobday = '"+dobDay+"', dobmonth = '"+dobMonth+"', "
+                + "dobyear = '"+dobYear+"', dobfull = '"+dobfull+"', category = '"+category+"' "
+                + "WHERE gid = '"+gid+"'");
         return executeUpdate("UPDATE gymnasts SET clubid = '"+cid+"', gname = '"+name+"', dobday = '"+dobDay+"', dobmonth = '"+dobMonth+"', "
-                + "dobyear = '"+dobYear+"', dobfull = '"+dobfull+"', category = '"+category+"') "
+                + "dobyear = '"+dobYear+"', dobfull = '"+dobfull+"', category = '"+category+"' "
                 + "WHERE gid = '"+gid+"'");
     }
     
@@ -96,6 +99,7 @@ public class DBConnect {
                 gymnastList.add(new Gymnast(resultGetInt("gid"), resultGetString("gname"), resultGetInt("cid"), resultGetString("cname"), resultGetInt("dobday"), resultGetInt("dobmonth"), resultGetInt("dobyear"), resultGetInt("category")));
                 i++;
             }
+            rs_.close();
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -105,9 +109,19 @@ public class DBConnect {
     }
     
     public Jump getJump(int jid) {
-        executeQuery("SELECT * FROM jumps WHERE jid = '"+jid+"'");
-        
-        return new Jump(resultGetInt("break1"), resultGetInt("engage"), resultGetInt("break2"), "A0");
+        Jump j = new Jump();
+        try {
+            rs_ = stat_.executeQuery("SELECT * FROM jumps WHERE jid = '"+jid+"'");
+            while (rs_.next()) {
+                System.out.println("new jump123");
+                j = new Jump(rs_.getInt("break1"), rs_.getInt("engage"), rs_.getInt("break2"), "A0");
+            }
+            rs_.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return j;
     }
     
     //If we know we've already got the jump row loaded into "rs_" then use this. 
