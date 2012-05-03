@@ -17,9 +17,9 @@ public class Gymnast {
     private int dobmonth_;
     private int dobyear_;
     private String dobfull_;
-    private String category_;
+    private int category_;
     
-    Gymnast(int id, String name, int clubid, String clubname, int dobday, int dobmonth, int dobyear, String category) {
+    Gymnast(int id, String name, int clubid, String clubname, int dobday, int dobmonth, int dobyear, int category) {
         id_ = id;
         name_ = name;
         clubid_ = clubid;
@@ -36,7 +36,7 @@ public class Gymnast {
         name_ = name;
     }
     
-    public String getCategory() {
+    public int getCategory() {
         return category_;
     }
     

@@ -30,12 +30,25 @@ public class ComboItem {
     @Override
     public boolean equals(Object obj)
     {
-        if(this == obj)
+        //System.out.println("testing for equality ("+name_+")");
+        if(this == obj) {
             return true;
-        if((obj == null) || (obj.getClass() != this.getClass()))
+        }
+        //System.out.println("not same object");
+        if(obj == null) {
+            System.out.println("null object");
             return false;
-        // object must be Test at this point
+        }
+        //System.out.println("a");
+        if (obj.getClass() != this.getClass()) {
+            System.out.println("classes different"+obj.getClass()+"---"+this.getClass());
+            return false;
+        }
+        //System.out.println("b");
         ComboItem otherItem = (ComboItem)obj;
+        
+        //System.out.println("c");
+        System.out.println("is same class, and name="+name_+", othername="+otherItem.getName()+", equals is ");
         return name_ == otherItem.getName();
     }
 

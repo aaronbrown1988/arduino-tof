@@ -249,13 +249,13 @@ public class TrampolineUI extends javax.swing.JFrame {
         
         //Set the numbers for the date of birth entries on Club Management. 
         for (int k = 1; k <= 31; k++) {
-            selDate.addItem(k+"");
+            selDate.addItem(k);
         }
         
         //And month on Club Management.
         String[] monthName = {"January", "February","March", "April", "May", "June", "July","August", "September", "October", "November","December"};
         for (int l = 1; l <= 12; l++) {
-            selMonth.addItem(new ComboItem(Integer.toString(l), monthName[l-1]));
+            selMonth.addItem(l);
         }
         
         //Finally the year on Club Management. 
@@ -263,13 +263,13 @@ public class TrampolineUI extends javax.swing.JFrame {
         Date date = new Date();
         int yearStart = Integer.parseInt(dateFormat.format(date));
         for (int l = yearStart; l > 1900; l--) {
-            selYear.addItem(l+"");
+            selYear.addItem(l);
         }
         
         //Category on Club Management. 
         String[] categoryName = {"F.I.G. A","F.I.G. B","National C","Regional D","Regional E","Regional F","Regional G","Club H","Club I"};
-         for (String s:categoryName) {
-            selCategory.addItem(s);
+        for (int l = 1; l <= categoryName.length; l++) {
+            selCategory.addItem(new ComboItem(Integer.toString(l), categoryName[l-1]));
         }
          
         updateGymnastDropDown();
@@ -1255,7 +1255,11 @@ public class TrampolineUI extends javax.swing.JFrame {
     private void btnAddModifyUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddModifyUserActionPerformed
         if (selUserName.getSelectedIndex() == 0) {
             if (txtName.getText() == "") {
-                lblGymnastSuccess.setText("You must include a gymnast name.");
+                //Then we need to edit the gymnast. 
+                ComboItem gymnastItem = (ComboItem) selUserName.getSelectedItem();
+                ComboItem c = (ComboItem) selMonth.getSelectedItem();
+                
+                db_.editGymnast(gymnastItem.getNumericID(), txtName.getText(), Integer.parseInt(selDate.getSelectedItem().toString()), Integer.parseInt(c.getID()), Integer.parseInt(selYear.getSelectedItem().toString()), selCategory.getSelectedItem().toString(), 1);
             } else {
                 //Then we need to add the gymnast. Start by entering the information into the databse. 
                 ComboItem c = (ComboItem) selMonth.getSelectedItem();
@@ -1263,11 +1267,14 @@ public class TrampolineUI extends javax.swing.JFrame {
                 db_.addGymnast(txtName.getText(), Integer.parseInt(selDate.getSelectedItem().toString()), Integer.parseInt(c.getID()), Integer.parseInt(selYear.getSelectedItem().toString()), selCategory.getSelectedItem().toString());
 
                 //Add a success message.
-                lblGymnastSuccess.setText("The Gymnast '"+txtName.getText()+"' has been added.");
+                lblGymnastSuccess.setText("The Gymnast '"+txtName.getText()+"' has been edited.");
 
                 //Then clear all the items. 
                 txtName.setText("");
                 selDate.setSelectedIndex(0);
+                selMonth.setSelectedIndex(0);
+                selYear.setSelectedIndex(0);
+                selCategory.setSelectedIndex(0);
 
                 //Re-update the drop-down.
                 updateGymnastDropDown();
@@ -1376,10 +1383,15 @@ public class TrampolineUI extends javax.swing.JFrame {
         } else {
             Gymnast g = db_.getGymnast(c.getNumericID());
             txtName.setText(g.getName());
+            
+            lblGymnastSuccess.setText("The Gymnast '"+g.getDobDay()+"' has been deleted.");
+            
+            
+            
             selDate.setSelectedIndex(g.getDobDay());
             selMonth.setSelectedIndex(g.getDobMonth());
             selYear.setSelectedIndex(g.getDobYear());
-            //selCategory.setSelectedIndex(g.getCategory());
+            selCategory.setSelectedIndex(g.getCategory());
             btnAddModifyUser.setText("Modify User");
         }
     }//GEN-LAST:event_selUserNameActionPerformed

@@ -71,10 +71,18 @@ public class DBConnect {
         executeQuery("DELETE FROM gymnasts WHERE gid = '"+gid+"'");
     }
     
+    public int editGymnast(int gid, String name, int dobDay, int dobMonth, int dobYear, String category, int cid) {
+        String dobfull = dobYear+"-"+dobMonth+"-"+dobDay;
+        
+        return executeUpdate("UPDATE gymnasts SET clubid = '"+cid+"', gname = '"+name+"', dobday = '"+dobDay+"', dobmonth = '"+dobMonth+"', "
+                + "dobyear = '"+dobYear+"', dobfull = '"+dobfull+"', category = '"+category+"') "
+                + "WHERE gid = '"+gid+"'");
+    }
+    
     public Gymnast getGymnast(int gid) {
         executeQuery("SELECT g.*, c.* FROM gymnasts g, clubs c WHERE g.gid = '"+gid+"' AND g.clubid = c.cid");
         
-        return new Gymnast(resultGetInt("gid"), resultGetString("gname"), resultGetInt("cid"), resultGetString("cname"), resultGetInt("dobday"), resultGetInt("dobmonth"), resultGetInt("dobyear"), resultGetString("category"));
+        return new Gymnast(resultGetInt("gid"), resultGetString("gname"), resultGetInt("cid"), resultGetString("cname"), resultGetInt("dobday"), resultGetInt("dobmonth"), resultGetInt("dobyear"), resultGetInt("category"));
     }
     
     public Gymnast[] getAllGymnasts() {
@@ -85,7 +93,7 @@ public class DBConnect {
         
         try {
             while (rs_.next()) {
-                gymnastList.add(new Gymnast(resultGetInt("gid"), resultGetString("gname"), resultGetInt("cid"), resultGetString("cname"), resultGetInt("dobday"), resultGetInt("dobmonth"), resultGetInt("dobyear"), resultGetString("category")));
+                gymnastList.add(new Gymnast(resultGetInt("gid"), resultGetString("gname"), resultGetInt("cid"), resultGetString("cname"), resultGetInt("dobday"), resultGetInt("dobmonth"), resultGetInt("dobyear"), resultGetInt("category")));
                 i++;
             }
         }
