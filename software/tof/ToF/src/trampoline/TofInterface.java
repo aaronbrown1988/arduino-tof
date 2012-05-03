@@ -40,6 +40,7 @@ public class TofInterface {
     private int noBeamsBrokenShort_;            // Number of breaks in an event.
     private int noBeamsBrokenLong_;             // Number of breaks in an event.
     private int gymnast_;                       // ID of gymnast currently jumping.
+    private int currentRoutineID_;                // ID of current routine
     private ErrorHandler errorHandler_;         // Error Handler inherited from main project.
     
     
@@ -54,7 +55,8 @@ public class TofInterface {
         this.gridStatus_ = true;
         this.db_ = null;
         this.routine_ = null;
-        this.jump_ = null;        
+        this.jump_ = null;
+        this.currentRoutineID_ = 0;
         
         this.jumpData_ = new int[3];
         this.jumpData_[0] = -1;
@@ -169,6 +171,7 @@ public class TofInterface {
          this.db_ = database;
          this.gymnast_ = gymnast;
          this.routine_ = new Routine(noOfBounces);
+         this.currentRoutineID_ = 0;
          
          this.myPort_.clearBuffer();       
          this.jumpData_[0] = -1;
@@ -206,9 +209,7 @@ public class TofInterface {
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             Date date = new Date();
             
-            if(this.db_.addRoutine(this.routine_, this.gymnast_, dateFormat.format(date))==0){
-                //add Routine failed. Run error code.
-            }
+            this.currentRoutineID_ = this.db_.addRoutine(this.routine_, this.gymnast_, dateFormat.format(date));
         }
     }
     
@@ -230,6 +231,10 @@ public class TofInterface {
     
     public Routine getRoutine(){
         return this.routine_;
+    }
+    
+    public int getRoutineId(){
+        return this.currentRoutineID_;
     }
     
     public PortController getPort(){
