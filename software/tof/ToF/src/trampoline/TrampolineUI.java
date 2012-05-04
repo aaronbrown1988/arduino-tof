@@ -127,10 +127,14 @@ public class TrampolineUI extends javax.swing.JFrame {
         this.splashText("Setting up GUI.");
         this.splashProgress(80);
         initGeneralUI();
-        initToFPaneUI();
-        initStatisticsPaneUI();
-        initImportExportPaneUI();
-        initClubManagementPaneUI();
+        this.splashProgress(81);
+        initToFUI();
+        this.splashProgress(85);
+        initStatisticsUI();
+        this.splashProgress(90);
+        initImportExportUI();
+        this.splashProgress(95);
+        initClubManagementUI();
    
         if (mySplash_ != null)   // check if we really had a spash screen
             mySplash_.close();   // we're done with it
@@ -174,7 +178,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         jumpTimer = new javax.swing.Timer(1000, jumpAction);
     }
     
-    private void initToFPaneUI(){
+    private void initToFUI(){
         int screenHeight = this.getMaximizedBounds().height;
         int screenWidth = this.getMaximizedBounds().width;
            
@@ -387,7 +391,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         }
     }
     
-    private void initStatisticsPaneUI(){
+    private void initStatisticsUI(){
         //Create a dummy chart to add to essentially reserve the space on the relevant panels.        
         double[] values = new double[3];
         String[] names = new String[3];
@@ -407,11 +411,11 @@ public class TrampolineUI extends javax.swing.JFrame {
         pnlStatisticsSmall.add(chartObjectStats_, BorderLayout.CENTER);
     }
     
-    private void initImportExportPaneUI(){
+    private void initImportExportUI(){
         
     }
     
-    private void initClubManagementPaneUI(){
+    private void initClubManagementUI(){
         //Set the numbers for the date of birth entries on Club Management. 
         for (int k = 1; k <= 31; k++) {
             selDate.addItem(k);
