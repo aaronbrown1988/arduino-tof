@@ -175,14 +175,40 @@ public class TrampolineUI extends javax.swing.JFrame {
     }
     
     private void initToFPaneUI(){
-        int screenHeight = this.screenResolution_.height;
-        int screenWidth = this.screenResolution_.width;
-        
+        int screenHeight = this.getMaximizedBounds().height;
+        int screenWidth = this.getMaximizedBounds().width;
+           
         //Resolution specific layout
-        if(screenWidth<1280){
-            //Code for screens less than 1280 X 1024 assuming size of 1024 x 768
+        if(screenWidth<1200){
+            //Code for screens less than 1200 width (once taken off taskbar) assuming size of 1024 x 768
             pnlStats.setVisible(false);
             pnlGraph.setVisible(false);
+            
+            GroupLayout pnlToFLayout = (GroupLayout)pnlToF.getLayout();                    
+            pnlToFLayout.setHorizontalGroup(
+                pnlToFLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(pnlToFLayout.createSequentialGroup()
+                    .addContainerGap(5,5)
+                    .addGroup(pnlToFLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                        .addComponent(layBeamStatus, 400, 400, 400)
+                        .addComponent(pnlStart, 400, 400, 400))
+                    .addGap(15)
+                    .addComponent(pnlData, screenWidth - 440, screenWidth - 440, screenWidth - 440)
+                    .addContainerGap(5,5))
+            );
+            
+            pnlToFLayout.setVerticalGroup(
+                pnlToFLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(pnlToFLayout.createSequentialGroup()
+                    .addContainerGap(5,5)
+                    .addGroup(pnlToFLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                        .addGroup(pnlToFLayout.createSequentialGroup()
+                            .addComponent(pnlStart,screenHeight-365,screenHeight-365,screenHeight-365)
+                            .addGap(15)
+                            .addComponent(layBeamStatus, 240, 240, 240))
+                        .addComponent(pnlData,screenHeight-110,screenHeight-110,screenHeight-110))
+                     .addContainerGap(5,5)
+                ));
         }else{
             //Code for screens 1280 X 1024 or larger
             pnlStats.setVisible(true);
@@ -192,19 +218,36 @@ public class TrampolineUI extends javax.swing.JFrame {
             pnlToFLayout.setHorizontalGroup(
                 pnlToFLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(pnlToFLayout.createSequentialGroup()
-                    .addContainerGap()
+                    .addContainerGap(5,5)
                     .addGroup(pnlToFLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                        .addComponent(layBeamStatus, 400, 400, 400)
-                        .addComponent(pnlStart, 400, 400, 400))
-                    .addGap(18)
-                    .addComponent(pnlData, screenWidth - 900, screenWidth - 900, screenWidth - 900)
-                    .addGap(18)
+                        .addComponent(layBeamStatus, 380, 380, 380)
+                        .addComponent(pnlStart, 380, 380, 380))
+                    .addGap(15)
+                    .addComponent(pnlData, screenWidth - 800, screenWidth - 800, screenWidth - 800)
+                    .addGap(15)
                     .addGroup(pnlToFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(pnlStats, 400, 400, 400)
-                        .addComponent(pnlGraph, 400, 400, 400))
-                    .addContainerGap())
+                        .addComponent(pnlStats, 380, 380, 380)
+                        .addComponent(pnlGraph, 380, 380, 380))
+                    .addContainerGap(5,5))
             );
-        }
+            
+            pnlToFLayout.setVerticalGroup(
+                pnlToFLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(pnlToFLayout.createSequentialGroup()
+                    .addContainerGap(5,5)
+                    .addGroup(pnlToFLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                        .addGroup(pnlToFLayout.createSequentialGroup()
+                            .addComponent(pnlStart,screenHeight-365,screenHeight-365,screenHeight-365)
+                            .addGap(15)
+                            .addComponent(layBeamStatus, 240, 240, 240))
+                        .addComponent(pnlData,screenHeight-110,screenHeight-110,screenHeight-110)
+                        .addGroup(pnlToFLayout.createSequentialGroup()
+                                .addComponent(pnlStats,(screenHeight-125)/2,(screenHeight-125)/2,(screenHeight-125)/2)
+                                .addGap(15)
+                                .addComponent(pnlGraph,(screenHeight-125)/2,(screenHeight-125)/2,(screenHeight-125)/2)))
+                    .addContainerGap(5,5)
+                ));
+            }
         
         //Make the labels that we require for the centre panel. 
         labelArray_ = new JLabel[40];
@@ -270,6 +313,8 @@ public class TrampolineUI extends javax.swing.JFrame {
         pnlDataTable.repaint();
         
         // Setup Beam Status images
+        lblTrampoline.setBounds(7, 20, 366, 217);
+        
         this.beamStatusRedArray_ = new JLabel[16];
         this.beamStatusGreenArray_ = new JLabel[16];
         
@@ -283,38 +328,38 @@ public class TrampolineUI extends javax.swing.JFrame {
             beamStatusGreenArray_[i].setVisible(false);
         }
         
-        beamStatusRedArray_[0].setBounds(37, 180, 20, 20);
-        beamStatusGreenArray_[0].setBounds(37, 180, 20, 20);
-        beamStatusRedArray_[1].setBounds(333, 180, 20, 20);
-        beamStatusGreenArray_[1].setBounds(333, 180, 20, 20);
-        beamStatusRedArray_[2].setBounds(37, 140, 20, 20);
-        beamStatusGreenArray_[2].setBounds(37, 140, 20, 20);
-        beamStatusRedArray_[3].setBounds(333, 140, 20, 20);
-        beamStatusGreenArray_[3].setBounds(333, 140, 20, 20);
-        beamStatusRedArray_[4].setBounds(37, 100, 20, 20);
-        beamStatusGreenArray_[4].setBounds(37, 100, 20, 20);
-        beamStatusRedArray_[5].setBounds(333, 100, 20, 20);
-        beamStatusGreenArray_[5].setBounds(333, 100, 20, 20);
-        beamStatusRedArray_[6].setBounds(70, 58, 20, 20);
-        beamStatusGreenArray_[6].setBounds(70, 58, 20, 20);
-        beamStatusRedArray_[7].setBounds(70, 217, 20, 20);
-        beamStatusGreenArray_[7].setBounds(70, 217, 20, 20);
-        beamStatusRedArray_[8].setBounds(125, 58, 20, 20);
-        beamStatusGreenArray_[8].setBounds(125, 58, 20, 20);
-        beamStatusRedArray_[9].setBounds(125, 217, 20, 20);
-        beamStatusGreenArray_[9].setBounds(125, 217, 20, 20);
-        beamStatusRedArray_[10].setBounds(188, 58, 20, 20);
-        beamStatusGreenArray_[10].setBounds(188, 58, 20, 20);
-        beamStatusRedArray_[11].setBounds(188, 217, 20, 20);
-        beamStatusGreenArray_[11].setBounds(188, 217, 20, 20);
-        beamStatusRedArray_[12].setBounds(250, 58, 20, 20);
-        beamStatusGreenArray_[12].setBounds(250, 58, 20, 20);
-        beamStatusRedArray_[13].setBounds(250, 217, 20, 20);
-        beamStatusGreenArray_[13].setBounds(250, 217, 20, 20);
-        beamStatusRedArray_[14].setBounds(305, 58, 20, 20);
-        beamStatusGreenArray_[14].setBounds(305, 58, 20, 20);
-        beamStatusRedArray_[15].setBounds(305, 217, 20, 20);
-        beamStatusGreenArray_[15].setBounds(305, 217, 20, 20);
+        beamStatusRedArray_[0].setBounds(29, 160, 20, 20);
+        beamStatusGreenArray_[0].setBounds(29, 160, 20, 20);
+        beamStatusRedArray_[1].setBounds(325, 160, 20, 20);
+        beamStatusGreenArray_[1].setBounds(325, 160, 20, 20);
+        beamStatusRedArray_[2].setBounds(29, 120, 20, 20);
+        beamStatusGreenArray_[2].setBounds(29, 120, 20, 20);
+        beamStatusRedArray_[3].setBounds(325, 120, 20, 20);
+        beamStatusGreenArray_[3].setBounds(325, 120, 20, 20);
+        beamStatusRedArray_[4].setBounds(29, 80, 20, 20);
+        beamStatusGreenArray_[4].setBounds(29, 80, 20, 20);
+        beamStatusRedArray_[5].setBounds(325, 80, 20, 20);
+        beamStatusGreenArray_[5].setBounds(325, 80, 20, 20);
+        beamStatusRedArray_[6].setBounds(62, 40, 20, 20);
+        beamStatusGreenArray_[6].setBounds(62, 40, 20, 20);
+        beamStatusRedArray_[7].setBounds(62, 200, 20, 20);
+        beamStatusGreenArray_[7].setBounds(62, 200, 20, 20);
+        beamStatusRedArray_[8].setBounds(117, 40, 20, 20);
+        beamStatusGreenArray_[8].setBounds(117, 40, 20, 20);
+        beamStatusRedArray_[9].setBounds(117, 200, 20, 20);
+        beamStatusGreenArray_[9].setBounds(117, 200, 20, 20);
+        beamStatusRedArray_[10].setBounds(180, 40, 20, 20);
+        beamStatusGreenArray_[10].setBounds(180, 40, 20, 20);
+        beamStatusRedArray_[11].setBounds(180, 200, 20, 20);
+        beamStatusGreenArray_[11].setBounds(180, 200, 20, 20);
+        beamStatusRedArray_[12].setBounds(242, 40, 20, 20);
+        beamStatusGreenArray_[12].setBounds(242, 40, 20, 20);
+        beamStatusRedArray_[13].setBounds(242, 200, 20, 20);
+        beamStatusGreenArray_[13].setBounds(242, 200, 20, 20);
+        beamStatusRedArray_[14].setBounds(297, 40, 20, 20);
+        beamStatusGreenArray_[14].setBounds(297, 40, 20, 20);
+        beamStatusRedArray_[15].setBounds(297, 200, 20, 20);
+        beamStatusGreenArray_[15].setBounds(297, 200, 20, 20);
         
         //Create a dummy chart to add to essentially reserve the space on the relevant panels.        
         double[] values = new double[3];
@@ -403,6 +448,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     private void initGeneralUI() {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         this.screenResolution_ = toolkit.getScreenSize();
+        this.setSize(screenResolution_);
         layMainLayer.setSize(screenResolution_);
         tabPane.setSize(screenResolution_);
         pnlToF.setSize(screenResolution_);
@@ -410,10 +456,11 @@ public class TrampolineUI extends javax.swing.JFrame {
         pnlImportExport.setSize(screenResolution_);
         pnlClubManagement.setSize(screenResolution_);
         lblError.setText("");
+        lblError.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
         
         GraphicsEnvironment env =
         GraphicsEnvironment.getLocalGraphicsEnvironment();
-        this.setMaximizedBounds(env.getMaximumWindowBounds ());
+        this.setMaximizedBounds(env.getMaximumWindowBounds());
         this.setExtendedState(this.getExtendedState()|JFrame.MAXIMIZED_BOTH); 
         
         //Set size of list of tags
@@ -1515,7 +1562,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         /*
          * Create and display the form
          */    
-        
+        JFrame.setDefaultLookAndFeelDecorated(true);
         splashInit();           // initialize splash overlay drawing parameters
                
         java.awt.EventQueue.invokeLater(new Runnable() {
