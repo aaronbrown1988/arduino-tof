@@ -52,7 +52,7 @@ public class DBConnect {
     }
     
     private int addJump(Jump j, int routineid, int jumpnumber) {
-        return addJump(routineid, jumpnumber, j.getBreakStart(), j.getEngage(), j.getBreakEnd(), j.getTof(), j.getTon(), j.getTotal(), j.getlocation());
+        return addJump(routineid, jumpnumber, j.getBreakStart(), j.getEngage(), j.getBreakEnd(), j.getTof(), j.getTon(), j.getTotal(), j.getLocation());
     }
     
     public int addRoutine(Routine r, int gid, String datetime) {

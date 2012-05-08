@@ -100,7 +100,7 @@ public class Jump {
         return (this.breakEnd_ - this.breakStart_)/1000.0;
     }
     
-    public String getlocation(){
+    public String getLocation(){
         return this.location_;
     }
     
