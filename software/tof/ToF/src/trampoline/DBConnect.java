@@ -149,6 +149,31 @@ public class DBConnect {
         return r;
     }
     
+    //Gets all a Gymnasts Routines
+    public Routine[] getRoutinesForGymnast(int gid) {
+        executeQuery("SELECT * FROM routine WHERE gymnastid = '"+gid+"'");
+        
+        ArrayList<String> idList = new ArrayList<String>();
+        
+        //First get the list of IDs.
+        try {
+            while (rs_.next()) {
+                idList.add(resultGetString("rid"));
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        //Then, we have the list of IDs, so create an array of routines and return it. 
+        Routine[] r = new Routine[idList.size()];
+        for (int i = 0; i < idList.size(); i++) {
+            r[i] = getRoutine(Integer.parseInt(idList.get(i)));
+        }
+        
+        return r;
+    }
+    
     //We run this, then just use the class variable "rs_" to get our result set. 
     private boolean executeQuery(String s) {
         System.out.println("Execute: "+s);
