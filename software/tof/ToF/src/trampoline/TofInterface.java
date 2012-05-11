@@ -170,7 +170,7 @@ public class TofInterface {
          
          this.db_ = database;
          this.gymnast_ = gymnast;
-         this.routine_ = new Routine(noOfBounces);
+         this.routine_ = new Routine(noOfBounces, 0);
          this.currentRoutineID_ = 0;
          
          this.myPort_.clearBuffer();       
@@ -210,6 +210,7 @@ public class TofInterface {
             Date date = new Date();
             
             this.currentRoutineID_ = this.db_.addRoutine(this.routine_, this.gymnast_, dateFormat.format(date));
+            this.routine_.setRoutineId(this.currentRoutineID_);
         }
     }
     

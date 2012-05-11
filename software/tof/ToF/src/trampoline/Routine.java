@@ -11,6 +11,7 @@ package trampoline;
 public class Routine {
     private double averageJumpTime_;
     private int highestJump_;
+    private int id_;
     private Jump[] jumpArray_;
     private int lowestJump_;
     private int numberOfJumps_;
@@ -22,7 +23,8 @@ public class Routine {
     private double totalTon_;
     private int worstJumpForLosingHeight_;
     
-    Routine (Jump[] jumpList) {
+    Routine (Jump[] jumpList, int id) {
+        id_ = id;
         numberOfJumps_ = jumpList.length;
         jumpArray_     = new Jump[numberOfJumps_];
         statsHeights_  = new double[numberOfJumps_];
@@ -33,7 +35,8 @@ public class Routine {
         }
     }
     
-    Routine (int numberOfJumps) {
+    Routine (int numberOfJumps, int id) {
+        id_ = id;
         numberOfJumps_ = numberOfJumps;
         jumpArray_     = new Jump[numberOfJumps_];
         statsHeights_  = new double[numberOfJumps_];
@@ -88,6 +91,10 @@ public class Routine {
         averageJumpTime_ = totalTime_ / 10.0;
     }
     
+    public int getID() {
+        return id_;
+    }
+    
     public Jump[] getJumps() {
         return jumpArray_;
     }
@@ -114,5 +121,9 @@ public class Routine {
     
     public double getTotalTon() {
         return totalTon_;
+    }
+    
+    public void setRoutineId(int id) {
+        id_ = id;
     }
 }

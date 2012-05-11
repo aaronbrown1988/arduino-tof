@@ -732,8 +732,8 @@ public class TrampolineUI extends javax.swing.JFrame {
     }
     
     public void updateStatistics(Jump[] jumpList) {
-        Routine r = new Routine(jumpList);
-        updateStatistics(r);
+        //Routine r = new Routine(jumpList);
+        //updateStatistics(r);
     }
 
     /**
@@ -1116,6 +1116,12 @@ public class TrampolineUI extends javax.swing.JFrame {
         btnReadFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReadFileActionPerformed(evt);
+            }
+        });
+
+        selStatsGymnast.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selStatsGymnastActionPerformed(evt);
             }
         });
 
@@ -1553,7 +1559,8 @@ public class TrampolineUI extends javax.swing.JFrame {
             //Then we need to edit the gymnast. 
             ComboItem gymnastItem = (ComboItem) selUserName.getSelectedItem();
 
-            db_.editGymnast(gymnastItem.getNumericID(), txtName.getText(), Integer.parseInt(selDate.getSelectedItem().toString()), Integer.parseInt(selMonth.getSelectedItem().toString()), Integer.parseInt(selYear.getSelectedItem().toString()), selCategory.getSelectedItem().toString(), 1);
+            //Note that we have to take 1 off the date and month because of offsets. 
+            db_.editGymnast(gymnastItem.getNumericID(), txtName.getText(), Integer.parseInt(selDate.getSelectedItem().toString())-1, Integer.parseInt(selMonth.getSelectedItem().toString())-1, Integer.parseInt(selYear.getSelectedItem().toString()), selCategory.getSelectedItem().toString(), 1);
             lblGymnastSuccess.setText("The Gymnast '"+txtName.getText()+"' has been edited.");
 
             //Then clear all the items. 
@@ -1682,6 +1689,22 @@ public class TrampolineUI extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_selUserNameActionPerformed
+
+    private void selStatsGymnastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selStatsGymnastActionPerformed
+        //Get the selected gymnast. 
+        ComboItem c = (ComboItem) selStatsGymnast.getSelectedItem();
+        
+        if (c != null && c.getNumericID() != 0) {
+            Gymnast g = db_.getGymnast(c.getNumericID());
+
+            //Update the routine drop-down. 
+            Routine[] routineList = db_.getRoutinesForGymnast(g.getID());
+            drpStatsRoutine.removeAllItems();
+            for (Routine r:routineList) {
+                drpStatsRoutine.addItem(new ComboItem(r.getID(), "ID: "+r.getID()));
+            }
+        }
+    }//GEN-LAST:event_selStatsGymnastActionPerformed
    
     private void clearError(){
         lblError.setText("");

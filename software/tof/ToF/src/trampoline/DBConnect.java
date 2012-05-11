@@ -130,10 +130,10 @@ public class DBConnect {
     }
     
     public Routine getRoutine(int rid) {
-        executeQuery("SELECT * FROM routine WHERE rid = '"+rid+"'");
+        executeQuery("SELECT * FROM routines WHERE rid = '"+rid+"'");
         int numberOfJumps = resultGetInt("numberofjumps");
 
-        Routine r = new Routine(numberOfJumps);
+        Routine r = new Routine(numberOfJumps, rid);
         //executeQuery("SELECT * FROM jumps WHERE routineid = '"+rid+"' ORDER BY jumpnumber ASC");
         
         try {
@@ -151,7 +151,7 @@ public class DBConnect {
     
     //Gets all a Gymnasts Routines
     public Routine[] getRoutinesForGymnast(int gid) {
-        executeQuery("SELECT * FROM routine WHERE gymnastid = '"+gid+"'");
+        executeQuery("SELECT * FROM routines WHERE gymnastid = '"+gid+"'");
         
         ArrayList<String> idList = new ArrayList<String>();
         
