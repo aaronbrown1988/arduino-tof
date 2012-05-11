@@ -8,6 +8,7 @@ import java.io.*;
 import java.util.*;
 import java.awt.event.*;
 import java.awt.*;
+import java.awt.Image.*;
 import java.awt.geom.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -50,6 +51,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     private JLabel[] beamStatusGreenArray_;
     private JLabel[] beamStatusRedArray_;
     private int currentRoutineId_;      // ID of routine displayed on screen currently;
+    private ImageIcon[] locationImages_; //Array of location images for labels
     
     private boolean adminAccessGranted_;
     private String adminPassword_;
@@ -109,7 +111,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                 lblComments.setVisible(true);
                 pageRefreshTimer.stop();
                 currentRoutineId_ = currentInterface_.getRoutineId();
-            }     
+            } 
         }
     };
     
@@ -137,7 +139,6 @@ public class TrampolineUI extends javax.swing.JFrame {
         this.splashText("Setting up Hardware.");
         this.splashProgress(75);
         initHardware();
-   
         if (mySplash_ != null)   // check if we really had a spash screen
             mySplash_.close();   // we're done with it
     }
@@ -429,9 +430,37 @@ public class TrampolineUI extends javax.swing.JFrame {
             labelArray_[i*5+3].setFont(getFont("labelFont"));
             
             pnlDataTable.add(labelArray_[i*5+4]);
-            labelArray_[i*5+4].setText("Location "+i);
+            labelArray_[i*5+4].setText("");
             labelArray_[i*5+4].setFont(getFont("labelFont"));
         }
+        
+                    
+        
+        //Setup image array
+        locationImages_ = new ImageIcon[35];
+        char[] letters = {'A','B','C','D','E','F','G'};
+        char[] numbers = {'0','1','2','3','4'};
+        int count = 0;
+        for(char letter : letters){
+            for(char number: numbers){
+                ImageIcon icon = new ImageIcon(getClass().getResource("/trampoline/images/"+letter+number+".png"));
+                Image img = icon.getImage();
+                java.awt.image.BufferedImage bi = new java.awt.image.BufferedImage((screenWidth - 830)/5, (screenHeight-320)/11, java.awt.image.BufferedImage.TYPE_INT_ARGB);
+                Graphics g = bi.createGraphics();
+                g.drawImage(img, 0,0, (screenWidth - 830)/5, (screenHeight-320)/11, null);
+                locationImages_[count] = new ImageIcon(bi);
+                count++;
+            }
+        }
+        
+        labelArray_[4].setIcon(getLocationImage("D2"));
+        labelArray_[9].setIcon(getLocationImage("E2"));
+        labelArray_[14].setIcon(getLocationImage("F1"));
+        labelArray_[19].setIcon(getLocationImage("G4"));
+        labelArray_[24].setIcon(getLocationImage("A3"));
+        labelArray_[29].setIcon(getLocationImage("B4"));
+        labelArray_[34].setIcon(getLocationImage("C1"));
+        labelArray_[39].setIcon(getLocationImage("E4"));
         
         pnlDataTable.repaint();
         
@@ -444,10 +473,10 @@ public class TrampolineUI extends javax.swing.JFrame {
         for(int i = 0; i < 16; i++){
             beamStatusRedArray_[i] = new JLabel("");
             beamStatusGreenArray_[i] = new JLabel("");
-            beamStatusRedArray_[i].setIcon(new javax.swing.ImageIcon(getClass().getResource("/trampoline/images/redBeam.png")));
-            beamStatusGreenArray_[i].setIcon(new javax.swing.ImageIcon(getClass().getResource("/trampoline/images/greenBeam.png")));
-            layBeamStatus.add(beamStatusRedArray_[i], javax.swing.JLayeredPane.POPUP_LAYER);
-            layBeamStatus.add(beamStatusGreenArray_[i], javax.swing.JLayeredPane.POPUP_LAYER);
+            beamStatusRedArray_[i].setIcon(new ImageIcon(getClass().getResource("/trampoline/images/redBeam.png")));
+            beamStatusGreenArray_[i].setIcon(new ImageIcon(getClass().getResource("/trampoline/images/greenBeam.png")));
+            layBeamStatus.add(beamStatusRedArray_[i], JLayeredPane.POPUP_LAYER);
+            layBeamStatus.add(beamStatusGreenArray_[i], JLayeredPane.POPUP_LAYER);
             beamStatusGreenArray_[i].setVisible(false);
         }
         
@@ -736,6 +765,106 @@ public class TrampolineUI extends javax.swing.JFrame {
         //updateStatistics(r);
     }
 
+    
+    private ImageIcon getLocationImage(String location){
+        char[] chars = location.toCharArray();
+        int number = Integer.parseInt(chars[1]+"");
+        System.out.println(number);
+        switch(number){
+            case 0:
+                if(chars[0] == 'A'){
+                    return locationImages_[0];
+                }else if(chars[0] == 'B'){
+                    return locationImages_[5];
+                }else if(chars[0] == 'C'){
+                    return locationImages_[10];
+                }else if(chars[0] == 'D'){
+                    return locationImages_[15];
+                }else if(chars[0] == 'E'){
+                    return locationImages_[20];
+                }else if(chars[0] == 'F'){
+                    return locationImages_[25];
+                }else if(chars[0] == 'G'){
+                    return locationImages_[30];
+                }else{
+                    return null;
+                }
+            case 1:
+                if(chars[0] == 'A'){
+                    return locationImages_[1];
+                }else if(chars[0] == 'B'){
+                    return locationImages_[6];
+                }else if(chars[0] == 'C'){
+                    return locationImages_[11];
+                }else if(chars[0] == 'D'){
+                    return locationImages_[16];
+                }else if(chars[0] == 'E'){
+                    return locationImages_[21];
+                }else if(chars[0] == 'F'){
+                    return locationImages_[26];
+                }else if(chars[0] == 'G'){
+                    return locationImages_[31];
+                }else{
+                    return null;
+                }
+            case 2:
+                if(chars[0] == 'A'){
+                    return locationImages_[2];
+                }else if(chars[0] == 'B'){
+                    return locationImages_[7];
+                }else if(chars[0] == 'C'){
+                    return locationImages_[12];
+                }else if(chars[0] == 'D'){
+                    return locationImages_[17];
+                }else if(chars[0] == 'E'){
+                    return locationImages_[22];
+                }else if(chars[0] == 'F'){
+                    return locationImages_[27];
+                }else if(chars[0] == 'G'){
+                    return locationImages_[32];
+                }else{
+                    return null;
+                }
+            case 3:
+                if(chars[0] == 'A'){
+                    return locationImages_[3];
+                }else if(chars[0] == 'B'){
+                    return locationImages_[8];
+                }else if(chars[0] == 'C'){
+                    return locationImages_[13];
+                }else if(chars[0] == 'D'){
+                    return locationImages_[18];
+                }else if(chars[0] == 'E'){
+                    return locationImages_[23];
+                }else if(chars[0] == 'F'){
+                    return locationImages_[28];
+                }else if(chars[0] == 'G'){
+                    return locationImages_[33];
+                }else{
+                    return null;
+                }
+            case 4:
+                if(chars[0] == 'A'){
+                    return locationImages_[4];
+                }else if(chars[0] == 'B'){
+                    return locationImages_[9];
+                }else if(chars[0] == 'C'){
+                    return locationImages_[14];
+                }else if(chars[0] == 'D'){
+                    return locationImages_[19];
+                }else if(chars[0] == 'E'){
+                    return locationImages_[24];
+                }else if(chars[0] == 'F'){
+                    return locationImages_[29];
+                }else if(chars[0] == 'G'){
+                    return locationImages_[34];
+                }else{
+                    return null;
+                }
+            default:
+                return null;  
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
