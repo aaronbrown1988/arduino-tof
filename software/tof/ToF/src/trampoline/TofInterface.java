@@ -113,9 +113,9 @@ public class TofInterface {
                         break;
                     case 8:
                         if(breakOrderLongSide_[1]=='7'){
-                            location[0]='G';
-                        }else{
                             location[0]='F';
+                        }else{
+                            location[0]='G';
                         }
                         break;
                 }
@@ -124,9 +124,9 @@ public class TofInterface {
                 switch(breakOrderShortSide_[0]){
                     case 1:
                         if(breakOrderShortSide_[1]=='2'){
-                            location[1]= '0';
-                        }else{
                             location[1]= '1';
+                        }else{
+                            location[1]= '0';
                         }
                         break;
                     case 2:
