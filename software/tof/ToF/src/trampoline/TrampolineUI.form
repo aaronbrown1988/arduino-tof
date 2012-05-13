@@ -83,7 +83,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JLayeredPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JLayeredPaneSupportLayout$JLayeredPaneConstraintsDescription">
-              <JLayeredPaneConstraints x="0" y="10" width="1280" height="730" layer="0" position="-1"/>
+              <JLayeredPaneConstraints x="0" y="10" width="1280" height="1650" layer="0" position="-1"/>
             </Constraint>
           </Constraints>
 
@@ -140,7 +140,7 @@
                               </Group>
                               <Component id="pnlData" min="-2" pref="632" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="57" max="32767" attributes="0"/>
+                          <EmptySpace pref="977" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -578,7 +578,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jPanel1" max="32767" attributes="0"/>
-                              <Component id="pnlStatisticsSmall" pref="680" max="32767" attributes="0"/>
+                              <Component id="pnlStatisticsSmall" pref="1600" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -658,7 +658,7 @@
                                   <Component id="lblStatsRoutine" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="drpStatsRoutine" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="535" max="32767" attributes="0"/>
+                              <EmptySpace pref="1455" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -802,7 +802,7 @@
                               <Component id="rdoExportText" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="rdoExportExcel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="525" max="32767" attributes="0"/>
+                              <EmptySpace pref="1445" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -848,31 +848,47 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="pnlGymnast" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="pnlReset" max="32767" attributes="0"/>
-                              <Component id="pnlRoutines" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="pnlGymnastDetails" alignment="1" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="pnlRoutines" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="pnlAdmin" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="pnlGymnast" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                                  <Component id="lblClubManagementInfo" min="-2" pref="233" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="232" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace pref="272" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="pnlRoutines" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="pnlReset" min="-2" max="-2" attributes="0"/>
+                                  <Component id="pnlGymnast" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="pnlGymnast" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                                  <Component id="lblClubManagementInfo" min="-2" pref="21" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="210" max="-2" attributes="0"/>
+                          <Component id="pnlGymnastDetails" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="pnlRoutines" min="-2" pref="306" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="pnlAdmin" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="739" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -890,33 +906,181 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lblGymnast" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="drpGymnastName" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                              <Component id="btnAddGymnast" min="-2" pref="126" max="-2" attributes="0"/>
+                              <EmptySpace pref="480" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lblGymnast" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="drpGymnastName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnAddGymnast" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="65" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JLabel" name="lblGymnast">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Gymnast:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JComboBox" name="drpGymnastName">
+                      <Properties>
+                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                          <StringArray count="0"/>
+                        </Property>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="drpGymnastNameActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="btnAddGymnast">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Add New User"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddGymnastActionPerformed"/>
+                      </Events>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Container class="javax.swing.JPanel" name="pnlAdmin">
+                  <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                        <TitledBorder title="Administration"/>
+                      </Border>
+                    </Property>
+                  </Properties>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lblNewPassword" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="txtPassword1" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+                              <Component id="lblNewPassword2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                              <Component id="txtPassword2" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="btnNewPassword" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+                              <Component id="btnResetAll" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                              <Component id="btnLogout" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblNewPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtPassword1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnResetAll" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnNewPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtPassword2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblNewPassword2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnLogout" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JLabel" name="lblNewPassword">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="New Password:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblNewPassword2">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Retype Password:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="txtPassword2">
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="txtPassword1">
+                    </Component>
+                    <Component class="javax.swing.JButton" name="btnResetAll">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Reset All Data"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnResetAllActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="btnNewPassword">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="New Password"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="btnLogout">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Logout"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogoutActionPerformed"/>
+                      </Events>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Container class="javax.swing.JPanel" name="pnlGymnastDetails">
+                  <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                        <TitledBorder title="Gymnast Details"/>
+                      </Border>
+                    </Property>
+                  </Properties>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="lblCategory" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblDoB" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblUser" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="lblName" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblDoB" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtName" min="-2" pref="100" max="-2" attributes="0"/>
                                           <Group type="102" attributes="0">
-                                              <Component id="selDate" min="-2" max="-2" attributes="0"/>
+                                              <Component id="drpDate" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="selMonth" min="-2" max="-2" attributes="0"/>
+                                              <Component id="drpMonth" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="selYear" min="-2" max="-2" attributes="0"/>
+                                              <Component id="drpYear" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="444" max="-2" attributes="0"/>
+                                              <Component id="btnAddModifyUser" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="selCategory" min="-2" max="-2" attributes="0"/>
-                                          <Component id="btnAddModifyUser" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="btnDeleteUser" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="selUserName" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Component id="txtName" min="-2" pref="100" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
+                                              <Component id="lblCategory" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="drpCategory" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
-                                  <Component id="lblGymnastSuccess" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnDeleteUser" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -925,53 +1089,60 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblUser" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="selUserName" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="lblName" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblCategory" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="drpCategory" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="lblDoB" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="selDate" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="selMonth" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="selYear" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="drpDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="drpMonth" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="drpYear" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnAddModifyUser" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblCategory" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="selCategory" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="btnAddModifyUser" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btnDeleteUser" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="lblGymnastSuccess" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="lblUser">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="User:"/>
-                      </Properties>
-                    </Component>
                     <Component class="javax.swing.JLabel" name="lblName">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Name:"/>
                       </Properties>
                     </Component>
+                    <Component class="javax.swing.JTextField" name="txtName">
+                    </Component>
                     <Component class="javax.swing.JLabel" name="lblDoB">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="DoB:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JComboBox" name="drpDate">
+                      <Properties>
+                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                          <StringArray count="0"/>
+                        </Property>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JComboBox" name="drpMonth">
+                      <Properties>
+                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                          <StringArray count="0"/>
+                        </Property>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JComboBox" name="drpYear">
+                      <Properties>
+                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                          <StringArray count="0"/>
+                        </Property>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="lblCategory">
@@ -979,28 +1150,7 @@
                         <Property name="text" type="java.lang.String" value="Category:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="selCategory">
-                      <Properties>
-                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="0"/>
-                        </Property>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JComboBox" name="selDate">
-                      <Properties>
-                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="0"/>
-                        </Property>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JComboBox" name="selMonth">
-                      <Properties>
-                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="0"/>
-                        </Property>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JComboBox" name="selYear">
+                    <Component class="javax.swing.JComboBox" name="drpCategory">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="0"/>
@@ -1023,20 +1173,6 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteUserActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="txtName">
-                    </Component>
-                    <Component class="javax.swing.JComboBox" name="selUserName">
-                      <Properties>
-                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="0"/>
-                        </Property>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selUserNameActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="lblGymnastSuccess">
-                    </Component>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="pnlRoutines">
@@ -1051,7 +1187,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
                               <Component id="jScrollPane3" min="-2" pref="305" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
@@ -1063,7 +1199,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
                               <Component id="jScrollPane3" min="-2" pref="227" max="-2" attributes="0"/>
-                              <EmptySpace pref="84" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1075,84 +1211,11 @@
                     </Container>
                   </SubComponents>
                 </Container>
-                <Container class="javax.swing.JPanel" name="pnlReset">
+                <Component class="javax.swing.JLabel" name="lblClubManagementInfo">
                   <Properties>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Reset"/>
-                      </Border>
-                    </Property>
+                    <Property name="text" type="java.lang.String" value="TEST INFORMATION IN MESSAGE BOX"/>
                   </Properties>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblNewPassword2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblNewPassword" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtPassword1" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                  <Component id="txtPassword2" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnNewPassword" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnResetAll" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="412" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblNewPassword" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtPassword1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnResetAll" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblNewPassword2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtPassword2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnNewPassword" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="247" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Component class="javax.swing.JLabel" name="lblNewPassword">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="New Password:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="lblNewPassword2">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Retype Password:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtPassword2">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtPassword1">
-                    </Component>
-                    <Component class="javax.swing.JButton" name="btnResetAll">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Reset All"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="btnNewPassword">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="New Password"/>
-                      </Properties>
-                    </Component>
-                  </SubComponents>
-                </Container>
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>
@@ -1171,7 +1234,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JLayeredPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JLayeredPaneSupportLayout$JLayeredPaneConstraintsDescription">
-              <JLayeredPaneConstraints x="460" y="15" width="420" height="15" layer="300" position="-1"/>
+              <JLayeredPaneConstraints x="460" y="10" width="420" height="20" layer="300" position="-1"/>
             </Constraint>
           </Constraints>
         </Component>
