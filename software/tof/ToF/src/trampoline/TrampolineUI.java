@@ -869,8 +869,8 @@ public class TrampolineUI extends javax.swing.JFrame {
     }
     
     public void updateStatistics(Jump[] jumpList) {
-        Routine r = new Routine(jumpList);
-        updateStatistics(r);
+        //Routine r = new Routine(jumpList);
+        //updateStatistics(r);
     }
 
     /**
@@ -1256,6 +1256,12 @@ public class TrampolineUI extends javax.swing.JFrame {
         btnReadFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReadFileActionPerformed(evt);
+            }
+        });
+
+        selStatsGymnast.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selStatsGymnastActionPerformed(evt);
             }
         });
 
@@ -1743,8 +1749,9 @@ public class TrampolineUI extends javax.swing.JFrame {
             //Then we need to edit the gymnast. 
             ComboItem gymnastItem = (ComboItem) drpGymnastName.getSelectedItem();
 
-            db_.editGymnast(gymnastItem.getNumericID(), txtName.getText(), Integer.parseInt(drpDate.getSelectedItem().toString()), Integer.parseInt(drpMonth.getSelectedItem().toString()), Integer.parseInt(drpYear.getSelectedItem().toString()), drpCategory.getSelectedItem().toString(), 1);
-            lblClubManagementInfo.setText("The Gymnast '"+txtName.getText()+"' has been edited.");
+            //Note that we have to take 1 off the date and month because of offsets. 
+            db_.editGymnast(gymnastItem.getNumericID(), txtName.getText(), Integer.parseInt(selDate.getSelectedItem().toString())-1, Integer.parseInt(selMonth.getSelectedItem().toString())-1, Integer.parseInt(selYear.getSelectedItem().toString()), selCategory.getSelectedItem().toString(), 1);
+            lblGymnastSuccess.setText("The Gymnast '"+txtName.getText()+"' has been edited.");
 
             //Then clear all the items. 
             txtName.setText("");
@@ -1876,37 +1883,23 @@ public class TrampolineUI extends javax.swing.JFrame {
                 btnAddModifyUser.setText("Modify User");
             }
         }
-    }//GEN-LAST:event_drpGymnastNameActionPerformed
+    }//GEN-LAST:event_selUserNameActionPerformed
 
-    private void btnAddGymnastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddGymnastActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAddGymnastActionPerformed
+    private void selStatsGymnastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selStatsGymnastActionPerformed
+        //Get the selected gymnast. 
+        ComboItem c = (ComboItem) selStatsGymnast.getSelectedItem();
+        
+        if (c != null && c.getNumericID() != 0) {
+            Gymnast g = db_.getGymnast(c.getNumericID());
 
-    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        tabPane.setSelectedIndex(0);
-        pnlGymnast.setVisible(false);
-        pnlGymnastDetails.setVisible(false);
-        pnlRoutines.setVisible(false);
-        pnlAdmin.setVisible(false);
-        lblClubManagementInfo.setVisible(false);
-        this.errorHandler_.setError(4);
-    }//GEN-LAST:event_btnLogoutActionPerformed
-
-    private void btnResetAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetAllActionPerformed
-       ResetAllConfirm resetConfirmPopup = new ResetAllConfirm(this, true, adminPassword_);
-       resetConfirmPopup.setVisible(true);
-       /*switch(passwordPopup.getReturnStatus()){
-           case 0:
-               //Bad Password
-           case 1:
-               JOptionPane optionPane = new JOptionPane(
-                    "Are you sure you wish to delete\n"
-                    + "all information in the database?\n"
-                    + "",
-                    JOptionPane.WARNING_MESSAGE,
-                    JOptionPane.YES_NO_OPTION);
-        }*/
-    }//GEN-LAST:event_btnResetAllActionPerformed
+            //Update the routine drop-down. 
+            Routine[] routineList = db_.getRoutinesForGymnast(g.getID());
+            drpStatsRoutine.removeAllItems();
+            for (Routine r:routineList) {
+                drpStatsRoutine.addItem(new ComboItem(r.getID(), "ID: "+r.getID()));
+            }
+        }
+    }//GEN-LAST:event_selStatsGymnastActionPerformed
    
     /**
      * @param args the command line arguments
