@@ -1438,11 +1438,6 @@ public class TrampolineUI extends javax.swing.JFrame {
         });
 
         btnAddGymnast.setText("Add New User");
-        btnAddGymnast.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddGymnastActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout pnlGymnastLayout = new javax.swing.GroupLayout(pnlGymnast);
         pnlGymnast.setLayout(pnlGymnastLayout);
@@ -1750,8 +1745,8 @@ public class TrampolineUI extends javax.swing.JFrame {
             ComboItem gymnastItem = (ComboItem) drpGymnastName.getSelectedItem();
 
             //Note that we have to take 1 off the date and month because of offsets. 
-            db_.editGymnast(gymnastItem.getNumericID(), txtName.getText(), Integer.parseInt(selDate.getSelectedItem().toString())-1, Integer.parseInt(selMonth.getSelectedItem().toString())-1, Integer.parseInt(selYear.getSelectedItem().toString()), selCategory.getSelectedItem().toString(), 1);
-            lblGymnastSuccess.setText("The Gymnast '"+txtName.getText()+"' has been edited.");
+            db_.editGymnast(gymnastItem.getNumericID(), txtName.getText(), Integer.parseInt(drpDate.getSelectedItem().toString())-1, Integer.parseInt(drpMonth.getSelectedItem().toString())-1, Integer.parseInt(drpYear.getSelectedItem().toString()), drpCategory.getSelectedItem().toString(), 1);
+            lblClubManagementInfo.setText("The Gymnast '"+txtName.getText()+"' has been edited.");
 
             //Then clear all the items. 
             txtName.setText("");
@@ -1860,7 +1855,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         updateGymnastDropDown();
     }//GEN-LAST:event_btnDeleteUserActionPerformed
 
-    private void drpGymnastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpGymnastNameActionPerformed
+    private void drpGymnastNameActionPerformed(java.awt.event.ActionEvent evt) {                                               
         ComboItem c = (ComboItem) drpGymnastName.getSelectedItem();
         
         System.out.println(c+"herp");
@@ -1883,7 +1878,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                 btnAddModifyUser.setText("Modify User");
             }
         }
-    }//GEN-LAST:event_selUserNameActionPerformed
+    }                                           
 
     private void selStatsGymnastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selStatsGymnastActionPerformed
         //Get the selected gymnast. 
@@ -1900,6 +1895,44 @@ public class TrampolineUI extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_selStatsGymnastActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        tabPane.setSelectedIndex(0);
+        pnlGymnast.setVisible(false);
+        pnlGymnastDetails.setVisible(false);
+        pnlRoutines.setVisible(false);
+        pnlAdmin.setVisible(false);
+        lblClubManagementInfo.setVisible(false);
+        this.errorHandler_.setError(4);
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnResetAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetAllActionPerformed
+        
+        //Password currently hardcoded to "MasterReset" -> to be retrived from database later
+        ResetAllConfirm resetDialog = new ResetAllConfirm(this, true, "D642FBD7CACF27F7568A6ED701AA44D8");
+        resetDialog.setVisible(true);
+        switch(resetDialog.getReturnStatus()){
+            case 0:
+                // Bad password
+                lblClubManagementInfo.setText("Error: Incorrect Password Supplied for Master Reset");
+                break;
+            case 1:
+                //Correct password
+                Object[] options = {"Yes","No"};
+                int finalConfirm = JOptionPane.showOptionDialog(this,"Continuing will erase ALL DATA stored\n"
+                    + "in the database. Do you wish to continue?\n","Final Confirm of Master Reset" ,
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
+
+                if(finalConfirm == JOptionPane.YES_OPTION){
+                    //Confirmed to delete all the database data
+                    lblClubManagementInfo.setText("Database successfully purged of all data.");
+                }else{
+                    lblClubManagementInfo.setText("Master reset aborted.");
+                }
+                break;
+                //Display popup for confirmation
+        }   
+    }//GEN-LAST:event_btnResetAllActionPerformed
    
     /**
      * @param args the command line arguments
