@@ -1903,6 +1903,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         pnlRoutines.setVisible(false);
         pnlAdmin.setVisible(false);
         lblClubManagementInfo.setVisible(false);
+        this.adminAccessGranted_ = false;
         this.errorHandler_.setError(4);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
