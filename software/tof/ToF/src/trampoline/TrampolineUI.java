@@ -545,6 +545,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         names[2] = "Item 3";
         
         //Create the chart objects with dummy data.
+        /*
         chartObject_ = new Chart(values, names, "title");
         pnlGraph.setLayout(new java.awt.BorderLayout());
         pnlGraph.add(chartObject_, BorderLayout.CENTER);
@@ -556,6 +557,8 @@ public class TrampolineUI extends javax.swing.JFrame {
             chartValues[i] = 0;
             chartNames[i]  = "Bounce "+i;
         }
+        * *
+        */
     }
     
     private void initStatisticsUI(){
@@ -573,10 +576,10 @@ public class TrampolineUI extends javax.swing.JFrame {
         names[2] = "Item 3";
         
         //Create the chart objects with dummy data.
-        chartObjectStats_ = new Chart(values, names, "title ststs");
+        //chartObjectStats_ = new Chart(values, names, "title ststs");
         //Set the two panels to have the appropriate layouts and add the charts. 
         pnlStatisticsSmall.setLayout(new java.awt.BorderLayout());
-        pnlStatisticsSmall.add(chartObjectStats_, BorderLayout.CENTER);
+        //pnlStatisticsSmall.add(chartObjectStats_, BorderLayout.CENTER);
     }
     
     private void initImportExportUI(){
@@ -800,7 +803,8 @@ public class TrampolineUI extends javax.swing.JFrame {
     }
     
     //This function updates the mini chart on each bounce. 
-    public void updateChart(double[] values, String[] names, String title, JPanel pan) {        
+    public void updateChart(double[] values, String[] names, String title, JPanel pan) {     
+        /*
         chartObject_.updateInfo(values, names, title);
 
         //jPanel4.setLayout(new java.awt.BorderLayout());
@@ -810,6 +814,8 @@ public class TrampolineUI extends javax.swing.JFrame {
         pan.add(chartObject_, BorderLayout.CENTER);
         pan.validate();
         pan.repaint();
+        * 
+        */
     }
     
     public void updateChart(double[] values, String[] names, String title) {
@@ -856,7 +862,7 @@ public class TrampolineUI extends javax.swing.JFrame {
             names[i]  = "Jump "+i;
             System.out.println(i+ " - "+values[i]+ "=== "+names[i]);
         }
-        
+        /*
         chartObjectStats_.updateInfo(values, names, "tsdfsndf");
 
         //jPanel4.setLayout(new java.awt.BorderLayout());
@@ -866,6 +872,8 @@ public class TrampolineUI extends javax.swing.JFrame {
         pnlStatisticsSmall.add(chartObjectStats_, BorderLayout.CENTER);
         pnlStatisticsSmall.validate();
         pnlStatisticsSmall.repaint();
+        * 
+        */
     }
     
     public void updateStatistics(Jump[] jumpList) {
