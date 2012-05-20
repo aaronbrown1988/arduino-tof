@@ -117,7 +117,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="pnlStats" max="32767" attributes="0"/>
-                              <Component id="pnlGraph" pref="375" max="32767" attributes="0"/>
+                              <Component id="pnlGraph" pref="445" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -377,9 +377,9 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="201" max="32767" attributes="0"/>
+                              <EmptySpace pref="131" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="sclComments" min="-2" max="-2" attributes="0"/>
@@ -512,7 +512,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="363" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="433" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">

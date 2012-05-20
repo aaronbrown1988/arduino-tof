@@ -536,22 +536,24 @@ public class TrampolineUI extends javax.swing.JFrame {
         beamStatusRedArray_[15].setBounds(297, 200, 20, 20);
         beamStatusGreenArray_[15].setBounds(297, 200, 20, 20);
 		
-		//Dataset for use with JFreeChart
-		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue(25.0, "Series 1", "Category 1");   
-        dataset.addValue(34.0, "Series 1", "Category 2");   
-        dataset.addValue(19.0, "Series 2", "Category 1");   
-        dataset.addValue(29.0, "Series 2", "Category 2");   
-        dataset.addValue(41.0, "Series 3", "Category 1");   
-        dataset.addValue(33.0, "Series 3", "Category 2");   
-        /*
+        //Create a dummy chart to add to essentially reserve the space on the relevant panels.        
+        double[] values = new double[3];
+        String[] names = new String[3];
+        values[0] = 7;
+        names[0] = "Jump 1";
+
+        values[1] = 2;
+        names[1] = "Jump 2";
+
+        values[2] = 4;
+        names[2] = "Jump 3";
+		
         //Create the chart objects with dummy data.
-        chartObject_ = new Chart("title");
+        chartObject_ = new Chart("Default Generated Statistics Chart", values, names, "Jump Number", "Height");
         pnlGraph.setLayout(new java.awt.BorderLayout());
-		JFreeChart jChart = chartObject_.createChart(dataset);
+		JFreeChart jChart = chartObject_.createChart();
 		ChartPanel CP = new ChartPanel(jChart);
-        //pnlGraph.add(CP);
-		pnlGraph.add(new JButton());
+        pnlGraph.add(CP);
         
         //Initially give values to avoid NullPointerExceptions
         chartValues = new double[10];
@@ -581,17 +583,6 @@ public class TrampolineUI extends javax.swing.JFrame {
     
     private void initStatisticsUI(){
 
-        //Create a dummy chart to add to essentially reserve the space on the relevant panels.        
-        double[] values = new double[3];
-        String[] names = new String[3];
-        values[0] = 1;
-        names[0] = "Item 1";
-
-        values[1] = 2;
-        names[1] = "Item 2";
-
-        values[2] = 4;
-        names[2] = "Item 3";
         
         //Create the chart objects with dummy data.
         //chartObjectStats_ = new Chart(values, names, "title ststs");
@@ -1182,7 +1173,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                         .addGroup(pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnSaveComments)
                             .addComponent(btnClearComments))))
-                .addContainerGap(201, Short.MAX_VALUE))
+                .addContainerGap(131, Short.MAX_VALUE))
             .addGroup(pnlDataLayout.createSequentialGroup()
                 .addGap(70, 70, 70)
                 .addGroup(pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1225,7 +1216,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         pnlGraph.setLayout(pnlGraphLayout);
         pnlGraphLayout.setHorizontalGroup(
             pnlGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 363, Short.MAX_VALUE)
+            .addGap(0, 433, Short.MAX_VALUE)
         );
         pnlGraphLayout.setVerticalGroup(
             pnlGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1252,7 +1243,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlToFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlStats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlGraph, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE))
+                    .addComponent(pnlGraph, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlToFLayout.setVerticalGroup(
@@ -1808,6 +1799,30 @@ public class TrampolineUI extends javax.swing.JFrame {
 
     private void btnClearCommentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearCommentsActionPerformed
         txtComments.setText("");
+		
+		//THIS IS CODE FOR ANDREAS TO TEST STUFF
+		//Create a dummy chart to add to essentially reserve the space on the relevant panels.        
+        double[] values = new double[4];
+        String[] names = new String[4];
+        values[0] = 7;
+        names[0] = "Jump 1";
+
+        values[1] = 2;
+        names[1] = "Jump 2";
+
+        values[2] = 4;
+        names[2] = "Jump 3";
+
+        values[3] = 10;
+        names[3] = "Jump 4";
+		
+        //pnlGraph.setLayout(new java.awt.BorderLayout());
+		pnlGraph.removeAll();
+		chartObject_.updateDataset(values, names);
+		JFreeChart jChart = chartObject_.createChart();
+		ChartPanel CP = new ChartPanel(jChart);
+        pnlGraph.add(CP);
+		pnlGraph.validate();
     }//GEN-LAST:event_btnClearCommentsActionPerformed
 
     private void btnClearDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearDataActionPerformed
