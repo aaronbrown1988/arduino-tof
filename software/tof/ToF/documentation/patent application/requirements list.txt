@@ -1,0 +1,57 @@
+> = Need to write/produce
+- = Specifications of documents
+
+Desciption:
+	- Plain A4 white paper
+	- 2cm margins all sides
+	
+	> Background of invetion
+	> Problem it solves
+	> What invetion does
+	> Key features first
+		> Not so important features
+	> Introduction to drawings
+	> Example of invetion with reference to drawing
+Drawings:
+	- Black, well defined lines
+	- One side of plain white A4 only (not double sided)
+	- 2cm margin top and left, 1.5cm on right, 1cm on bottom
+	- Specific features indicated with reference numbers (referred to in description)
+	- Reference numbers must match across all figures. 
+	- Sheets numbered in order (1/3, 2/3, 3/3 etc).
+	
+	> Electronic Diagrams of Sensors
+	> Electronic Diagram of Emitters
+	> Electronic Diagram of Control Box
+	> Trampoline Location diagrams
+	> Drawings of boxes from different angles
+	
+Claims:
+	- Each claim must be in a single sentence
+	- No commercial or other advantages
+	- No non-technical aspects 
+	
+	> List main technical features distingushing it from what exists already.
+	> Subsidiary features in a dependency list that refer to previous claims.
+Abstract:
+	- Max 150 words
+	- Plain white A4 paper
+	- Suggest which drawings goes best with abstract
+	- Use reference numbers
+	- Must include ALL technical features in description if they are mentioned in abstract.
+	
+	> Title same as title of description
+	> All most all important technical features
+Statement of Inventorship:
+	> Fill out a "Form 7"
+	
+	
+To be submitted:-
+	Form 1
+	Form 7
+	Description
+	Drawings
+	Claims
+	Abstract
+	
+	

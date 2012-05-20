@@ -189,6 +189,8 @@ public class TrampolineUI extends javax.swing.JFrame {
         int screenHeight = this.getMaximizedBounds().height;
         int screenWidth = this.getMaximizedBounds().width;
         int heightTags;  
+        Font centralTitleFont;
+        Font centralNumberFont;
         
         //Resolution specific layout
         if(screenWidth<1200){
@@ -253,6 +255,8 @@ public class TrampolineUI extends javax.swing.JFrame {
             );
             
             heightTags = 75;
+            centralTitleFont = getFont("centralTitleFontSmall");
+            centralNumberFont = getFont("centralNumbersFontSmall");
             //Setup image array
             locationImagesSmall_ = new HashMap<String,ImageIcon>(35);
             locationImagesLarge_ = new HashMap<String,ImageIcon>(35);
@@ -357,7 +361,8 @@ public class TrampolineUI extends javax.swing.JFrame {
                     count++;
                 }
             }
-           
+            centralTitleFont = getFont("centralTitleFontLarge");
+            centralNumberFont = getFont("centralNumbersFontLarge");
         }
         
         heightTags = screenHeight - 665;
@@ -407,38 +412,36 @@ public class TrampolineUI extends javax.swing.JFrame {
         
         //Make the labels that we require for the centre panel. 
         labelArray_ = new JLabel[50];
-        Font labelTitleFont = new Font("Calibri", Font.PLAIN, 16);
-        Font labelJumpNoFont = new Font("Calibri", Font.PLAIN, 16);
         
         pnlDataTable.setLayout(new GridLayout(11,5));
         
         //Create the labels for the titles.
         JLabel lblNumber = new JLabel();
-        lblNumber.setFont(labelTitleFont);
+        lblNumber.setFont(centralTitleFont);
         lblNumber.setName("lblNumber");
         lblNumber.setText("");
         pnlDataTable.add(lblNumber);
         
         JLabel lblTof = new JLabel();
-        lblTof.setFont(labelTitleFont);
+        lblTof.setFont(centralTitleFont);
         lblTof.setName("lblTof");
         lblTof.setText("ToF");
         pnlDataTable.add(lblTof);
         
         JLabel lblTon = new JLabel();
-        lblTon.setFont(labelTitleFont);
+        lblTon.setFont(centralTitleFont);
         lblTon.setName("lblTon");
         lblTon.setText("ToN");
         pnlDataTable.add(lblTon);
         
         JLabel lblTotal = new JLabel();
-        lblTotal.setFont(labelTitleFont);
+        lblTotal.setFont(centralTitleFont);
         lblTotal.setName("lblTotal");
         lblTotal.setText("Total");
         pnlDataTable.add(lblTotal);
         
         JLabel lblLocation = new JLabel();
-        lblLocation.setFont(labelTitleFont);
+        lblLocation.setFont(centralTitleFont);
         lblLocation.setName("lblLocation");
         lblLocation.setText("Location:");
         pnlDataTable.add(lblLocation);
@@ -456,24 +459,23 @@ public class TrampolineUI extends javax.swing.JFrame {
         for (int i = 0; i< 10; i++) {
             pnlDataTable.add(labelArray_[i*5]);
             labelArray_[i*5].setText("Jump "+(i+1)+":");
-            labelArray_[i*5].setFont(labelJumpNoFont);
+            labelArray_[i*5].setFont(centralTitleFont);
             //labelArray_[i*4].setVisible(false);
             
             pnlDataTable.add(labelArray_[i*5+1]);
-            labelArray_[i*5+1].setText("ToF "+i);
-            labelArray_[i*5+1].setFont(getFont("labelFont"));
+            labelArray_[i*5+1].setText("00.000");
+            labelArray_[i*5+1].setFont(centralNumberFont);
             
             pnlDataTable.add(labelArray_[i*5+2]);
-            labelArray_[i*5+2].setText("ToN "+i);
-            labelArray_[i*5+2].setFont(getFont("labelFont"));
+            labelArray_[i*5+2].setText("00.000");
+            labelArray_[i*5+2].setFont(centralNumberFont);
             
             pnlDataTable.add(labelArray_[i*5+3]);
-            labelArray_[i*5+3].setText("Total "+i);
-            labelArray_[i*5+3].setFont(getFont("labelFont"));
+            labelArray_[i*5+3].setText("00.000");
+            labelArray_[i*5+3].setFont(centralNumberFont);
             
             pnlDataTable.add(labelArray_[i*5+4]);
             labelArray_[i*5+4].setText("");
-            labelArray_[i*5+4].setFont(getFont("labelFont"));
         }
  
         labelArray_[4].setIcon(locationImagesSmall_.get("D2"));
@@ -484,6 +486,8 @@ public class TrampolineUI extends javax.swing.JFrame {
         labelArray_[29].setIcon(locationImagesSmall_.get("B4"));
         labelArray_[34].setIcon(locationImagesSmall_.get("C1"));
         labelArray_[39].setIcon(locationImagesSmall_.get("E4"));
+        labelArray_[44].setIcon(locationImagesSmall_.get("D2"));
+        labelArray_[49].setIcon(locationImagesSmall_.get("C3"));
                 
         pnlDataTable.repaint();
         
@@ -775,6 +779,22 @@ public class TrampolineUI extends javax.swing.JFrame {
         Font returnFont = new Font("Verdana", Font.PLAIN, 1);
         
         if(s.equals("labelFont")){
+            returnFont = new Font("Verdana", Font.PLAIN, 12);
+        }
+        
+        if(s.equals("centralTitleFontLarge")){
+            returnFont = new Font("Verdana", Font.BOLD, 14);
+        }
+        
+        if(s.equals("centralTitleFontSmall")){
+            returnFont = new Font("Verdana", Font.BOLD, 12);
+        }
+        
+        if(s.equals("centralNumbersFontLarge")){
+            returnFont = new Font("Verdana", Font.PLAIN, 14);
+        }
+        
+        if(s.equals("centralNumbersFontSmall")){
             returnFont = new Font("Verdana", Font.PLAIN, 12);
         }
         
@@ -1815,7 +1835,7 @@ public class TrampolineUI extends javax.swing.JFrame {
             labelArray_[i*5+1].setText("");
             labelArray_[i*5+2].setText("");
             labelArray_[i*5+3].setText("");
-            labelArray_[i*5+4].setText("");
+            labelArray_[i*5+4].setIcon(null);
         }
     }//GEN-LAST:event_btnClearDataActionPerformed
 
