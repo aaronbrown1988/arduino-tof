@@ -56,6 +56,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     private int currentRoutineId_;      // ID of routine displayed on screen currently;
     private Map<String,ImageIcon> locationImagesSmall_; //Array of location images for labels
     private Map<String,ImageIcon> locationImagesLarge_; //Array of location images for labels
+    private String currentLocation_; // String of location currently displayed
     
     private boolean adminAccessGranted_;
     private String adminPassword_;
@@ -80,6 +81,15 @@ public class TrampolineUI extends javax.swing.JFrame {
                         beamStatusGreenArray_[2*i].setVisible(false);
                         beamStatusGreenArray_[2*i+1].setVisible(false);                        
                     }
+                }
+                
+                String location = currentInterface_.getLastLocation();
+                
+                if(location.equals("")){
+                    location = "none";
+                }
+                if(!(location.equals(currentLocation_))){
+                    lblTrampoline.setIcon(locationImagesLarge_.get(location));
                 }
             }
             
@@ -255,8 +265,7 @@ public class TrampolineUI extends javax.swing.JFrame {
             );
             
             heightTags = 75;
-            centralTitleFont = getFont("centralTitleFontSmall");
-            centralNumberFont = getFont("centralNumbersFontSmall");
+            
             //Setup image array
             locationImagesSmall_ = new HashMap<String,ImageIcon>(35);
             locationImagesLarge_ = new HashMap<String,ImageIcon>(35);
@@ -275,6 +284,17 @@ public class TrampolineUI extends javax.swing.JFrame {
                     count++;
                 }
             }
+            
+            ImageIcon icon = new ImageIcon(getClass().getResource("/trampoline/images/eurotramp.png"));
+            Image img = icon.getImage();
+            java.awt.image.BufferedImage bi = new java.awt.image.BufferedImage(60, 35, java.awt.image.BufferedImage.TYPE_INT_ARGB);
+            Graphics g = bi.createGraphics();
+            g.drawImage(img, 0,0, 60, 35, null);
+            locationImagesSmall_.put("none", new ImageIcon(bi));
+            locationImagesLarge_.put("none", icon);
+            
+            centralTitleFont = getFont("centralTitleFontSmall");
+            centralNumberFont = getFont("centralNumbersFontSmall");
         }else{
             //Code for screens 1280 X 1024 or larger
             pnlStats.setVisible(true);
@@ -361,6 +381,15 @@ public class TrampolineUI extends javax.swing.JFrame {
                     count++;
                 }
             }
+            
+            ImageIcon icon = new ImageIcon(getClass().getResource("/trampoline/images/eurotramp.png"));
+            Image img = icon.getImage();
+            java.awt.image.BufferedImage bi = new java.awt.image.BufferedImage(60, 35, java.awt.image.BufferedImage.TYPE_INT_ARGB);
+            Graphics g = bi.createGraphics();
+            g.drawImage(img, 0,0, 60, 35, null);
+            locationImagesSmall_.put("none", new ImageIcon(bi));
+            locationImagesLarge_.put("none", icon);
+                                        
             centralTitleFont = getFont("centralTitleFontLarge");
             centralNumberFont = getFont("centralNumbersFontLarge");
         }
@@ -487,12 +516,14 @@ public class TrampolineUI extends javax.swing.JFrame {
         labelArray_[34].setIcon(locationImagesSmall_.get("C1"));
         labelArray_[39].setIcon(locationImagesSmall_.get("E4"));
         labelArray_[44].setIcon(locationImagesSmall_.get("D2"));
-        labelArray_[49].setIcon(locationImagesSmall_.get("C3"));
+        labelArray_[49].setIcon(locationImagesSmall_.get("none"));
                 
         pnlDataTable.repaint();
         
         // Setup Beam Status images
         lblTrampoline.setBounds(7, 20, 366, 217);
+        lblTrampoline.setIcon(locationImagesLarge_.get("none"));
+        currentLocation_ = "none";
         
         this.beamStatusRedArray_ = new JLabel[16];
         this.beamStatusGreenArray_ = new JLabel[16];
@@ -763,6 +794,8 @@ public class TrampolineUI extends javax.swing.JFrame {
         lblError.setText("");
         lblError.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
         lblError.setFont(getFont("errorFont"));
+        
+        currentLocation_ = "";
     }
 
     private void initDatabase(){
