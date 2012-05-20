@@ -18,13 +18,23 @@ public class ErrorHandler {
     private static final String[] shortErrors_ =   {"","Error: Incorrect password supplied for club management tab",
                                                     "Error: Database connection error",
                                                     "Error: ToF not attached",
-                                                    "Logout Successful"
+                                                    "Logout Successful",
+                                                    "Error: Comm port settings file not located",
+                                                    "Error: General I/O error with a file",
+                                                    "Error: Problem completing handshake with ToF",
+                                                    "Error: Problem communicating with ToF device.",
+                                                    "Error: Problem with clearing cache on COM Port."
                                                    };
     
     private static final String[] longErrors_ =    {"","The password supplied for access to the Club Managment tab was incorrect. Please try again.",
                                                     "An error occured whilst trying to initialise the database connection.",
                                                     "No time of flight device was found attached to the computer. Please check all cable connections are secure and the device is powered on.",
-                                                    "You have successfully logged out of the Club Management panel."
+                                                    "You have successfully logged out of the Club Management panel.",
+                                                    "The settings file for the COM ports on this system cannot be located. Please check the installation of the program has not been tampered with an re-instal if necessary.",
+                                                    "There has been a general input or output error when communicating with a file. This could be caused by the file not being found or by the file being in use by another program.",
+                                                    "The handshake with one of the ToF devices or COM ports on the system was not completed correctly. Please reboot all attached ToF devices.",
+                                                    "There was an error communicating with the ToF device. Please reboot all attached ToF devices.",
+                                                    "There was an issue with emptying the COM port data cache. Please restart the computer and reboot all attached ToF devices."
                                                    };
     
     ErrorHandler(){
