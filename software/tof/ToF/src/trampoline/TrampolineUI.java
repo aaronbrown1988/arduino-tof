@@ -18,6 +18,9 @@ import javax.xml.transform.dom.*;
 import javax.xml.transform.stream.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.w3c.dom.*;
 
 /**
@@ -192,6 +195,7 @@ public class TrampolineUI extends javax.swing.JFrame {
             //Code for screens less than 1200 width (once taken off taskbar) assuming size of 1024 x 768
             pnlStats.setVisible(false);
             pnlGraph.setVisible(false);
+            System.out.println("ssssssssssssssssssssssssssssss");
 
             GroupLayout pnlToFLayout = (GroupLayout)pnlToF.getLayout(); 
             pnlToFLayout.setHorizontalGroup(
@@ -271,7 +275,7 @@ public class TrampolineUI extends javax.swing.JFrame {
             //Code for screens 1280 X 1024 or larger
             pnlStats.setVisible(true);
             pnlGraph.setVisible(true);
-            
+            System.out.println("ujdsnbkjfndkgjndkfjn");
             GroupLayout pnlToFLayout = (GroupLayout)pnlToF.getLayout();  
             pnlToFLayout.setHorizontalGroup(
                 pnlToFLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -531,24 +535,23 @@ public class TrampolineUI extends javax.swing.JFrame {
         beamStatusGreenArray_[14].setBounds(297, 40, 20, 20);
         beamStatusRedArray_[15].setBounds(297, 200, 20, 20);
         beamStatusGreenArray_[15].setBounds(297, 200, 20, 20);
-        
-        //Create a dummy chart to add to essentially reserve the space on the relevant panels.        
-        double[] values = new double[3];
-        String[] names = new String[3];
-        values[0] = 1;
-        names[0] = "Item 1";
-
-        values[1] = 2;
-        names[1] = "Item 2";
-
-        values[2] = 4;
-        names[2] = "Item 3";
-        
-        //Create the chart objects with dummy data.
+		
+		//Dataset for use with JFreeChart
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dataset.addValue(25.0, "Series 1", "Category 1");   
+        dataset.addValue(34.0, "Series 1", "Category 2");   
+        dataset.addValue(19.0, "Series 2", "Category 1");   
+        dataset.addValue(29.0, "Series 2", "Category 2");   
+        dataset.addValue(41.0, "Series 3", "Category 1");   
+        dataset.addValue(33.0, "Series 3", "Category 2");   
         /*
-        chartObject_ = new Chart(values, names, "title");
+        //Create the chart objects with dummy data.
+        chartObject_ = new Chart("title");
         pnlGraph.setLayout(new java.awt.BorderLayout());
-        pnlGraph.add(chartObject_, BorderLayout.CENTER);
+		JFreeChart jChart = chartObject_.createChart(dataset);
+		ChartPanel CP = new ChartPanel(jChart);
+        //pnlGraph.add(CP);
+		pnlGraph.add(new JButton());
         
         //Initially give values to avoid NullPointerExceptions
         chartValues = new double[10];
@@ -557,8 +560,23 @@ public class TrampolineUI extends javax.swing.JFrame {
             chartValues[i] = 0;
             chartNames[i]  = "Bounce "+i;
         }
-        * *
-        */
+		/*
+		ChartFrame frame = new ChartFrame("First", chart);
+		frame.pack();
+		frame.setVisible(true);
+
+		GroupLayout mainPanelLayout = new GroupLayout(mainPanel);
+		mainPanel.setLayout(mainPanelLayout);
+		mainPanelLayout.setAutoCreateContainerGaps(true);
+		mainPanelLayout.setAutoCreateGaps(true);
+		GroupLayout.SequentialGroup hGroup = mainPanelLayout.createSequentialGroup();
+		hGroup.addComponent(frame);
+		mainPanelLayout.setHorizontalGroup(hGroup);
+		GroupLayout.SequentialGroup vGroup = mainPanelLayout.createSequentialGroup();
+		vGroup.addComponent(frame);
+		mainPanelLayout.setVerticalGroup(vGroup);
+		* 
+		*/
     }
     
     private void initStatisticsUI(){
@@ -589,7 +607,8 @@ public class TrampolineUI extends javax.swing.JFrame {
     private void initClubManagementUI(){
         int screenHeight = this.getMaximizedBounds().height;
         int screenWidth = this.getMaximizedBounds().width;
-        
+        System.out.println("Screen Height: "+screenHeight);
+        System.out.println("Screen Width: "+screenWidth);
         
         GroupLayout pnlClubManagementLayout = (GroupLayout)pnlClubManagement.getLayout();  
         pnlClubManagementLayout.setHorizontalGroup(
@@ -712,19 +731,27 @@ public class TrampolineUI extends javax.swing.JFrame {
     private void initGeneralUI() { 
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         this.screenResolution_ = toolkit.getScreenSize();
-        this.setSize(screenResolution_);
+        
         
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Chronos");
         tabPane.setBackground(new Color(255, 255, 255));
         tabPane.setBackground(new Color(255, 255, 255));
         
+		this.setSize(screenResolution_);
+		this.setPreferredSize(screenResolution_);
+		tabPane.setSize(screenResolution_);
+		tabPane.setPreferredSize(screenResolution_);
+		layMainLayer.setPreferredSize(screenResolution_);
         layMainLayer.setSize(screenResolution_);
-        tabPane.setSize(screenResolution_);
         pnlToF.setSize(screenResolution_);
+		pnlToF.setPreferredSize(screenResolution_);
         pnlStatistics.setSize(screenResolution_);
+		pnlStatistics.setPreferredSize(screenResolution_);
         pnlImportExport.setSize(screenResolution_);
+		pnlImportExport.setPreferredSize(screenResolution_);
         pnlClubManagement.setSize(screenResolution_);
+		pnlClubManagement.setPreferredSize(screenResolution_);
         
         
         GraphicsEnvironment env =
