@@ -14,19 +14,6 @@ import java.util.*;
  * @author Kieran
  */
 public class TofInterface {
-    
-    private String errorList_[] = {
-                        "",
-                        "ToF not located on any COM Port.",
-                        "Error opening communications with ToF.",
-                        "Error getting data from ToF.",
-                        "Error clearing cache on COM Port.",
-                        "Error settings file not located.",
-                        "General IO error with a file.",
-                        "Error opening output XML file.",
-                        "Error writing bounce data to file.",
-                        "Error with order of break/engage data coming from device."};
-    private int error_;                         // Error Flag.
     private boolean beamStatus_[];              // Status of 8 beams in the ToF
     private int noToCollect_;                   // Flag for collecting data.
     private boolean gridStatus_;                // Status of grid
@@ -40,7 +27,8 @@ public class TofInterface {
     private int noBeamsBrokenShort_;            // Number of breaks in an event.
     private int noBeamsBrokenLong_;             // Number of breaks in an event.
     private int gymnast_;                       // ID of gymnast currently jumping.
-    private int currentRoutineID_;                // ID of current routine
+    private int currentRoutineID_;              // ID of current routine
+    private String lastLocation_;               // Location of the last jump.
     private ErrorHandler errorHandler_;         // Error Handler inherited from main project.
     
     
@@ -50,7 +38,6 @@ public class TofInterface {
             this.beamStatus_[i] = false;
         }
 
-        this.error_ = 0;
         this.noToCollect_ = 0;
         this.gridStatus_ = true;
         this.db_ = null;
@@ -58,6 +45,7 @@ public class TofInterface {
         this.jump_ = null;
         this.currentRoutineID_ = 0;
         
+        this.lastLocation_ = "";
         this.jumpData_ = new int[3];
         this.jumpData_[0] = -1;
         this.jumpData_[1] = -1;
@@ -82,82 +70,96 @@ public class TofInterface {
         String strBeamStatus = Integer.toBinaryString(broken);
         char[] chrBeamStatus = strBeamStatus.toCharArray();
 
-        if(this.noToCollect_!=0){ 
-            if(this.gridStatus_==true && broken!=255){
-                //grid was intact and is now broken
-                this.noToCollect_--;
-                this.write(time);
-            }else if(this.gridStatus_==false && broken==255){
-                //grid was broken and now is intact
-                this.noToCollect_--;
-                
-                char[] location = new char[2];
-                //USE THE ARRAY OF BEAM BREAK ORDERS TO CALCULATE THE LOCATION TO SEND WITH THE WRITE
-                 
-                switch(breakOrderLongSide_[0]){
-                    case 4:
-                        if(breakOrderLongSide_[1]=='5'){
-                            location[0]='B';
-                        }else{
-                            location[0]='A';
-                        }
-                        break;
-                    case 5:
-                        location[0]='C';
-                        break;
-                    case 6:
-                        location[0]='D';
-                        break;
-                    case 7:
-                        location[0]='E';
-                        break;
-                    case 8:
-                        if(breakOrderLongSide_[1]=='7'){
-                            location[0]='F';
-                        }else{
-                            location[0]='G';
-                        }
-                        break;
-                }
-                
-                
-                switch(breakOrderShortSide_[0]){
-                    case 1:
-                        if(breakOrderShortSide_[1]=='2'){
-                            location[1]= '1';
-                        }else{
-                            location[1]= '0';
-                        }
-                        break;
-                    case 2:
-                        location[1]='2';
-                        break;
-                    case 3:
-                        if(breakOrderShortSide_[1]=='2'){
-                            location[1]= '3';
-                        }else{
-                            location[1]= '4';
-                        }
-                        break;
-                }
-                this.write(time, location.toString());
-                
+        if(this.gridStatus_==true && broken!=255){
+            //grid was intact and is now broken
+            if(this.jumpData_[0] == -1){
+                this.jumpData_[0] = time;
             }else{
-                for(int i=0;i<3;i++){
-                    if(chrBeamStatus[i]=='0' && this.beamStatus_[i] == true){
-                        this.breakOrderShortSide_[this.noBeamsBrokenShort_] = i;
-                        this.noBeamsBrokenShort_++;
+                this.jumpData_[2] = time;
+                if(noToCollect_!=0){
+                    this.jump_ = new Jump(this.jumpData_[0], this.jumpData_[1], this.jumpData_[2],lastLocation_);
+                    this.routine_.addJump(this.jump_);
+                    noToCollect_--;
+                    if(noToCollect_==0){
+                        write();
                     }
                 }
-                
-                for(int i=3;i<8;i++){
-                    if(chrBeamStatus[i]=='0' && this.beamStatus_[i] == true){
-                        this.breakOrderShortSide_[this.noBeamsBrokenLong_] = i;
-                        this.noBeamsBrokenLong_++;
+                this.jumpData_[0] = this.jumpData_[2];
+                this.jumpData_[1] = -1;
+                this.jumpData_[2] = -1;
+            }
+            
+            this.noBeamsBrokenShort_ = 0;
+            this.noBeamsBrokenLong_ = 0;
+        }else if(this.gridStatus_==false && broken==255){
+            //grid was broken and now is intact
+            
+             char[] location = new char[2];
+            //USE THE ARRAY OF BEAM BREAK ORDERS TO CALCULATE THE LOCATION TO SEND WITH THE WRITE
+
+            switch(breakOrderLongSide_[0]){
+                case 4:
+                    if(breakOrderLongSide_[1]=='5'){
+                        location[0]='B';
+                    }else{
+                        location[0]='A';
                     }
-                }
+                    break;
+                case 5:
+                    location[0]='C';
+                    break;
+                case 6:
+                    location[0]='D';
+                    break;
+                case 7:
+                    location[0]='E';
+                    break;
+                case 8:
+                    if(breakOrderLongSide_[1]=='7'){
+                        location[0]='F';
+                    }else{
+                        location[0]='G';
+                    }
+                    break;
+            }
+
+            switch(breakOrderShortSide_[0]){
+                case 1:
+                    if(breakOrderShortSide_[1]=='2'){
+                        location[1]= '1';
+                    }else{
+                        location[1]= '0';
+                    }
+                    break;
+                case 2:
+                    location[1]='2';
+                    break;
+                case 3:
+                    if(breakOrderShortSide_[1]=='2'){
+                        location[1]= '3';
+                    }else{
+                        location[1]= '4';
+                    }
+                    break;
+            }
+            lastLocation_ = location.toString();
+            this.jumpData_[1] = time;
+        }
+        
+        for(int i=0;i<3;i++){
+            if(chrBeamStatus[i]=='0' && this.beamStatus_[i] == true){
+                this.breakOrderShortSide_[this.noBeamsBrokenShort_] = i;
+                this.noBeamsBrokenShort_++;
             }
         }
+
+        for(int i=3;i<8;i++){
+            if(chrBeamStatus[i]=='0' && this.beamStatus_[i] == true){
+                this.breakOrderShortSide_[this.noBeamsBrokenLong_] = i;
+                this.noBeamsBrokenLong_++;
+            }
+        }
+        
             
         this.gridStatus_ = (broken==255);    
        
@@ -188,42 +190,16 @@ public class TofInterface {
          this.noToCollect_ = noOfBounces*2 + 1;
 }
      
-     
-     private void write(int time){
-         if(this.jumpData_[0] == -1){
-            this.jumpData_[0] = time;
-        }else{
-            this.jumpData_[1] = time;
-         }
-     }
-     
-     private void write(int time, String location){
-        this.jumpData_[2] = time;
-        this.jump_ = new Jump(this.jumpData_[0], this.jumpData_[1], this.jumpData_[2],location);
-        this.routine_.addJump(this.jump_);
-        this.jumpData_[0] = this.jumpData_[2];
-        this.jumpData_[1] = -1;
-        this.jumpData_[2] = -1;
-                
-        if(this.noToCollect_ ==0){
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Date date = new Date();
+     private void write(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
             
-            this.currentRoutineID_ = this.db_.addRoutine(this.routine_, this.gymnast_, dateFormat.format(date));
-            this.routine_.setRoutineId(this.currentRoutineID_);
-        }
+        this.currentRoutineID_ = this.db_.addRoutine(this.routine_, this.gymnast_, dateFormat.format(date));
+        this.routine_.setRoutineId(this.currentRoutineID_);
     }
     
      public int getNoOfBouncesRemaining(){
         return this.noToCollect_;
-    }
-
-    public int getError(){
-        return this.error_;
-    }
-
-    public String[] getErrorList(){
-        return this.errorList_;
     }
     
     public boolean[] getBeamStatus(){
@@ -240,5 +216,9 @@ public class TofInterface {
     
     public PortController getPort(){
         return this.myPort_;
+    }
+    
+    public String getLastLocation(){
+        return this.lastLocation_;
     }
 }
