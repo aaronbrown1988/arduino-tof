@@ -129,7 +129,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="pnlStats" min="-2" max="-2" attributes="0"/>
+                                  <Component id="pnlStats" min="-2" pref="318" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="pnlGraph" pref="310" max="32767" attributes="0"/>
                               </Group>
@@ -192,11 +192,11 @@
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="labGymnast" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblSelectGymnast" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="labSelectTof" min="-2" pref="314" max="-2" attributes="0"/>
+                                              <Component id="lblSelectTof" min="-2" pref="314" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace min="0" pref="31" max="32767" attributes="0"/>
@@ -210,11 +210,11 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                              <Component id="labSelectTof" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblSelectTof" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                               <Component id="drpDeviceName" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="labGymnast" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblSelectGymnast" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="drpDataGymnast" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -277,7 +277,7 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="drpDeviceNameActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="labSelectTof">
+                    <Component class="javax.swing.JLabel" name="lblSelectTof">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Verdana" size="11" style="0"/>
@@ -285,7 +285,7 @@
                         <Property name="text" type="java.lang.String" value="Select a ToF Device:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="labGymnast">
+                    <Component class="javax.swing.JLabel" name="lblSelectGymnast">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Select a Gymnast:"/>
                       </Properties>
@@ -376,16 +376,17 @@
                                           <Component id="btnClearComments" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
+                                      <Component id="lblComments" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace pref="131" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="sclComments" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblComments" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                          <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="sclComments" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -395,9 +396,9 @@
                               <Component id="pnlDataTable" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="lblComments" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                               <Component id="sclComments" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
                               <Component id="btnClearComments" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="btnSaveComments" min="-2" max="-2" attributes="0"/>
@@ -485,15 +486,267 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="lblAvToNTxt" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="lblAvTotalTxt" alignment="0" pref="80" max="32767" attributes="0"/>
+                                          <Component id="lblAvToFTxt" max="32767" attributes="0"/>
+                                          <Component id="lblHighestToFTxt" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="lblAvToFNo" min="-2" pref="83" max="-2" attributes="0"/>
+                                          <Component id="lblAvToNNo" min="-2" pref="83" max="-2" attributes="0"/>
+                                          <Component id="lblAvTotalNo" min="-2" pref="83" max="-2" attributes="0"/>
+                                          <Component id="lblHighestToFNo" min="-2" pref="83" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="lblOvToNTxt" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="lblOvToFTxt" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="lblOvTotalTxt" pref="78" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="lblOvToFNo" min="-2" pref="83" max="-2" attributes="0"/>
+                                          <Component id="lblOvToNNo" min="-2" pref="83" max="-2" attributes="0"/>
+                                          <Component id="lblOvTotalNo" min="-2" pref="83" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="lblFurthestTxt" min="-2" pref="140" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="lblFurthestNo" min="-2" pref="83" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="lblAvPositionTxt" min="-2" pref="140" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="lblAvPositionNo" min="-2" pref="83" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="lblLowestToFTxt" min="-2" pref="80" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="lblLowestToFNo" min="-2" pref="83" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="lblLargestPositionTxt" min="-2" pref="140" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="lblLargestPositionNo" min="-2" pref="83" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="lblSmallestPositionTxt" min="-2" pref="140" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="lblSmallestPositionNo" min="-2" pref="83" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="286" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="lblOvToFTxt" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                                          <Component id="lblOvToFNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="lblOvToNTxt" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                                          <Component id="lblOvToNNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="lblOvTotalTxt" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                                          <Component id="lblOvTotalNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="lblAvToFTxt" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                                          <Component id="lblAvToFNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="lblAvToNTxt" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                                          <Component id="lblAvToNNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="lblAvTotalTxt" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                                          <Component id="lblAvTotalNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lblHighestToFTxt" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                                  <Component id="lblHighestToFNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lblLowestToFTxt" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                                  <Component id="lblLowestToFNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lblFurthestTxt" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                                  <Component id="lblFurthestNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lblAvPositionTxt" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                                  <Component id="lblAvPositionNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lblLargestPositionTxt" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                                  <Component id="lblLargestPositionNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lblSmallestPositionNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblSmallestPositionTxt" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JLabel" name="lblAvToFTxt">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Average ToF:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblAvToNTxt">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Average ToN:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblAvTotalTxt">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Average Total:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblOvTotalTxt">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Overall Total:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblOvToNTxt">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Overall ToN:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblOvToFTxt">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Overall ToF:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblLowestToFTxt">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Lowest ToF:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblHighestToFTxt">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Highest ToF:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblFurthestTxt">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Jump furthest from Cross:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblAvPositionTxt">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Average position deduction:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblLargestPositionTxt">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Largest position deduction:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblAvToFNo">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="00.000"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblAvToNNo">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="00.000"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblAvTotalNo">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="00.000"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblHighestToFNo">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="00.000"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblOvToFNo">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="00.000"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblOvToNNo">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="00.000"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblOvTotalNo">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="00.000"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblLowestToFNo">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="00.000"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblFurthestNo">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Jump 4"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblAvPositionNo">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="5"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblLargestPositionNo">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="5"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblSmallestPositionTxt">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Smallest position deduction:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblSmallestPositionNo">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="5"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="pnlGraph">
                   <Properties>

@@ -22,8 +22,9 @@ public class ErrorHandler {
                                                     "Error: Comm port settings file not located",
                                                     "Error: General I/O error with a file",
                                                     "Error: Problem completing handshake with ToF",
-                                                    "Error: Problem communicating with ToF device.",
-                                                    "Error: Problem with clearing cache on COM Port."
+                                                    "Error: Problem communicating with ToF device",
+                                                    "Error: Problem with clearing cache on COM Port",
+                                                    "Error: Problem with access the SQL database"
                                                    };
     
     private static final String[] longErrors_ =    {"","The password supplied for access to the Club Managment tab was incorrect. Please try again.",
@@ -34,7 +35,8 @@ public class ErrorHandler {
                                                     "There has been a general input or output error when communicating with a file. This could be caused by the file not being found or by the file being in use by another program.",
                                                     "The handshake with one of the ToF devices or COM ports on the system was not completed correctly. Please reboot all attached ToF devices.",
                                                     "There was an error communicating with the ToF device. Please reboot all attached ToF devices.",
-                                                    "There was an issue with emptying the COM port data cache. Please restart the computer and reboot all attached ToF devices."
+                                                    "There was an issue with emptying the COM port data cache. Please restart the computer and reboot all attached ToF devices.",
+                                                    "An issue was encountered whilst reading from the SQL database. Please ensure that only one copy of the program is open and try restarting the computer if the problem persists."
                                                    };
     
     ErrorHandler(){
