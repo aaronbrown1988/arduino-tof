@@ -102,7 +102,8 @@ public class DBConnect {
             rs_.close();
         }
         catch (Exception e) {
-            e.printStackTrace();
+            errorHandler_.setError(10);
+            errorHandler_.setMoreDetails(e.toString());
         }
         
         return gymnastList.toArray(new Gymnast[gymnastList.size()]);
@@ -119,7 +120,8 @@ public class DBConnect {
             rs_.close();
         }
         catch (Exception e) {
-            e.printStackTrace();
+            errorHandler_.setError(10);
+            errorHandler_.setMoreDetails(e.toString());
         }
         return j;
     }
@@ -143,7 +145,8 @@ public class DBConnect {
             }
         }
         catch (Exception e) {
-            e.printStackTrace();
+            errorHandler_.setError(10);
+            errorHandler_.setMoreDetails(e.toString());
         }
         
         return r;
@@ -162,7 +165,8 @@ public class DBConnect {
             }
         }
         catch (Exception e) {
-            e.printStackTrace();
+            errorHandler_.setError(10);
+            errorHandler_.setMoreDetails(e.toString());
         }
         
         //Then, we have the list of IDs, so create an array of routines and return it. 
@@ -184,7 +188,8 @@ public class DBConnect {
         }
 
         catch (Exception e) {
-            e.printStackTrace();
+            errorHandler_.setError(10);
+            errorHandler_.setMoreDetails(e.toString());
         }
 
         return true;
@@ -205,7 +210,8 @@ public class DBConnect {
         }
 
         catch (Exception e) {
-            e.printStackTrace();
+            errorHandler_.setError(10);
+            errorHandler_.setMoreDetails(e.toString());
         }
         
         System.out.println("Update:"+i);
@@ -220,7 +226,8 @@ public class DBConnect {
         }
 
         catch (Exception e) {
-            e.printStackTrace();
+            errorHandler_.setError(10);
+            errorHandler_.setMoreDetails(e.toString());
         }
 
         return i;
@@ -234,7 +241,8 @@ public class DBConnect {
         }
 
         catch (Exception e) {
-            e.printStackTrace();
+            errorHandler_.setError(10);
+            errorHandler_.setMoreDetails(e.toString());
         }
 
         return s;
