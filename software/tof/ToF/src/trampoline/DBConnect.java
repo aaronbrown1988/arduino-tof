@@ -30,6 +30,11 @@ public class DBConnect {
         }
     }
     
+    public int addTag(int gid, String tag){
+        return executeUpdate("INSERT INTO tags (gymnastid, tname) "
+                              + "VALUES ('"+gid+"' ,'"+tag+"')");
+    }
+    
     public int addClub(String name) {
         return executeUpdate("INSERT INTO clubs (name) VALUES ('"+name+"')");
     }
@@ -82,6 +87,24 @@ public class DBConnect {
                 + "WHERE gid = '"+gid+"'");
     }
     
+    public Map<Integer,String> getTags(int gid){
+        executeQuery("SELECT * FROM tags WHERE gymnastid = '"+gid+"'");
+        
+        Map<Integer,String> tagMap = new HashMap<Integer,String>(10);
+        
+        try {
+            while(rs_.next()){
+                tagMap.put(resultGetInt("tid"),resultGetString("tname"));
+            }
+            rs_.close();
+        } catch (Exception e) {
+            errorHandler_.setError(10);
+            errorHandler_.setMoreDetails(e.toString());
+        }
+        
+        return tagMap;
+    }
+    
     public Gymnast getGymnast(int gid) {
         executeQuery("SELECT g.*, c.* FROM gymnasts g, clubs c WHERE g.gid = '"+gid+"' AND g.clubid = c.cid");
         
@@ -92,12 +115,10 @@ public class DBConnect {
         executeQuery("SELECT g.*, c.* FROM gymnasts AS g, clubs AS c WHERE g.clubid = c.cid");
         
         ArrayList<Gymnast> gymnastList = new ArrayList<Gymnast>();
-        int i = 0;
         
         try {
             while (rs_.next()) {
                 gymnastList.add(new Gymnast(resultGetInt("gid"), resultGetString("gname"), resultGetInt("cid"), resultGetString("cname"), resultGetInt("dobday"), resultGetInt("dobmonth"), resultGetInt("dobyear"), resultGetInt("category")));
-                i++;
             }
             rs_.close();
         }
