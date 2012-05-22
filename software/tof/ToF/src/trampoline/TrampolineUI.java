@@ -42,7 +42,8 @@ public class TrampolineUI extends javax.swing.JFrame {
     static Font font;                               // used to draw our text
 	
     javax.swing.Timer jumpTimer;
-    javax.swing.Timer pageRefreshTimer;
+    javax.swing.Timer pageRefreshTimer_;
+    javax.swing.Timer errorTimer_;
     private int refresh;
     private int nextJumpToFill;
     private static int REFRESH_TIME = 30; // Time to keep refreshing for after GO event
@@ -93,9 +94,14 @@ public class TrampolineUI extends javax.swing.JFrame {
                     lblTrampoline.setIcon(locationImagesLarge_.get(location));
                 }
             }
-            
+        }
+    };
+   
+   ActionListener errorAction = new ActionListener(){
+       public void actionPerformed(ActionEvent evt){
             if(errorHandler_.isError()){
                 lblError.setText(errorHandler_.getCurrentErrorShort() + " (Click for more info...)");
+                lblError.setForeground(errorHandler_.getColour());
                 lblError.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
                 if (errorPersist_!=0){
                     if (errorPersist_ ==1){
@@ -108,8 +114,8 @@ public class TrampolineUI extends javax.swing.JFrame {
                     errorPersist_ = 10000;
                 }
             }
-        }
-    };
+       }
+   };
     
     ActionListener jumpAction = new ActionListener(){
         public void actionPerformed(ActionEvent evt){        
@@ -121,24 +127,48 @@ public class TrampolineUI extends javax.swing.JFrame {
                     labelArray_[(nextJumpToFill-1)*5+1].setText(thisJump.getTof()+"");
                     labelArray_[(nextJumpToFill-1)*5+2].setText(thisJump.getTon()+"");
                     labelArray_[(nextJumpToFill-1)*5+3].setText(thisJump.getTotal()+"");
-                    labelArray_[(nextJumpToFill-1)*5+4].setText(thisJump.getLocation());
+                    labelArray_[(nextJumpToFill-1)*5+4].setIcon(locationImagesSmall_.get(thisJump.getLocation()));
                     
                     // UPDATE BAR GRAPH
-                    chartValues[nextJumpToFill-1] = thisJump.getTof();
-
-                    updateChart(chartValues, chartNames);
+                    pnlGraph.removeAll();
+                    chartObject_.addValue(thisJump.getTof());
+                    JFreeChart jChart = chartObject_.createChart();
+                    ChartPanel CP = new ChartPanel(jChart);
+                    pnlGraph.add(CP);
+                    pnlGraph.validate();
+                    
                     nextJumpToFill++;
+                    refresh--;
+
+                    if(refresh==0){
+                        double lowestToF = thisJump.getTof();
+                        
+                        for(Jump aJump : currentInterface_.getRoutine().getJumps()){
+                            if(aJump.getTof()<lowestToF){
+                                lowestToF = aJump.getTof();
+                            }
+                        }
+                        
+                        for(int i=0;i<currentInterface_.getRoutine().getNumberOfJumps();i++){
+                            if(currentInterface_.getRoutine().getJumps()[i].getTof()==lowestToF){
+                                labelArray_[i*5].setForeground(new java.awt.Color(255, 0, 0));
+                                labelArray_[i*5+1].setForeground(new java.awt.Color(255, 0, 0));
+                                labelArray_[i*5+2].setForeground(new java.awt.Color(255, 0, 0));
+                                labelArray_[i*5+3].setForeground(new java.awt.Color(255, 0, 0));
+                            }
+                        }
+                        
+                        btnSaveComments.setVisible(true);
+                        btnClearComments.setVisible(true);
+                        sclComments.setVisible(true);
+                        txtComments.setVisible(true);
+                        lblComments.setVisible(true);
+                        btnClearData.setVisible(true);
+                        jumpTimer.stop();
+                        currentRoutineId_ = currentInterface_.getRoutineId();
+                    }
                 }
-                refresh--;
-            } else {
-                btnSaveComments.setVisible(true);
-                btnClearComments.setVisible(true);
-                sclComments.setVisible(true);
-                txtComments.setVisible(true);
-                lblComments.setVisible(true);
-                pageRefreshTimer.stop();
-                currentRoutineId_ = currentInterface_.getRoutineId();
-            } 
+            }
         }
     };
     
@@ -147,6 +177,7 @@ public class TrampolineUI extends javax.swing.JFrame {
      */
         
     public TrampolineUI() {
+        this.errorHandler_ = new ErrorHandler();
         
         initComponents();
         this.splashText("Connecting to Database.");
@@ -171,7 +202,6 @@ public class TrampolineUI extends javax.swing.JFrame {
     }
     
     private void initHardware(){
-        this.errorHandler_ = new ErrorHandler();
         this.splashText("Finding ToF Devices on system.");
         PortController thisPort = new PortController(this.errorHandler_);
         this.portsAvaliable_ = new ArrayList<PortController>();
@@ -202,11 +232,12 @@ public class TrampolineUI extends javax.swing.JFrame {
         
         this.splashText("Getting beam status from ToF.");
         this.splashProgress(66);
-        pageRefreshTimer = new javax.swing.Timer(1, pageRefresh);
-        pageRefreshTimer.start();
-        errorPersist_ = 0;
-        
+        pageRefreshTimer_ = new javax.swing.Timer(1, pageRefresh);
+        pageRefreshTimer_.start();
         jumpTimer = new javax.swing.Timer(1000, jumpAction);
+        errorPersist_ = 0;
+        errorTimer_ = new javax.swing.Timer(1, errorAction);
+        errorTimer_.start();
     }
     
     private void initToFUI(){
@@ -504,25 +535,37 @@ public class TrampolineUI extends javax.swing.JFrame {
         lblOvToNTxt.setFont(getFont("statsPanelFont"));
         lblOvTotalTxt.setFont(getFont("statsPanelFont"));
         lblAvToFNo.setFont(getFont("statsPanelFont"));
+        lblAvToFNo.setForeground(new java.awt.Color(0, 0, 255));
         lblAvToNNo.setFont(getFont("statsPanelFont"));
+        lblAvToNNo.setForeground(new java.awt.Color(0, 0, 255));
         lblAvTotalNo.setFont(getFont("statsPanelFont"));
+        lblAvTotalNo.setForeground(new java.awt.Color(0,0, 255));
         lblOvToFNo.setFont(getFont("statsPanelFont"));
+        lblOvToFNo.setForeground(new java.awt.Color(0, 0, 255));
         lblOvToNNo.setFont(getFont("statsPanelFont"));
+        lblOvToNNo.setForeground(new java.awt.Color(0, 0, 255));
         lblOvTotalNo.setFont(getFont("statsPanelFont"));
+        lblOvTotalNo.setForeground(new java.awt.Color(0, 0, 255));
         
         lblHighestToFTxt.setFont(getFont("statsPanelFont"));
         lblHighestToFNo.setFont(getFont("statsPanelFont"));
+        lblHighestToFNo.setForeground(new java.awt.Color(0, 0, 255));
         lblLowestToFTxt.setFont(getFont("statsPanelFont"));
         lblLowestToFNo.setFont(getFont("statsPanelFont"));
+        lblLowestToFNo.setForeground(new java.awt.Color(255, 0, 0));
         
         lblFurthestTxt.setFont(getFont("statsPanelFont"));
         lblFurthestNo.setFont(getFont("statsPanelFont"));
+        lblFurthestNo.setForeground(new java.awt.Color(0, 0, 255));
         lblAvPositionTxt.setFont(getFont("statsPanelFont"));
         lblAvPositionNo.setFont(getFont("statsPanelFont"));
+        lblAvPositionNo.setForeground(new java.awt.Color(0, 0, 255));
         lblLargestPositionTxt.setFont(getFont("statsPanelFont"));
         lblLargestPositionNo.setFont(getFont("statsPanelFont"));
+        lblLargestPositionNo.setForeground(new java.awt.Color(0, 0, 255));
         lblSmallestPositionTxt.setFont(getFont("statsPanelFont"));
         lblSmallestPositionNo.setFont(getFont("statsPanelFont"));
+        lblSmallestPositionNo.setForeground(new java.awt.Color(255, 0, 0));
         
         heightTags = screenHeight - 665;
         GroupLayout pnlStartLayout = (GroupLayout)pnlStart.getLayout();  
@@ -534,10 +577,13 @@ public class TrampolineUI extends javax.swing.JFrame {
                     .addComponent(lblSelectTof,340, 340, 340)
                     .addComponent(drpDeviceName,340, 340, 340)
                     .addComponent(lblSelectGymnast,340, 340, 340)
-                    .addComponent(drpDataGymnast,340, 340, 340)
-                    .addComponent(labNumberOfBounces,340, 340, 350)
+                    .addComponent(drpSelectGymnast,340, 340, 340)
+                    .addComponent(lblNumberOfBounces,340, 340, 350)
                     .addComponent(txtNumberOfBounces,50,50,50)
-                    .addComponent(lblTags,340, 340, 340)
+                    .addGroup(pnlStartLayout.createSequentialGroup()
+                        .addComponent(lblTags,115, 115, 115)
+                        .addGap(5,5,5)
+                        .addComponent(lblAddNewTag,220,220,220))
                     .addComponent(sclTags,340, 340, 340)
                     .addGroup(pnlStartLayout.createSequentialGroup()
                         .addComponent(btnCollectData,150,150,150)
@@ -553,13 +599,15 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addGap(5,5,5)
                 .addComponent(lblSelectGymnast,25,25,25)
                 .addGap(5,5,5)
-                .addComponent(drpDataGymnast,25,25,25)
+                .addComponent(drpSelectGymnast,25,25,25)
                 .addGap(5,5,5)
-                .addComponent(labNumberOfBounces,25,25,25)
+                .addComponent(lblNumberOfBounces,25,25,25)
                 .addGap(5,5,5)
                 .addComponent(txtNumberOfBounces,25,25,25)
                 .addGap(5,5,5)
-                .addComponent(lblTags,25,25,25)
+                .addGroup(pnlStartLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblTags,25,25,25)
+                    .addComponent(lblAddNewTag,25,25,25))
                 .addGap(5,5,5)
                 .addComponent(sclTags, heightTags, heightTags, heightTags)
                 .addGap(5,5,5)
@@ -568,6 +616,9 @@ public class TrampolineUI extends javax.swing.JFrame {
                     .addComponent(btnClearData, 25, 25, 25))
                 .addContainerGap(5,5))
         );
+        
+        lblAddNewTag.setForeground(new java.awt.Color(0,0,255));
+        lblAddNewTag.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
         
         //Make the labels that we require for the centre panel. 
         labelArray_ = new JLabel[50];
@@ -718,6 +769,20 @@ public class TrampolineUI extends javax.swing.JFrame {
             chartValues[i] = 0;
             chartNames[i]  = "Bounce "+i;
         }
+        
+        DefaultListModel lstTagsModel = new DefaultListModel();
+        lstTags.setModel(lstTagsModel);
+        lblNumberOfBounces.setVisible(false);
+        txtNumberOfBounces.setVisible(false);
+        lblTags.setVisible(false);
+        lblAddNewTag.setVisible(false);
+        sclTags.setVisible(false);
+        lstTags.setVisible(false);
+        btnCollectData.setVisible(false);
+        btnClearData.setVisible(false);
+        drpSelectGymnast.setVisible(false);
+        lblSelectGymnast.setVisible(false);
+        
 		/*
 		ChartFrame frame = new ChartFrame("First", chart);
 		frame.pack();
@@ -920,7 +985,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     }
 
     private void initDatabase(){
-        db_ = new DBConnect(errorHandler_);
+        db_ = new DBConnect(this.errorHandler_);
         adminAccessGranted_ = false;
         currentRoutineId_ = 0;
         
@@ -994,7 +1059,8 @@ public class TrampolineUI extends javax.swing.JFrame {
         for (PortController thisPort : this.portsAvaliable_) {
             thisPort.close();
         }
-        pageRefreshTimer.stop();
+        pageRefreshTimer_.stop();
+        errorTimer_.stop();
     }
     
     //This function updates the mini chart on each bounce. 
@@ -1022,10 +1088,9 @@ public class TrampolineUI extends javax.swing.JFrame {
     }
     
     public void updateGymnastDropDown() {
-        JComboBox[] boxesToUpdate = {selStatsGymnast, drpDataGymnast, drpGymnastName};
-        System.out.println("update gropdown");
+        JComboBox[] boxesToUpdate = {selStatsGymnast, drpSelectGymnast, drpGymnastName};
         Gymnast[] gymnastList = db_.getAllGymnasts();
-        System.out.println("finished");
+        
         for (JComboBox jcb:boxesToUpdate) {
             jcb.removeAllItems();
             
@@ -1092,15 +1157,16 @@ public class TrampolineUI extends javax.swing.JFrame {
         pnlStart = new javax.swing.JPanel();
         btnCollectData = new javax.swing.JButton();
         txtNumberOfBounces = new javax.swing.JTextField();
-        labNumberOfBounces = new javax.swing.JLabel();
+        lblNumberOfBounces = new javax.swing.JLabel();
         drpDeviceName = new javax.swing.JComboBox();
         lblSelectTof = new javax.swing.JLabel();
         lblSelectGymnast = new javax.swing.JLabel();
-        drpDataGymnast = new javax.swing.JComboBox();
+        drpSelectGymnast = new javax.swing.JComboBox();
         sclTags = new javax.swing.JScrollPane();
         lstTags = new javax.swing.JList();
         lblTags = new javax.swing.JLabel();
         btnClearData = new javax.swing.JButton();
+        lblAddNewTag = new javax.swing.JLabel();
         pnlData = new javax.swing.JPanel();
         btnSaveComments = new javax.swing.JButton();
         pnlDataTable = new javax.swing.JPanel();
@@ -1223,8 +1289,8 @@ public class TrampolineUI extends javax.swing.JFrame {
             }
         });
 
-        labNumberOfBounces.setLabelFor(txtNumberOfBounces);
-        labNumberOfBounces.setText("Number of Jumps To Collect:");
+        lblNumberOfBounces.setLabelFor(txtNumberOfBounces);
+        lblNumberOfBounces.setText("Number of Jumps To Collect:");
 
         drpDeviceName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         drpDeviceName.addActionListener(new java.awt.event.ActionListener() {
@@ -1238,6 +1304,12 @@ public class TrampolineUI extends javax.swing.JFrame {
 
         lblSelectGymnast.setText("Select a Gymnast:");
 
+        drpSelectGymnast.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drpSelectGymnastActionPerformed(evt);
+            }
+        });
+
         lstTags.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8" };
             public int getSize() { return strings.length; }
@@ -1248,13 +1320,21 @@ public class TrampolineUI extends javax.swing.JFrame {
         lstTags.setPreferredSize(new java.awt.Dimension(40, 128));
         sclTags.setViewportView(lstTags);
 
-        lblTags.setText("Select Tags for Pass:");
+        lblTags.setText("Select Tags for Pass");
 
         btnClearData.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         btnClearData.setText("Clear Data");
         btnClearData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClearDataActionPerformed(evt);
+            }
+        });
+
+        lblAddNewTag.setForeground(new java.awt.Color(0, 0, 255));
+        lblAddNewTag.setText("(or click here to add a new tag):");
+        lblAddNewTag.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAddNewTagMouseClicked(evt);
             }
         });
 
@@ -1267,17 +1347,19 @@ public class TrampolineUI extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlStartLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(pnlStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(drpDataGymnast, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(drpSelectGymnast, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(sclTags, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(drpDeviceName, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(pnlStartLayout.createSequentialGroup()
                         .addGroup(pnlStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlStartLayout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addComponent(lblTags))
+                                .addComponent(lblTags)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblAddNewTag, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlStartLayout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addComponent(labNumberOfBounces))
+                                .addComponent(lblNumberOfBounces))
                             .addGroup(pnlStartLayout.createSequentialGroup()
                                 .addGap(37, 37, 37)
                                 .addComponent(btnCollectData)
@@ -1305,13 +1387,15 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblSelectGymnast)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(drpDataGymnast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(drpSelectGymnast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labNumberOfBounces)
+                .addComponent(lblNumberOfBounces)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNumberOfBounces, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lblTags)
+                .addGroup(pnlStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTags)
+                    .addComponent(lblAddNewTag))
                 .addGap(11, 11, 11)
                 .addComponent(sclTags, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1422,12 +1506,14 @@ public class TrampolineUI extends javax.swing.JFrame {
 
         lblLargestPositionTxt.setText("Largest position deduction:");
 
+        lblAvToFNo.setForeground(new java.awt.Color(0, 51, 255));
         lblAvToFNo.setText("00.000");
 
         lblAvToNNo.setText("00.000");
 
         lblAvTotalNo.setText("00.000");
 
+        lblHighestToFNo.setForeground(new java.awt.Color(0, 153, 0));
         lblHighestToFNo.setText("00.000");
 
         lblOvToFNo.setText("00.000");
@@ -1436,6 +1522,7 @@ public class TrampolineUI extends javax.swing.JFrame {
 
         lblOvTotalNo.setText("00.000");
 
+        lblLowestToFNo.setForeground(new java.awt.Color(255, 0, 0));
         lblLowestToFNo.setText("00.000");
 
         lblFurthestNo.setText("Jump 4");
@@ -2093,6 +2180,8 @@ public class TrampolineUI extends javax.swing.JFrame {
     private void drpDeviceNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpDeviceNameActionPerformed
         if(!(drpDeviceName.getSelectedItem().toString().equals("<<No ToF Connected>>"))){
             this.currentInterface_ = this.stringToTof(drpDeviceName.getSelectedItem().toString());
+            drpSelectGymnast.setVisible(true);
+            lblSelectGymnast.setVisible(true);
         }       
     }//GEN-LAST:event_drpDeviceNameActionPerformed
 
@@ -2156,19 +2245,22 @@ public class TrampolineUI extends javax.swing.JFrame {
 		chartObject_.addValue(6+Math.random()*2);
 		JFreeChart jChart = chartObject_.createChart();
 		ChartPanel CP = new ChartPanel(jChart);
-        pnlGraph.add(CP);
+                pnlGraph.add(CP);
 		pnlGraph.validate();
     }//GEN-LAST:event_btnClearCommentsActionPerformed
 
     private void btnClearDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearDataActionPerformed
         for(int i=0;i<10;i++){
             labelArray_[i*5].setVisible(false);
+            labelArray_[i*5].setForeground(new java.awt.Color(0,0,0));
             labelArray_[i*5+1].setText("");
+            labelArray_[i*5+1].setForeground(new java.awt.Color(0,0,0));
             labelArray_[i*5+2].setText("");
+            labelArray_[i*5+2].setForeground(new java.awt.Color(0,0,0));
             labelArray_[i*5+3].setText("");
+            labelArray_[i*5+3].setForeground(new java.awt.Color(0,0,0));
             labelArray_[i*5+4].setIcon(null);
         }
-        
         lblAvToFNo.setText("");
         lblAvToNNo.setText("");
         lblAvTotalNo.setText("");
@@ -2187,6 +2279,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         txtComments.setVisible(false);
         btnClearComments.setVisible(false);
         btnSaveComments.setVisible(false);
+        btnClearData.setVisible(false);
     }//GEN-LAST:event_btnClearDataActionPerformed
 
     private void btnStatisticsUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatisticsUpdateActionPerformed
@@ -2338,6 +2431,61 @@ public class TrampolineUI extends javax.swing.JFrame {
                 //Display popup for confirmation
         }   
     }//GEN-LAST:event_btnResetAllActionPerformed
+
+    private void drpSelectGymnastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpSelectGymnastActionPerformed
+        // TODO add your handling code here:
+        ComboItem currentItem = (ComboItem)drpSelectGymnast.getSelectedItem();
+        if(!(currentItem.getName().equals("<< Please Select Gymnast >>"))){
+            Map<Integer, String> tagMapToF = db_.getTags(Integer.parseInt(currentItem.getID()));
+            
+            DefaultListModel lstTagsModel = new DefaultListModel();
+            for(int tagId : tagMapToF.keySet()){
+                ComboItem newTag = new ComboItem(tagId,tagMapToF.get(tagId));
+                lstTagsModel.addElement(newTag);
+            }
+            
+            lstTags.setModel(lstTagsModel);
+            
+            String firstItem = drpSelectGymnast.getItemAt(0).toString();
+            if(firstItem.equals("<< Please Select Gymnast >>")){
+                drpSelectGymnast.removeItemAt(0);
+            }
+            
+            lblNumberOfBounces.setVisible(true);
+            txtNumberOfBounces.setVisible(true);
+            lblTags.setVisible(true);
+            lblAddNewTag.setVisible(true);
+            sclTags.setVisible(true);
+            lstTags.setVisible(true);
+            btnCollectData.setVisible(true);
+        }
+    }//GEN-LAST:event_drpSelectGymnastActionPerformed
+
+    private void lblAddNewTagMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddNewTagMouseClicked
+        // TODO add your handling code here:
+        String newTag = (String)JOptionPane.showInputDialog(this,"Please enter the name for the new Tag:","Add New Tag",
+                                                            JOptionPane.QUESTION_MESSAGE,null,null,"");
+        if(newTag.equals("")){
+            errorHandler_.setError(11);
+        }else{
+            ComboItem currentGymnast = (ComboItem)drpSelectGymnast.getSelectedItem();
+            Map<Integer, String> tagMapToF = db_.getTags(Integer.parseInt(currentGymnast.getID()));
+            
+            boolean differentName = true;
+            for(String tags : tagMapToF.values()){
+                if(tags.equals(newTag)){
+                    differentName = false;
+                }
+            }
+            
+            if(differentName){
+                db_.addTag(Integer.parseInt(currentGymnast.getID()),newTag);
+                this.drpSelectGymnastActionPerformed(null);
+            }else{
+                errorHandler_.setError(11);
+            }
+        }
+    }//GEN-LAST:event_lblAddNewTagMouseClicked
    
     /**
      * @param args the command line arguments
@@ -2479,11 +2627,11 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JButton btnSaveComments;
     private javax.swing.JButton btnStatisticsUpdate;
     private javax.swing.JComboBox drpCategory;
-    private javax.swing.JComboBox drpDataGymnast;
     private javax.swing.JComboBox drpDate;
     private javax.swing.JComboBox drpDeviceName;
     private javax.swing.JComboBox drpGymnastName;
     private javax.swing.JComboBox drpMonth;
+    private javax.swing.JComboBox drpSelectGymnast;
     private javax.swing.JComboBox drpStatsRoutine;
     private javax.swing.JComboBox drpYear;
     private javax.swing.JMenu jMenu3;
@@ -2491,9 +2639,9 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JLabel labNumberOfBounces;
     private javax.swing.JLayeredPane layBeamStatus;
     private javax.swing.JLayeredPane layMainLayer;
+    private javax.swing.JLabel lblAddNewTag;
     private javax.swing.JLabel lblAvPositionNo;
     private javax.swing.JLabel lblAvPositionTxt;
     private javax.swing.JLabel lblAvToFNo;
@@ -2519,6 +2667,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblNewPassword;
     private javax.swing.JLabel lblNewPassword2;
+    private javax.swing.JLabel lblNumberOfBounces;
     private javax.swing.JLabel lblOvToFNo;
     private javax.swing.JLabel lblOvToFTxt;
     private javax.swing.JLabel lblOvToNNo;

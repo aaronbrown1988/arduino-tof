@@ -165,7 +165,7 @@
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="drpDataGymnast" max="32767" attributes="0"/>
+                                          <Component id="drpSelectGymnast" max="32767" attributes="0"/>
                                           <Component id="sclTags" alignment="0" max="32767" attributes="0"/>
                                           <Component id="drpDeviceName" alignment="0" max="32767" attributes="0"/>
                                       </Group>
@@ -175,10 +175,12 @@
                                           <Group type="102" attributes="0">
                                               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                                               <Component id="lblTags" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="lblAddNewTag" min="-2" pref="167" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
                                               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                                              <Component id="labNumberOfBounces" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblNumberOfBounces" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
                                               <EmptySpace min="37" pref="37" max="-2" attributes="0"/>
@@ -216,13 +218,16 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="lblSelectGymnast" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="drpDataGymnast" min="-2" max="-2" attributes="0"/>
+                              <Component id="drpSelectGymnast" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="labNumberOfBounces" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblNumberOfBounces" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtNumberOfBounces" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="lblTags" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lblTags" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblAddNewTag" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                               <Component id="sclTags" min="-2" pref="55" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -256,7 +261,7 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNumberOfBouncesActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="labNumberOfBounces">
+                    <Component class="javax.swing.JLabel" name="lblNumberOfBounces">
                       <Properties>
                         <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
                           <ComponentRef name="txtNumberOfBounces"/>
@@ -290,12 +295,15 @@
                         <Property name="text" type="java.lang.String" value="Select a Gymnast:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="drpDataGymnast">
+                    <Component class="javax.swing.JComboBox" name="drpSelectGymnast">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="0"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="drpSelectGymnastActionPerformed"/>
+                      </Events>
                     </Component>
                     <Container class="javax.swing.JScrollPane" name="sclTags">
                       <AuxValues>
@@ -333,7 +341,7 @@
                     </Container>
                     <Component class="javax.swing.JLabel" name="lblTags">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Select Tags for Pass:"/>
+                        <Property name="text" type="java.lang.String" value="Select Tags for Pass"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnClearData">
@@ -345,6 +353,17 @@
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClearDataActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblAddNewTag">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="0" red="0" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="(or click here to add a new tag):"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblAddNewTagMouseClicked"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -683,6 +702,9 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="lblAvToFNo">
                       <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="33" red="0" type="rgb"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="00.000"/>
                       </Properties>
                     </Component>
@@ -698,6 +720,9 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="lblHighestToFNo">
                       <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="0" green="99" red="0" type="rgb"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="00.000"/>
                       </Properties>
                     </Component>
@@ -718,6 +743,9 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="lblLowestToFNo">
                       <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="0" green="0" red="ff" type="rgb"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="00.000"/>
                       </Properties>
                     </Component>
