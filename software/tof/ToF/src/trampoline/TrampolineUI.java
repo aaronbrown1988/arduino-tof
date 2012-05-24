@@ -1695,7 +1695,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                     .addGroup(pnlToFLayout.createSequentialGroup()
                         .addComponent(pnlStats, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlGraph, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE))
+                        .addComponent(pnlGraph, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE))
                     .addGroup(pnlToFLayout.createSequentialGroup()
                         .addComponent(pnlStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -1744,6 +1744,11 @@ public class TrampolineUI extends javax.swing.JFrame {
         lblStatsRoutine.setText("Select Routine:");
 
         drpStatsRoutine.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "<< Select Gymnast First >>" }));
+        drpStatsRoutine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drpStatsRoutineActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1764,7 +1769,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(drpStatsRoutine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(selStatsGymnast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(427, Short.MAX_VALUE))
+                .addContainerGap(423, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1784,7 +1789,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblStatsRoutine)
                     .addComponent(drpStatsRoutine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(1455, Short.MAX_VALUE))
+                .addContainerGap(1454, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlStatisticsLayout = new javax.swing.GroupLayout(pnlStatistics);
@@ -1804,7 +1809,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlStatisticsSmall, javax.swing.GroupLayout.DEFAULT_SIZE, 1600, Short.MAX_VALUE))
+                    .addComponent(pnlStatisticsSmall, javax.swing.GroupLayout.DEFAULT_SIZE, 1603, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -1844,7 +1849,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                     .addComponent(rdoExportCsv)
                     .addComponent(rdoExportText)
                     .addComponent(rdoExportExcel))
-                .addContainerGap(625, Short.MAX_VALUE))
+                .addContainerGap(623, Short.MAX_VALUE))
         );
         pnlExportLayout.setVerticalGroup(
             pnlExportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1857,7 +1862,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addComponent(rdoExportText)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(rdoExportExcel)
-                .addContainerGap(1445, Short.MAX_VALUE))
+                .addContainerGap(1449, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlImportExportLayout = new javax.swing.GroupLayout(pnlImportExport);
@@ -2095,7 +2100,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                         .addComponent(pnlGymnast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(46, 46, 46)
                         .addComponent(lblClubManagementInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 232, Short.MAX_VALUE)))
+                        .addGap(0, 231, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnlClubManagementLayout.setVerticalGroup(
@@ -2114,7 +2119,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addComponent(pnlRoutines, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(pnlAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(739, Short.MAX_VALUE))
+                .addContainerGap(743, Short.MAX_VALUE))
         );
 
         tabPane.addTab("Club Management", pnlClubManagement);
@@ -2294,11 +2299,18 @@ public class TrampolineUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearDataActionPerformed
 
     private void btnStatisticsUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatisticsUpdateActionPerformed
-        
-        //System.out.println("before jump");
-        //db_.getJump(3);
-        //System.out.println("after jump");
-        updateGymnastDropDown();
+        ComboItem currentItem = (ComboItem)drpStatsRoutine.getSelectedItem();
+		
+		if (currentItem != null) {
+			int routineID = currentItem.getNumericID();
+			chartObjectStats_ = new Chart(db_.getRoutine(routineID));
+			pnlStatisticsSmall.setLayout(new java.awt.BorderLayout());
+			JFreeChart jChart = chartObjectStats_.createChart();
+			ChartPanel CP = new ChartPanel(jChart);
+			pnlStatisticsSmall.removeAll();
+			pnlStatisticsSmall.add(CP);
+			pnlStatisticsSmall.validate();
+		}
     }//GEN-LAST:event_btnStatisticsUpdateActionPerformed
 
     private void pnlClubManagementFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pnlClubManagementFocusGained
@@ -2394,6 +2406,8 @@ public class TrampolineUI extends javax.swing.JFrame {
         
         if (c != null && c.getNumericID() != 0) {
             Gymnast g = db_.getGymnast(c.getNumericID());
+			
+			System.out.println("Selected gymnastID "+c.getNumericID()+" in selStatsGymnastActionPerformed in UI.java");
 
             //Update the routine drop-down. 
             Routine[] routineList = db_.getRoutinesForGymnast(g.getID());
@@ -2497,6 +2511,10 @@ public class TrampolineUI extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_lblAddNewTagMouseClicked
+
+	private void drpStatsRoutineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpStatsRoutineActionPerformed
+		//DONT USE THIS TO UPDATE IT USE A BUTTON INSTEAD
+	}//GEN-LAST:event_drpStatsRoutineActionPerformed
    
     /**
      * @param args the command line arguments
