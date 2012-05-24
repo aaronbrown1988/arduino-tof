@@ -753,8 +753,12 @@ public class TrampolineUI extends javax.swing.JFrame {
         beamStatusGreenArray_[15].setBounds(297, 200, 20, 20);
 		
         //Create a dummy chart to add to essentially reserve the space on the relevant panels.        
-        double[] values = new double[0];
-        String[] names = new String[0];
+        double[] values = new double[10];
+        String[] names = new String[10];
+        for (int i = 0; i < 10; i++) {
+            values[i] = 0;
+            names[i]  = "Bounce "+i;
+        }
         //Create the chart objects with dummy data.
         chartObject_ = new Chart("Default Generated Statistics Chart", values, names, "Jump Number", "Height");
         pnlGraph.setLayout(new java.awt.BorderLayout());
@@ -2240,9 +2244,16 @@ public class TrampolineUI extends javax.swing.JFrame {
     private void btnClearCommentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearCommentsActionPerformed
         txtComments.setText("");
 		
+		Random random = new Random();
+		int i;
+		double j;
+		
 		//THIS IS CODE FOR ANDREAS TO TEST STUFF
 		pnlGraph.removeAll();
-		chartObject_.addValue(6+Math.random()*2);
+		i = random.nextInt(10);
+		j = 6+Math.random()*2;
+		chartObject_.setTitle("title+"+i+" num m= "+chartObject_.getNumberOfItems());
+		chartObject_.updateValue(j, i);
 		JFreeChart jChart = chartObject_.createChart();
 		ChartPanel CP = new ChartPanel(jChart);
                 pnlGraph.add(CP);
