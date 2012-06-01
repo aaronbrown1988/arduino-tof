@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="lblTime" min="-2" pref="317" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="203" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="lblImage" min="-2" pref="531" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblTop" min="-2" pref="193" max="-2" attributes="0"/>
+                          <Component id="lbltop1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbltop2" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbltop3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbltop4" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblTop5" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblHour" alignment="0" min="-2" pref="193" max="-2" attributes="0"/>
+                          <Component id="lblHour1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblHour2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblHour3" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblHour4" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblHour5" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="29" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="lblTime" min="-2" pref="56" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lblImage" min="-2" pref="509" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="lblTop" min="-2" pref="31" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lbltop1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lbltop2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lbltop3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lbltop4" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblTop5" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
+                      <Component id="lblHour" min="-2" pref="31" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblHour1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblHour2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblHour3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblHour4" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblHour5" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace pref="32" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JLabel" name="lblTime">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Time Remaining"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblImage">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="image"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblTop">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Top Bouncers:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lbltop1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="first"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lbltop2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="second"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lbltop3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="third"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lbltop4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="fourth"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblTop5">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="fifth"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblHour5">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="fifth"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblHour4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="fourth"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblHour3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="third"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblHour1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="first"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblHour2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="second"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblHour">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Top Bouncers this Hour:"/>
+      </Properties>
+    </Component>
+  </SubComponents>
+</Form>

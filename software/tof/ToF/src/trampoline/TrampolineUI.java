@@ -64,6 +64,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     private Dimension screenResolution_; //Current screen resolution when program loaded
     private ErrorHandler errorHandler_;  // Instance of the project Error Handler.
     private int errorPersist_;          // Length of time to show error for.
+    private BounceCounter bounceCounter_;
     
     
    ActionListener pageRefresh = new ActionListener() {
@@ -197,7 +198,10 @@ public class TrampolineUI extends javax.swing.JFrame {
         this.splashText("Setting up Hardware.");
         this.splashProgress(75);
         initHardware();
-        if (mySplash_ != null)   // check if we really had a spash screen
+        this.setVisible(true);
+        this.bounceCounter_ = new BounceCounter();
+        this.bounceCounter_.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        if (mySplash_.isVisible())   // check if we really had a spash screen
             mySplash_.close();   // we're done with it
     }
     
@@ -958,30 +962,28 @@ public class TrampolineUI extends javax.swing.JFrame {
         tabPane.setBackground(new Color(255, 255, 255));
         tabPane.setBackground(new Color(255, 255, 255));
         
-		this.setSize(screenResolution_);
-		this.setPreferredSize(screenResolution_);
-		tabPane.setSize(screenResolution_);
-		tabPane.setPreferredSize(screenResolution_);
-		layMainLayer.setPreferredSize(screenResolution_);
+        this.setSize(screenResolution_);
+        this.setPreferredSize(screenResolution_);
+        tabPane.setSize(screenResolution_);
+        tabPane.setPreferredSize(screenResolution_);
+        layMainLayer.setPreferredSize(screenResolution_);
         layMainLayer.setSize(screenResolution_);
         pnlToF.setSize(screenResolution_);
-		pnlToF.setPreferredSize(screenResolution_);
+        pnlToF.setPreferredSize(screenResolution_);
         pnlStatistics.setSize(screenResolution_);
-		pnlStatistics.setPreferredSize(screenResolution_);
+	pnlStatistics.setPreferredSize(screenResolution_);
         pnlImportExport.setSize(screenResolution_);
-		pnlImportExport.setPreferredSize(screenResolution_);
+	pnlImportExport.setPreferredSize(screenResolution_);
         pnlClubManagement.setSize(screenResolution_);
-		pnlClubManagement.setPreferredSize(screenResolution_);
+	pnlClubManagement.setPreferredSize(screenResolution_);
         
         
-        GraphicsEnvironment env =
-        GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         this.setMaximizedBounds(env.getMaximumWindowBounds());
         this.setExtendedState(this.getExtendedState()|JFrame.MAXIMIZED_BOTH); 
         
         //Set size of list of tags
         int noItems = lstTags.getModel().getSize()*35;
-        System.out.println(noItems);
         lstTags.setPreferredSize(new Dimension(128,noItems));
         lstTags.setSize(new Dimension (128,noItems));
         
