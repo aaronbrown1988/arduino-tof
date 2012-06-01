@@ -17,7 +17,7 @@ import org.jfree.ui.RefineryUtilities;
  * This demonstration shows a 3D bar chart with item labels displayed.
  *
  */
-public class Chart extends ApplicationFrame {
+public class Chart {
 	private String axisLabelDomain_;
 	private String axisLabelRange_;
 	private CategoryDataset dataset_;
@@ -27,9 +27,7 @@ public class Chart extends ApplicationFrame {
 	private double[] values_;
 	
     public Chart(final String title, double[] values, String[] names, String axisLabelDomain, String axisLabelRange) {
-        super(title);
-        
-		//Set the initial variables. 
+        //Set the initial variables. 
 		title_ = title;
 		values_ = values;
 		names_ = names;
@@ -42,6 +40,29 @@ public class Chart extends ApplicationFrame {
         //chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         //setContentPane(chartPanel);
     }
+	
+	public Chart(String title, Routine r) {
+		System.out.println("Initialising Chart with title "+title);
+		
+		Jump[] jumpList = r.getJumps();
+		
+		title_ = title;
+		numberOfItems_ = r.getNumberOfJumps();
+		
+		values_ = new double[numberOfItems_];
+		names_  = new String[numberOfItems_];
+		
+		for (int i = 0; i < numberOfItems_; i++) {
+			values_[i] = jumpList[i].getTof();
+			names_[i]  = "Jump "+i;
+		}
+		
+        dataset_ = createDataset(values_, names_);
+	}
+	
+	public Chart(Routine r) {
+		this("Routine "+r.getID()+" with "+r.getNumberOfJumps()+" jumps.", r);
+	}
     
     /**
      * Creates a sample dataset.
@@ -58,15 +79,51 @@ public class Chart extends ApplicationFrame {
         return dataset;
     }
    
+   public int getNumberOfItems() {
+	   return numberOfItems_;
+   }
+   
+   public void setTitle(String title) {
+	   title_ = title;
+   }
+   
    public void updateDataset(double[] values, String[] names) {
         final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		
+		System.out.println("starting dataset update with "+numberOfItems_+" items");
 		for (int i = 0; i < numberOfItems_; i++) {
+			System.out.println("update: "+values[i]+" name: "+names[i]);
 			dataset.addValue(values[i], names[i], "Category 1"); 
 		}
+		System.out.println("ending update");
 		
         dataset_ = dataset;
     }
+   
+   //numberToUpdate should start from zero.
+   public void updateValue(double value, String name, int numberToUpdate) {
+		double[] values = new double[numberOfItems_];
+		String[] names  = new String[numberOfItems_];
+	   
+	   for (int i = 0; i < values_.length; i++) {
+		   values[i] = values_[i];
+		   names[i]  = names_[i];
+	   }
+	   
+		values[numberToUpdate] = value;
+		names[numberToUpdate] = name;
+	   
+	   values_ = values;
+	   names_  = names;
+	   
+	   updateDataset(values, names);
+    }
+   
+   //Shortcut Function for the Above
+   public void updateValue(double value, int numberToUpdate) {
+	   int i = numberToUpdate+1;
+	   updateValue(value, "Jump "+i, numberToUpdate);
+   }
    
    public void addValue(double value, String name) {
 	   System.out.println("values_ length is "+values_.length+" (try at start in chart.java)");

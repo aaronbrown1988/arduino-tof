@@ -131,7 +131,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="pnlStats" min="-2" pref="318" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="pnlGraph" pref="310" max="32767" attributes="0"/>
+                                  <Component id="pnlGraph" pref="313" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="pnlStart" min="-2" max="-2" attributes="0"/>
@@ -902,7 +902,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jPanel1" max="32767" attributes="0"/>
-                              <Component id="pnlStatisticsSmall" pref="1600" max="32767" attributes="0"/>
+                              <Component id="pnlStatisticsSmall" pref="1603" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -955,7 +955,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="427" max="32767" attributes="0"/>
+                              <EmptySpace pref="423" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -982,7 +982,7 @@
                                   <Component id="lblStatsRoutine" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="drpStatsRoutine" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="1455" max="32767" attributes="0"/>
+                              <EmptySpace pref="1454" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1032,6 +1032,9 @@
                           </StringArray>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="drpStatsRoutineActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -1114,7 +1117,7 @@
                                   <Component id="rdoExportText" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="rdoExportExcel" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="625" max="32767" attributes="0"/>
+                              <EmptySpace pref="623" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1129,7 +1132,7 @@
                               <Component id="rdoExportText" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="rdoExportExcel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="1445" max="32767" attributes="0"/>
+                              <EmptySpace pref="1449" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1205,7 +1208,7 @@
                           <Component id="pnlRoutines" min="-2" pref="306" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="pnlAdmin" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="739" max="32767" attributes="0"/>
+                          <EmptySpace pref="743" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
