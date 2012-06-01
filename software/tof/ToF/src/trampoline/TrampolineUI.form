@@ -140,7 +140,7 @@
                               </Group>
                               <Component id="pnlData" min="-2" pref="632" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="977" max="32767" attributes="0"/>
+                          <EmptySpace pref="974" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -841,7 +841,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="281" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -902,7 +902,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jPanel1" max="32767" attributes="0"/>
-                              <Component id="pnlStatisticsSmall" pref="1603" max="32767" attributes="0"/>
+                              <Component id="pnlStatisticsSmall" pref="1600" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -939,7 +939,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="btnReadFile" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnUpdateImages" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
                                       <Component id="btnStatisticsUpdate" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -955,7 +955,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="423" max="32767" attributes="0"/>
+                              <EmptySpace pref="249" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -965,7 +965,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnReadFile" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnUpdateImages" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="selStatsGymnast" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -982,18 +982,18 @@
                                   <Component id="lblStatsRoutine" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="drpStatsRoutine" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="1454" max="32767" attributes="0"/>
+                              <EmptySpace pref="1455" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JButton" name="btnReadFile">
+                    <Component class="javax.swing.JButton" name="btnUpdateImages">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Read File"/>
+                        <Property name="text" type="java.lang.String" value="Update Images on Display for Bounce Counter"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReadFileActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateImagesActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JComboBox" name="selStatsGymnast">
@@ -1117,7 +1117,7 @@
                                   <Component id="rdoExportText" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="rdoExportExcel" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="623" max="32767" attributes="0"/>
+                              <EmptySpace pref="625" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1132,7 +1132,7 @@
                               <Component id="rdoExportText" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="rdoExportExcel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="1449" max="32767" attributes="0"/>
+                              <EmptySpace pref="1445" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1208,7 +1208,7 @@
                           <Component id="pnlRoutines" min="-2" pref="306" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="pnlAdmin" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="743" max="32767" attributes="0"/>
+                          <EmptySpace pref="739" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
