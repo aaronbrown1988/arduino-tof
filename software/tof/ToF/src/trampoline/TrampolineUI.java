@@ -252,7 +252,6 @@ public class TrampolineUI extends javax.swing.JFrame {
             //Code for screens less than 1200 width (once taken off taskbar) assuming size of 1024 x 768
             pnlStats.setVisible(false);
             pnlGraph.setVisible(false);
-            System.out.println("ssssssssssssssssssssssssssssss");
 
             GroupLayout pnlToFLayout = (GroupLayout)pnlToF.getLayout(); 
             pnlToFLayout.setHorizontalGroup(
@@ -285,7 +284,14 @@ public class TrampolineUI extends javax.swing.JFrame {
                 pnlDataLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(pnlDataLayout.createSequentialGroup()
                     .addContainerGap(5,5)
-                    .addComponent(pnlDataTable,screenWidth - 470,screenWidth - 470,screenWidth - 470)
+                    .addGroup(pnlDataLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlDataLayout.createSequentialGroup()
+                            .addGap((screenWidth - 470)/5,(screenWidth - 470)/5,(screenWidth - 470)/5)
+                            .addComponent(lblTof,(screenWidth - 470)/5,(screenWidth - 470)/5,(screenWidth - 470)/5)
+                            .addComponent(lblTon,(screenWidth - 470)/5,(screenWidth - 470)/5,(screenWidth - 470)/5)
+                            .addComponent(lblTotal,(screenWidth - 470)/5,(screenWidth - 470)/5,(screenWidth - 470)/5)
+                            .addComponent(lblLocation,(screenWidth - 470)/5,(screenWidth - 470)/5,(screenWidth - 470)/5))
+                        .addComponent(pnlDataTable,screenWidth - 470,screenWidth - 470,screenWidth - 470))
                     .addContainerGap(5,5))
                 .addComponent(lblComments)
                 .addComponent(sclComments, screenWidth - 470, screenWidth - 470,screenWidth - 470)
@@ -298,7 +304,13 @@ public class TrampolineUI extends javax.swing.JFrame {
                 pnlDataLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(pnlDataLayout.createSequentialGroup()
                     .addContainerGap(5,5)
-                    .addComponent(pnlDataTable, screenHeight-320,screenHeight-320,screenHeight-320)
+                    .addGroup(pnlDataLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(lblTof,25,25,25)
+                        .addComponent(lblTon,25,25,25)
+                        .addComponent(lblTotal,25,25,25)
+                        .addComponent(lblLocation,25,25,25))
+                    .addGap(5,5,5)
+                    .addComponent(pnlDataTable, screenHeight-345,screenHeight-345,screenHeight-345)
                     .addGap(5,5,5)
                     .addComponent(lblComments,25,25,25)
                     .addComponent(sclComments,100,100,100)
@@ -384,7 +396,14 @@ public class TrampolineUI extends javax.swing.JFrame {
                 pnlDataLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(pnlDataLayout.createSequentialGroup()
                     .addContainerGap(5,5)
-                    .addComponent(pnlDataTable,screenWidth - 830,screenWidth - 830,screenWidth - 830)
+                    .addGroup(pnlDataLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlDataLayout.createSequentialGroup()
+                            .addGap((screenWidth - 830)/5,(screenWidth - 830)/5,(screenWidth - 830)/5)
+                            .addComponent(lblTof,(screenWidth - 830)/5,(screenWidth - 830)/5,(screenWidth - 830)/5)
+                            .addComponent(lblTon,(screenWidth - 830)/5,(screenWidth - 830)/5,(screenWidth - 830)/5)
+                            .addComponent(lblTotal,(screenWidth - 830)/5,(screenWidth - 830)/5,(screenWidth - 830)/5)
+                            .addComponent(lblLocation,(screenWidth - 830)/5,(screenWidth - 830)/5,(screenWidth - 830)/5))
+                        .addComponent(pnlDataTable,screenWidth - 830,screenWidth - 830,screenWidth - 830))
                     .addContainerGap(5,5))
                 .addComponent(lblComments)
                 .addComponent(sclComments, screenWidth - 830, screenWidth - 830,screenWidth - 830)
@@ -397,7 +416,13 @@ public class TrampolineUI extends javax.swing.JFrame {
                 pnlDataLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(pnlDataLayout.createSequentialGroup()
                     .addContainerGap(5,5)
-                    .addComponent(pnlDataTable, screenHeight-320,screenHeight-320,screenHeight-320)
+                    .addGroup(pnlDataLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(lblTof,25,25,25)
+                        .addComponent(lblTon,25,25,25)
+                        .addComponent(lblTotal,25,25,25)
+                        .addComponent(lblLocation,25,25,25))
+                    .addGap(5,5,5)
+                    .addComponent(pnlDataTable, screenHeight-345,screenHeight-345,screenHeight-345)
                     .addGap(5,5,5)
                     .addComponent(lblComments,25,25,25)
                     .addComponent(sclComments,100,100,100)
@@ -622,39 +647,21 @@ public class TrampolineUI extends javax.swing.JFrame {
         
         //Make the labels that we require for the centre panel. 
         labelArray_ = new JLabel[50];
-        
-        pnlDataTable.setLayout(new GridLayout(11,5));
-        
-        //Create the labels for the titles.
-        JLabel lblNumber = new JLabel();
-        lblNumber.setFont(centralTitleFont);
-        lblNumber.setName("lblNumber");
-        lblNumber.setText("");
-        pnlDataTable.add(lblNumber);
-        
-        JLabel lblTof = new JLabel();
+ 
         lblTof.setFont(centralTitleFont);
-        lblTof.setName("lblTof");
         lblTof.setText("ToF");
-        pnlDataTable.add(lblTof);
         
-        JLabel lblTon = new JLabel();
         lblTon.setFont(centralTitleFont);
-        lblTon.setName("lblTon");
         lblTon.setText("ToN");
-        pnlDataTable.add(lblTon);
-        
-        JLabel lblTotal = new JLabel();
+
         lblTotal.setFont(centralTitleFont);
-        lblTotal.setName("lblTotal");
         lblTotal.setText("Total");
-        pnlDataTable.add(lblTotal);
         
-        JLabel lblLocation = new JLabel();
         lblLocation.setFont(centralTitleFont);
-        lblLocation.setName("lblLocation");
         lblLocation.setText("Location:");
-        pnlDataTable.add(lblLocation);
+        
+        
+        pnlDataTable.setLayout(new GridLayout(10,5));
         
         //Create the labels for the Numbers themselves. 
         for (int i = 0; i < 10; i++) {
@@ -829,8 +836,7 @@ public class TrampolineUI extends javax.swing.JFrame {
             .addGroup(pnlClubManagementLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                 .addGroup(pnlClubManagementLayout.createSequentialGroup()
                     .addComponent(pnlGymnast,550,550,550)
-                    .addGap(15,15,15)
-                    .addComponent(lblClubManagementInfo,400,400,400))
+                    .addGap(415,415,415))
                 .addComponent(pnlGymnastDetails,screenWidth-20,screenWidth-20,screenWidth-20)
                 .addComponent(pnlRoutines,screenWidth-20,screenWidth-20,screenWidth-20)
                 .addComponent(pnlAdmin,screenWidth-20,screenWidth-20,screenWidth-20))
@@ -841,8 +847,7 @@ public class TrampolineUI extends javax.swing.JFrame {
             pnlClubManagementLayout.createSequentialGroup()
             .addContainerGap(5,5)
             .addGroup(pnlClubManagementLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
-                .addComponent(pnlGymnast, 85, 85, 85)
-                .addComponent(lblClubManagementInfo,85,85,85))
+                .addComponent(pnlGymnast, 85, 85, 85))
             .addComponent(pnlGymnastDetails,200,200,200)
             .addComponent(pnlRoutines, screenHeight - 470, screenHeight - 470, screenHeight - 470)
             .addComponent(pnlAdmin,85,85,85)
@@ -937,7 +942,6 @@ public class TrampolineUI extends javax.swing.JFrame {
         pnlGymnastDetails.setVisible(false);
         pnlRoutines.setVisible(false);
         pnlAdmin.setVisible(false);
-        lblClubManagementInfo.setVisible(false);
     }
             
     private void initGeneralUI() { 
@@ -1174,6 +1178,10 @@ public class TrampolineUI extends javax.swing.JFrame {
         btnClearComments = new javax.swing.JButton();
         sclComments = new javax.swing.JScrollPane();
         txtComments = new javax.swing.JTextArea();
+        lblTof = new javax.swing.JLabel();
+        lblTon = new javax.swing.JLabel();
+        lblTotal = new javax.swing.JLabel();
+        lblLocation = new javax.swing.JLabel();
         pnlStats = new javax.swing.JPanel();
         lblAvToFTxt = new javax.swing.JLabel();
         lblAvToNTxt = new javax.swing.JLabel();
@@ -1244,7 +1252,6 @@ public class TrampolineUI extends javax.swing.JFrame {
         btnDeleteUser = new javax.swing.JButton();
         pnlRoutines = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        lblClubManagementInfo = new javax.swing.JLabel();
         lblError = new javax.swing.JLabel();
         menBar = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
@@ -1457,29 +1464,53 @@ public class TrampolineUI extends javax.swing.JFrame {
                         .addGap(85, 85, 85)
                         .addGroup(pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnSaveComments)
-                            .addComponent(btnClearComments)))
-                    .addGroup(pnlDataLayout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(lblComments)))
+                            .addComponent(btnClearComments))))
                 .addContainerGap(131, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDataLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(sclComments, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(112, 112, 112))
+                .addGroup(pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlDataLayout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(lblComments)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlDataLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblTof)
+                            .addComponent(sclComments, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(53, 53, 53)))
+                .addGroup(pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblLocation)
+                    .addComponent(lblTotal)
+                    .addComponent(lblTon))
+                .addGap(25, 25, 25))
         );
         pnlDataLayout.setVerticalGroup(
             pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDataLayout.createSequentialGroup()
                 .addComponent(pnlDataTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblComments)
-                .addGap(64, 64, 64)
-                .addComponent(sclComments, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(101, 101, 101)
-                .addComponent(btnClearComments)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSaveComments)
-                .addGap(176, 176, 176))
+                .addGroup(pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlDataLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblComments)
+                            .addComponent(lblTon)))
+                    .addGroup(pnlDataLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(lblTof)))
+                .addGap(18, 18, 18)
+                .addComponent(lblTotal)
+                .addGap(32, 32, 32)
+                .addGroup(pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlDataLayout.createSequentialGroup()
+                        .addComponent(sclComments, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(101, 101, 101)
+                        .addComponent(btnClearComments)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSaveComments)
+                        .addGap(176, 176, 176))
+                    .addGroup(pnlDataLayout.createSequentialGroup()
+                        .addComponent(lblLocation)
+                        .addContainerGap())))
         );
 
         pnlStats.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Event Stats", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 18))); // NOI18N
@@ -1967,7 +1998,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addComponent(btnResetAll)
                 .addGap(52, 52, 52)
                 .addComponent(btnLogout)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(303, Short.MAX_VALUE))
         );
         pnlAdminLayout.setVerticalGroup(
             pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2073,8 +2104,6 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        lblClubManagementInfo.setText("TEST INFORMATION IN MESSAGE BOX");
-
         javax.swing.GroupLayout pnlClubManagementLayout = new javax.swing.GroupLayout(pnlClubManagement);
         pnlClubManagement.setLayout(pnlClubManagementLayout);
         pnlClubManagementLayout.setHorizontalGroup(
@@ -2089,21 +2118,14 @@ public class TrampolineUI extends javax.swing.JFrame {
                             .addComponent(pnlAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(pnlClubManagementLayout.createSequentialGroup()
                         .addComponent(pnlGymnast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
-                        .addComponent(lblClubManagementInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 232, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnlClubManagementLayout.setVerticalGroup(
             pnlClubManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlClubManagementLayout.createSequentialGroup()
-                .addGroup(pnlClubManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlClubManagementLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(pnlGymnast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlClubManagementLayout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(lblClubManagementInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap()
+                .addComponent(pnlGymnast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(210, 210, 210)
                 .addComponent(pnlGymnastDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -2188,13 +2210,13 @@ public class TrampolineUI extends javax.swing.JFrame {
     private void btnAddModifyUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddModifyUserActionPerformed
         if (drpGymnastName.getSelectedIndex() == 0) {
             if (txtName.getText() == "") {
-                lblClubManagementInfo.setText("Please give a name for the gymnast.");
+                errorHandler_.setError(14);
             } else {
                 //Then we need to add the gymnast. Start by entering the information into the databse. 
                 db_.addGymnast(txtName.getText(), Integer.parseInt(drpDate.getSelectedItem().toString()), Integer.parseInt(drpMonth.getSelectedItem().toString()), Integer.parseInt(drpYear.getSelectedItem().toString()), drpCategory.getSelectedItem().toString());
 
                 //Add a success message.
-                lblClubManagementInfo.setText("The Gymnast '"+txtName.getText()+"' has been added.");
+                errorHandler_.setError(12);
 
                 //Then clear all the items. 
                 txtName.setText("");
@@ -2212,7 +2234,7 @@ public class TrampolineUI extends javax.swing.JFrame {
 
             //Note that we have to take 1 off the date and month because of offsets. 
             db_.editGymnast(gymnastItem.getNumericID(), txtName.getText(), Integer.parseInt(drpDate.getSelectedItem().toString())-1, Integer.parseInt(drpMonth.getSelectedItem().toString())-1, Integer.parseInt(drpYear.getSelectedItem().toString()), drpCategory.getSelectedItem().toString(), 1);
-            lblClubManagementInfo.setText("The Gymnast '"+txtName.getText()+"' has been edited.");
+            errorHandler_.setError(13);
 
             //Then clear all the items. 
             txtName.setText("");
@@ -2301,7 +2323,6 @@ public class TrampolineUI extends javax.swing.JFrame {
             pnlGymnastDetails.setVisible(true);
             pnlRoutines.setVisible(true);
             pnlAdmin.setVisible(true);
-            lblClubManagementInfo.setVisible(true);
         }else{
             PasswordPrompt passwordPopup = new PasswordPrompt(this, true, adminPassword_);
             passwordPopup.setVisible(true);
@@ -2314,7 +2335,6 @@ public class TrampolineUI extends javax.swing.JFrame {
                     pnlGymnastDetails.setVisible(false);
                     pnlRoutines.setVisible(false);
                     pnlAdmin.setVisible(false);
-                    lblClubManagementInfo.setVisible(false);
                     this.errorHandler_.setError(1);
                     break;
                 case 1:
@@ -2323,7 +2343,6 @@ public class TrampolineUI extends javax.swing.JFrame {
                     pnlGymnastDetails.setVisible(true);
                     pnlRoutines.setVisible(true);
                     pnlAdmin.setVisible(true);
-                    lblClubManagementInfo.setVisible(true);
                     this.errorHandler_.clearError();
                     break;
             }
@@ -2345,7 +2364,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         int confirmInt = (int) JOptionPane.showConfirmDialog(pnlStatistics, "Are you sure you want to Delete '"+c+"'?", "Delete User", 0, 0);
         
         if (confirmInt == 0) {
-            lblClubManagementInfo.setText("The Gymnast '"+c+"' has been deleted.");
+            errorHandler_.setError(15);
             db_.deleteGymnast(c.getNumericID());
         }
         
@@ -2355,7 +2374,6 @@ public class TrampolineUI extends javax.swing.JFrame {
     private void drpGymnastNameActionPerformed(java.awt.event.ActionEvent evt) {                                               
         ComboItem c = (ComboItem) drpGymnastName.getSelectedItem();
         
-        System.out.println(c+"herp");
         if (c != null) {
             if (c.getNumericID() == 0) {
                 btnAddModifyUser.setText("Add User");
@@ -2399,7 +2417,6 @@ public class TrampolineUI extends javax.swing.JFrame {
         pnlGymnastDetails.setVisible(false);
         pnlRoutines.setVisible(false);
         pnlAdmin.setVisible(false);
-        lblClubManagementInfo.setVisible(false);
         this.adminAccessGranted_ = false;
         this.errorHandler_.setError(4);
     }//GEN-LAST:event_btnLogoutActionPerformed
@@ -2412,7 +2429,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         switch(resetDialog.getReturnStatus()){
             case 0:
                 // Bad password
-                lblClubManagementInfo.setText("Error: Incorrect Password Supplied for Master Reset");
+                errorHandler_.setError(16);
                 break;
             case 1:
                 //Correct password
@@ -2423,9 +2440,9 @@ public class TrampolineUI extends javax.swing.JFrame {
 
                 if(finalConfirm == JOptionPane.YES_OPTION){
                     //Confirmed to delete all the database data
-                    lblClubManagementInfo.setText("Database successfully purged of all data.");
+                    errorHandler_.setError(18);
                 }else{
-                    lblClubManagementInfo.setText("Master reset aborted.");
+                    errorHandler_.setError(17);
                 }
                 break;
                 //Display popup for confirmation
@@ -2651,7 +2668,6 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblAvTotalNo;
     private javax.swing.JLabel lblAvTotalTxt;
     private javax.swing.JLabel lblCategory;
-    private javax.swing.JLabel lblClubManagementInfo;
     private javax.swing.JLabel lblComments;
     private javax.swing.JLabel lblDoB;
     private javax.swing.JLabel lblError;
@@ -2662,6 +2678,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblHighestToFTxt;
     private javax.swing.JLabel lblLargestPositionNo;
     private javax.swing.JLabel lblLargestPositionTxt;
+    private javax.swing.JLabel lblLocation;
     private javax.swing.JLabel lblLowestToFNo;
     private javax.swing.JLabel lblLowestToFTxt;
     private javax.swing.JLabel lblName;
@@ -2681,6 +2698,9 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblStatsGymnast;
     private javax.swing.JLabel lblStatsRoutine;
     private javax.swing.JLabel lblTags;
+    private javax.swing.JLabel lblTof;
+    private javax.swing.JLabel lblTon;
+    private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lblTrampoline;
     private javax.swing.JList lstTags;
     private javax.swing.JMenuBar menBar;

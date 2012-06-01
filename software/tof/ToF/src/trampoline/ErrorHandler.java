@@ -28,6 +28,13 @@ public class ErrorHandler {
                                                           new java.awt.Color(255,0,0),
                                                           new java.awt.Color(255,0,0),
                                                           new java.awt.Color(255,0,0),
+                                                          new java.awt.Color(0,0,255),
+                                                          new java.awt.Color(0,0,255),
+                                                          new java.awt.Color(255,0,0),
+                                                          new java.awt.Color(0,0,255),
+                                                          new java.awt.Color(255,0,0),
+                                                          new java.awt.Color(255,0,0),
+                                                          new java.awt.Color(0,0,255)
                                                          };
     
     private static final String[] shortErrors_ =   {"","Error: Incorrect password",
@@ -40,7 +47,14 @@ public class ErrorHandler {
                                                     "Error: Device Communications",
                                                     "Error: COM Port Cache",
                                                     "Error: Database Access",
-                                                    "Error: No tag name"
+                                                    "Error: No tag name",
+                                                    "Gymnast Added Successfully",
+                                                    "Gymnast modified Successfully",
+                                                    "Error: Gymnast Name",
+                                                    "Gymnast deleted Successfully",
+                                                    "Error: Incorrect password",
+                                                    "Master reset aborted",
+                                                    "Master reset successful"
                                                    };
     
     
@@ -55,7 +69,14 @@ public class ErrorHandler {
                                                     "There was an error communicating with the ToF device. Please reboot all attached ToF devices.",
                                                     "There was an issue with emptying the COM port data cache. Please restart the computer and reboot all attached ToF devices.",
                                                     "An issue was encountered whilst reading from the SQL database. Please ensure that only one copy of the program is open and try restarting the computer if the problem persists.",
-                                                    "The new tag was not added to the database because no tag name was provided or it was the same as an existing tag name. Please try again and input a different tag name."
+                                                    "The new tag was not added to the database because no tag name was provided or it was the same as an existing tag name. Please try again and input a different tag name.",
+                                                    "The new gymnast was successfully added to the database.",
+                                                    "The gymnast details were succesfully modified in the database.",
+                                                    "Please provide a name for the new gymnast to be added to the database.",
+                                                    "The gymnast was successfully deleted from the database.",
+                                                    "The password supplied for the master reset was incorrect. Please try again.",
+                                                    "The master reset of all the database data was aborted by the user.",
+                                                    "The database was successfully purged of all data."
                                                    };
     
     ErrorHandler(){
