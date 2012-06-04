@@ -187,7 +187,16 @@ public class DBConnect {
         executeQuery("SELECT * FROM clubs");
         
         ArrayList<Club> clubList = new ArrayList<Club>();
-        
+        try {
+            while (rs_.next()) {
+                clubList.add(new Club(resultGetInt("cid"), resultGetString("shortname"), resultGetString("longname"), resultGetString("addressline1"), resultGetString("addressline2"), resultGetString("town"), resultGetString("county"), resultGetString("postcode"),resultGetString("headcoach"),resultGetString("contactdetails")));
+            }
+            rs_.close();
+        }
+        catch (Exception e) {
+            messageHandler_.setError(10);
+            messageHandler_.setMoreDetails(e.toString());
+        }
         return clubList.toArray(new Club[clubList.size()]);
     }
     

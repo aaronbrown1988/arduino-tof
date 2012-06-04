@@ -1200,6 +1200,20 @@ public class TrampolineUI extends javax.swing.JFrame {
         }
     }
     
+    public void updateClubDropDown() {
+        JComboBox[] boxesToUpdate = {drpClubName, drpClubs};
+        Club[] clubList = db_.getAllClubs();
+        
+        for(JComboBox jcb:boxesToUpdate){
+            jcb.removeAllItems();
+            jcb.addItem(new ComboItem(0,"<< Please Select Club >>"));
+            
+            for(Club c:clubList){
+                jcb.addItem(new ComboItem(c.getId(),c.getShortName()));
+            }
+        }
+    }
+    
     public void updateJumpTime(String jumpNum, Jump j) {
         //This needs to be written to take account of the new JLabels for the times. 
     }
