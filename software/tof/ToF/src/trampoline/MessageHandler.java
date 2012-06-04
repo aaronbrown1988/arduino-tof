@@ -8,7 +8,7 @@ package trampoline;
  *
  * @author Kieran
  */
-public class ErrorHandler {
+public class MessageHandler {
     
     private boolean flag_;   // Flag if there is an error
     private String currentErrorShort_; //Short version for display of current error;
@@ -79,7 +79,7 @@ public class ErrorHandler {
                                                     "The database was successfully purged of all data."
                                                    };
     
-    ErrorHandler(){
+    MessageHandler(){
         this.flag_ = false;
         this.currentErrorShort_ = "";
         this.currentErrorLong_ = "";

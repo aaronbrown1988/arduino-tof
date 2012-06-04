@@ -14,10 +14,10 @@ public class DBConnect {
     public Connection conn_;
     public Statement stat_;
     public ResultSet rs_;
-    private ErrorHandler errorHandler_; // Error Handler inherited from main class;
+    private MessageHandler messageHandler_; // Error Handler inherited from main class;
     
-    DBConnect(ErrorHandler errHandl) {
-        this.errorHandler_ = errHandl;
+    DBConnect(MessageHandler errHandl) {
+        this.messageHandler_ = errHandl;
         try {
             Class.forName("org.sqlite.JDBC");
             //connect to the database
@@ -25,8 +25,8 @@ public class DBConnect {
             stat_ = conn_.createStatement();
         }
         catch (Exception e) {
-            this.errorHandler_.setError(2);
-            this.errorHandler_.setMoreDetails(e.toString());
+            this.messageHandler_.setError(2);
+            this.messageHandler_.setMoreDetails(e.toString());
         }
     }
     
@@ -72,6 +72,10 @@ public class DBConnect {
         return rid;
     }
     
+    public int addComments(int rid, String comments){
+        return executeUpdate("UPDATE routines SET comments = '"+comments+"' WHERE rid = '"+rid+"'");
+    }
+    
     public void deleteGymnast(int gid) {
         executeQuery("DELETE FROM gymnasts WHERE gid = '"+gid+"'");
     }
@@ -98,8 +102,8 @@ public class DBConnect {
             }
             rs_.close();
         } catch (Exception e) {
-            errorHandler_.setError(10);
-            errorHandler_.setMoreDetails(e.toString());
+            messageHandler_.setError(10);
+            messageHandler_.setMoreDetails(e.toString());
         }
         
         return tagMap;
@@ -123,8 +127,8 @@ public class DBConnect {
             rs_.close();
         }
         catch (Exception e) {
-            errorHandler_.setError(10);
-            errorHandler_.setMoreDetails(e.toString());
+            messageHandler_.setError(10);
+            messageHandler_.setMoreDetails(e.toString());
         }
         
         return gymnastList.toArray(new Gymnast[gymnastList.size()]);
@@ -141,8 +145,8 @@ public class DBConnect {
             rs_.close();
         }
         catch (Exception e) {
-            errorHandler_.setError(10);
-            errorHandler_.setMoreDetails(e.toString());
+            messageHandler_.setError(10);
+            messageHandler_.setMoreDetails(e.toString());
         }
         return j;
     }
@@ -166,8 +170,8 @@ public class DBConnect {
             }
         }
         catch (Exception e) {
-            errorHandler_.setError(10);
-            errorHandler_.setMoreDetails(e.toString());
+            messageHandler_.setError(10);
+            messageHandler_.setMoreDetails(e.toString());
         }
         
         return r;
@@ -186,8 +190,8 @@ public class DBConnect {
             }
         }
         catch (Exception e) {
-            errorHandler_.setError(10);
-            errorHandler_.setMoreDetails(e.toString());
+            messageHandler_.setError(10);
+            messageHandler_.setMoreDetails(e.toString());
         }
         
         //Then, we have the list of IDs, so create an array of routines and return it. 
@@ -209,8 +213,8 @@ public class DBConnect {
         }
 
         catch (Exception e) {
-            errorHandler_.setError(10);
-            errorHandler_.setMoreDetails(e.toString());
+            messageHandler_.setError(10);
+            messageHandler_.setMoreDetails(e.toString());
         }
 
         return true;
@@ -231,8 +235,8 @@ public class DBConnect {
         }
 
         catch (Exception e) {
-            errorHandler_.setError(10);
-            errorHandler_.setMoreDetails(e.toString());
+            messageHandler_.setError(10);
+            messageHandler_.setMoreDetails(e.toString());
         }
         
         System.out.println("Update:"+i);
@@ -247,8 +251,8 @@ public class DBConnect {
         }
 
         catch (Exception e) {
-            errorHandler_.setError(10);
-            errorHandler_.setMoreDetails(e.toString());
+            messageHandler_.setError(10);
+            messageHandler_.setMoreDetails(e.toString());
         }
 
         return i;
@@ -262,8 +266,8 @@ public class DBConnect {
         }
 
         catch (Exception e) {
-            errorHandler_.setError(10);
-            errorHandler_.setMoreDetails(e.toString());
+            messageHandler_.setError(10);
+            messageHandler_.setMoreDetails(e.toString());
         }
 
         return s;

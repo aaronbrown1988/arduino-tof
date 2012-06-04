@@ -26,9 +26,9 @@ public class PortController implements SerialPortEventListener{
     private InputStream input_;                         // Buffered input stream from the port.
     private OutputStream output_;                       // The output stream to the port.
     private String portOpen_;                           // Name of Serial Port open.
-    private ErrorHandler errorHandler_;                 // Error Handler inherited from main project.
+    private MessageHandler messageHandler_;                 // Error Handler inherited from main project.
     
-    PortController(ErrorHandler errHandl){
+    PortController(MessageHandler errHandl){
         this.portsInUse_ = new ArrayList<CommPortIdentifier>();
         this.nameOfPorts_ = new ArrayList<String>();
         this.noOfTof_ = new ArrayList<Integer>();
@@ -37,13 +37,13 @@ public class PortController implements SerialPortEventListener{
         this.output_ = null;
         this.portOpen_ = null;
         this.tofInterfaces_ = null;
-        this.errorHandler_ = errHandl;
+        this.messageHandler_ = errHandl;
         
         this.readSettings();
         this.listPorts();
     }
     
-    PortController(ErrorHandler errHandl, String portName){
+    PortController(MessageHandler errHandl, String portName){
         this(errHandl);
         this.initialise(portName);
     }
@@ -67,18 +67,18 @@ public class PortController implements SerialPortEventListener{
                 }
             }
         } catch (FileNotFoundException e) {
-            this.errorHandler_.setError(5);
+            this.messageHandler_.setError(5);
         } catch (IOException e) {
-            this.errorHandler_.setError(6);
-            this.errorHandler_.setMoreDetails(e.toString());
+            this.messageHandler_.setError(6);
+            this.messageHandler_.setMoreDetails(e.toString());
         } finally {
             try {
                 if (buffRead != null){
                     buffRead.close();
                 }
             } catch (IOException e) {
-                this.errorHandler_.setError(6);
-                this.errorHandler_.setMoreDetails(e.toString());
+                this.messageHandler_.setError(6);
+                this.messageHandler_.setMoreDetails(e.toString());
             }
         }
     }
@@ -107,7 +107,7 @@ public class PortController implements SerialPortEventListener{
         }
 
         if(this.portsInUse_.isEmpty()){
-            this.errorHandler_.setError(3);
+            this.messageHandler_.setError(3);
         }
     }
     
@@ -152,8 +152,8 @@ public class PortController implements SerialPortEventListener{
                 serialPort.close();
             }
             
-            this.errorHandler_.setError(7);
-            this.errorHandler_.setMoreDetails(e.toString());
+            this.messageHandler_.setError(7);
+            this.messageHandler_.setMoreDetails(e.toString());
         }
         return result;
     }
@@ -182,14 +182,14 @@ public class PortController implements SerialPortEventListener{
             this.serialPort_.notifyOnDataAvailable(true);
             this.portOpen_ = portName;
         } catch (Exception e) {
-            this.errorHandler_.setError(8);
-            this.errorHandler_.setMoreDetails(e.toString());
+            this.messageHandler_.setError(8);
+            this.messageHandler_.setMoreDetails(e.toString());
         }
         
         //Intialise Tof Interfaces for all Tof on the port
         this.tofInterfaces_ = new TofInterface[this.noOfTof_.get(index)];        
         for(int i=0;i<this.noOfTof_.get(index);i++){
-            this.tofInterfaces_[i] = new TofInterface(this.errorHandler_, this);
+            this.tofInterfaces_[i] = new TofInterface(this.messageHandler_, this);
         }
     }
     
@@ -220,8 +220,8 @@ public class PortController implements SerialPortEventListener{
                     this.tofInterfaces_[tofId-1].receiveBounce(time, broken);
                 }
             }catch (Exception e){
-                this.errorHandler_.setError(8);
-                this.errorHandler_.setMoreDetails(e.toString());
+                this.messageHandler_.setError(8);
+                this.messageHandler_.setMoreDetails(e.toString());
             }
         }
     // Ignore all the other eventTypes, but you should consider the other ones.
@@ -233,8 +233,8 @@ public class PortController implements SerialPortEventListener{
             byte chunk[] = new byte[available];
             this.input_.read(chunk,0,available);
         } catch (Exception e){
-            this.errorHandler_.setError(9);
-            this.errorHandler_.setMoreDetails(e.toString());
+            this.messageHandler_.setError(9);
+            this.messageHandler_.setMoreDetails(e.toString());
         }
     }
     

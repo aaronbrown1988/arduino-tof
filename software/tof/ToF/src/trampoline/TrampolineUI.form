@@ -1271,6 +1271,9 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Add New User"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddGymnastActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -1375,7 +1378,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="lblName" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblDoB" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblDob" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -1415,7 +1418,7 @@
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblDoB" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblDob" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="drpDate" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="drpMonth" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="drpYear" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1436,9 +1439,9 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtName">
                     </Component>
-                    <Component class="javax.swing.JLabel" name="lblDoB">
+                    <Component class="javax.swing.JLabel" name="lblDob">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="DoB:"/>
+                        <Property name="text" type="java.lang.String" value="Date of Birth:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JComboBox" name="drpDate">
