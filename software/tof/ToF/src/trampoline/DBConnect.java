@@ -134,6 +134,14 @@ public class DBConnect {
         return gymnastList.toArray(new Gymnast[gymnastList.size()]);
     }
     
+    public Club[] getAllClubs() {
+        executeQuery("SELECT * FROM clubs");
+        
+        ArrayList<Club> clubList = new ArrayList<Club>();
+        
+        return clubList.toArray(new Club[clubList.size()]);
+    }
+    
     public Jump getJump(int jid) {
         Jump j = new Jump();
         try {
