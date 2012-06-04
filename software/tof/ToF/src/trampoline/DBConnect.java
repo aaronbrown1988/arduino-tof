@@ -109,6 +109,55 @@ public class DBConnect {
         return tagMap;
     }
     
+    public Category[] getCategories() {
+        executeQuery("SELECT * FROM categories");
+        
+        ArrayList<Category> categoryList = new ArrayList<Category>();
+        
+        try {
+            while (rs_.next()) {
+                categoryList.add(new Category(resultGetInt("catid"), resultGetString("categoryname")));
+            }
+            rs_.close();
+        }
+        catch (Exception e) {
+            messageHandler_.setError(10);
+            messageHandler_.setMoreDetails(e.toString());
+        }
+        
+        return categoryList.toArray(new Category[categoryList.size()]);
+    }
+    
+    public Category getCategory(String name) {
+        executeQuery("SELECT * FROM categories WHERE categoryname = '"+name+"'");
+        
+        try {
+            rs_.next();
+            rs_.close();
+        }
+        catch (Exception e) {
+            messageHandler_.setError(10);
+            messageHandler_.setMoreDetails(e.toString());
+        }
+        
+        return new Category(resultGetInt("catid"), resultGetString("categoryname"));
+    }
+    
+    public Category getCategory(int id) {
+        executeQuery("SELECT * FROM categories WHERE catid = '"+id+"'");
+        
+        try {
+            rs_.next();
+            rs_.close();
+        }
+        catch (Exception e) {
+            messageHandler_.setError(10);
+            messageHandler_.setMoreDetails(e.toString());
+        }
+        
+        return new Category(resultGetInt("catid"), resultGetString("categoryname"));
+    }
+    
     public Gymnast getGymnast(int gid) {
         executeQuery("SELECT g.*, c.* FROM gymnasts g, clubs c WHERE g.gid = '"+gid+"' AND g.clubid = c.cid");
         
