@@ -2643,29 +2643,32 @@ public class TrampolineUI extends javax.swing.JFrame {
     private void drpSelectGymnastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpSelectGymnastActionPerformed
         // TODO add your handling code here:
         ComboItem currentItem = (ComboItem)drpSelectGymnast.getSelectedItem();
-        if(!(currentItem.getName().equals("<< Please Select Gymnast >>"))){
-            Map<Integer, String> tagMapToF = db_.getTags(Integer.parseInt(currentItem.getID()));
-            
-            DefaultListModel lstTagsModel = new DefaultListModel();
-            for(int tagId : tagMapToF.keySet()){
-                ComboItem newTag = new ComboItem(tagId,tagMapToF.get(tagId));
-                lstTagsModel.addElement(newTag);
+        
+        if (currentItem != null) {
+            if(!(currentItem.getName().equals("<< Please Select Gymnast >>"))){
+                Map<Integer, String> tagMapToF = db_.getTags(Integer.parseInt(currentItem.getID()));
+
+                DefaultListModel lstTagsModel = new DefaultListModel();
+                for(int tagId : tagMapToF.keySet()){
+                    ComboItem newTag = new ComboItem(tagId,tagMapToF.get(tagId));
+                    lstTagsModel.addElement(newTag);
+                }
+
+                lstTags.setModel(lstTagsModel);
+
+                String firstItem = drpSelectGymnast.getItemAt(0).toString();
+                if(firstItem.equals("<< Please Select Gymnast >>")){
+                    drpSelectGymnast.removeItemAt(0);
+                }
+
+                lblNumberOfBounces.setVisible(true);
+                txtNumberOfBounces.setVisible(true);
+                lblTags.setVisible(true);
+                lblAddNewTag.setVisible(true);
+                sclTags.setVisible(true);
+                lstTags.setVisible(true);
+                btnCollectData.setVisible(true);
             }
-            
-            lstTags.setModel(lstTagsModel);
-            
-            String firstItem = drpSelectGymnast.getItemAt(0).toString();
-            if(firstItem.equals("<< Please Select Gymnast >>")){
-                drpSelectGymnast.removeItemAt(0);
-            }
-            
-            lblNumberOfBounces.setVisible(true);
-            txtNumberOfBounces.setVisible(true);
-            lblTags.setVisible(true);
-            lblAddNewTag.setVisible(true);
-            sclTags.setVisible(true);
-            lstTags.setVisible(true);
-            btnCollectData.setVisible(true);
         }
     }//GEN-LAST:event_drpSelectGymnastActionPerformed
 
