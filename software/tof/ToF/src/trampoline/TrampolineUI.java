@@ -2426,6 +2426,7 @@ public class TrampolineUI extends javax.swing.JFrame {
             ComboItem gymnastItem = (ComboItem) drpGymnastName.getSelectedItem();
             messageHandler_.clearError();
             //Note that we have to take 1 off the date and month because of offsets. 
+            
             db_.editGymnast(gymnastItem.getNumericID(), txtName.getText(), Integer.parseInt(drpDate.getSelectedItem().toString())-1, Integer.parseInt(drpMonth.getSelectedItem().toString())-1, Integer.parseInt(drpYear.getSelectedItem().toString()), drpCategory.getSelectedItem().toString(), 1);
             if(!(messageHandler_.isError())){
                 messageHandler_.setError(13);
