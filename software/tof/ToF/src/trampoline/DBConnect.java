@@ -109,7 +109,7 @@ public class DBConnect {
         return tagMap;
     }
     
-    public Category[] getCategories() {
+    public Category[] getAllCategories() {
         executeQuery("SELECT * FROM categories");
         
         ArrayList<Category> categoryList = new ArrayList<Category>();
