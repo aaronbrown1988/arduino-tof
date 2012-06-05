@@ -63,8 +63,10 @@ public class TrampolineUI extends javax.swing.JFrame {
     private String adminPassword_;
     private Dimension screenResolution_; //Current screen resolution when program loaded
     private MessageHandler messageHandler_;  // Instance of the project Error Handler.
-    private int errorPersist_;          // Length of time to show error for.
+    private int messagePersist_;          // Length of time to show error for.
+    private String currentMessage_;           // Current message displayed
     private BounceCounter bounceCounter_;
+    
     
     
    ActionListener pageRefresh = new ActionListener() {
@@ -104,15 +106,19 @@ public class TrampolineUI extends javax.swing.JFrame {
                 lblError.setText(messageHandler_.getCurrentErrorShort() + " (Click for more info...)");
                 lblError.setForeground(messageHandler_.getColour());
                 lblError.setCursor(new Cursor(java.awt.Cursor.HAND_CURSOR));
-                if (errorPersist_!=0){
-                    if (errorPersist_ ==1){
+                if (messagePersist_!=0){
+                    if(!currentMessage_.equals(messageHandler_.getCurrentErrorShort())){
+                        messagePersist_ = 10000;
+                        currentMessage_ = messageHandler_.getCurrentErrorShort();
+                    }
+                    if (messagePersist_ ==1){
                         lblError.setText("");
                         messageHandler_.clearError();
                         lblError.setCursor(new Cursor(java.awt.Cursor.DEFAULT_CURSOR));
                     }
-                    errorPersist_ --;
+                    messagePersist_ --;
                 } else {
-                    errorPersist_ = 10000;
+                    messagePersist_ = 10000;
                 }
             }
        }
@@ -239,7 +245,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         pageRefreshTimer_ = new javax.swing.Timer(1, pageRefresh);
         pageRefreshTimer_.start();
         jumpTimer = new javax.swing.Timer(1000, jumpAction);
-        errorPersist_ = 0;
+        messagePersist_ = 0;
         errorTimer_ = new javax.swing.Timer(1, errorAction);
         errorTimer_.start();
     }
@@ -853,9 +859,9 @@ public class TrampolineUI extends javax.swing.JFrame {
             .addContainerGap(5,5)
             .addComponent(lblGymnast,60,60,60)
             .addGap(5,5,5)
-            .addComponent(drpGymnastName,((screenWidth-20)/2)-245,((screenWidth-20)/2)-245,((screenWidth-20)/2)-245)
+            .addComponent(drpGymnastName,((screenWidth-20)/2)-270,((screenWidth-20)/2)-270,((screenWidth-20)/2)-270)
             .addGap(20,20,20)    
-            .addComponent(btnAddGymnast,125,125,125)   
+            .addComponent(btnAddGymnast,150,150,150)   
             .addContainerGap(5,5)
         );
 
@@ -2819,9 +2825,9 @@ public class TrampolineUI extends javax.swing.JFrame {
             messageHandler_.setError(23);
         }
         
-        //drpGymnastName.setSelectedIndex(0);
-        //updateGymnastDropDown();
-        //gymnastPanelVisible(false);
+        drpGymnastName.setSelectedIndex(0);
+        updateGymnastDropDown();
+        gymnastPanelVisible(false);
     }//GEN-LAST:event_btnDeleteGymnastActionPerformed
 
     private void drpGymnastNameActionPerformed(java.awt.event.ActionEvent evt) {                                               

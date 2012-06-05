@@ -124,7 +124,7 @@ public class MessageHandler {
     java.awt.Color getColour(){
         return this.currentColour_;
     }
-            
+                
     void setError(int errno){
         this.flag_ = true;
         this.currentErrorShort_ = this.shortErrors_[errno];
