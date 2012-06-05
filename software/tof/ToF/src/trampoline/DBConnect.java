@@ -77,6 +77,10 @@ public class DBConnect {
         return executeUpdate("INSERT INTO tagmap (tagid, routineid) VALUES ('"+tid+"', '"+rid+"')");
     }
     
+    public int deleteTagMap(int rid, int tid){
+        return executeUpdate("DELETE FROM tagmap WHERE routineid = '"+rid+"' AND tagid ='"+tid+"'");
+    }
+    
     public void deleteGymnast(int gid) {
         Routine[] routines = getRoutinesForGymnast(gid);
         
