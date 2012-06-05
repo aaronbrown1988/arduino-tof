@@ -172,7 +172,11 @@ public class TofInterface {
          
          this.db_ = database;
          this.gymnast_ = gymnast;
-         this.routine_ = new Routine(noOfBounces, 0);
+         
+         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+         Date date = new Date();
+         
+         this.routine_ = new Routine(noOfBounces, 0, dateFormat.format(date));
          this.currentRoutineID_ = 0;
          
          this.myPort_.clearBuffer();       
@@ -191,10 +195,9 @@ public class TofInterface {
 }
      
      private void write(){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
+        
             
-        this.currentRoutineID_ = this.db_.addRoutine(this.routine_, this.gymnast_, dateFormat.format(date));
+        this.currentRoutineID_ = this.db_.addRoutine(this.routine_, this.gymnast_);
         this.routine_.setRoutineId(this.currentRoutineID_);
     }
     

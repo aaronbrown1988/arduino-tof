@@ -121,6 +121,7 @@
             <fileset file="${basedir}/properties.cfg"></fileset><!-- optional -->
         </one-jar> 
         <copy file="./src/trampoline/images/splashScreen.jpg" tofile="${dist.jar.dir}/splashScreen.jpg"/>
+        <copy file="./data/database" tofile="${dist.jar.dir}/database"/>
         <echo file="${dist.jar.dir}/README.txt" append="true">
 Run the stand-alone distribution from the command line using:
         java -jar -Xmx256m ${standalone.jar.name}-all.jar</echo>
@@ -227,6 +228,7 @@ Run the stand-alone distribution from the command line using:
             file="${dist.jar.dir}/${standalone.jar.name}-mac.jar" >
      </copy>
      <copy todir="${release.dir}/${standalone.jar.name}-mac/" file="${dist.jar.dir}/splashScreen.jpg"/>
+     <copy todir="${release.dir}/${standalone.jar.name}-mac/" file="${dist.jar.dir}/database"/>
      
      <mkdir  dir="${release.dir}/${standalone.jar.name}-win-x64" />
      <echo  file="${release.dir}/${standalone.jar.name}-win-x64/${standalone.jar.name}-x64.bat">
@@ -235,6 +237,7 @@ java -jar -splash:splashScreen.jpg -Xmx256m ${standalone.jar.name}-win-x64.jar
      <copy todir="${release.dir}/${standalone.jar.name}-win-x64/"
             file="${dist.jar.dir}/${standalone.jar.name}-win-x64.jar" />
      <copy todir="${release.dir}/${standalone.jar.name}-win-x64/" file="${dist.jar.dir}/splashScreen.jpg"/>
+     <copy todir="${release.dir}/${standalone.jar.name}-win-x64/" file="${dist.jar.dir}/database"/>
      
      <mkdir  dir="${release.dir}/${standalone.jar.name}-win-x86" />
      <echo  file="${release.dir}/${standalone.jar.name}-win-x86/${standalone.jar.name}.bat">
@@ -243,6 +246,7 @@ java -jar -splash:splashScreen.jpg -Xmx256m ${standalone.jar.name}-win.jar
      <copy todir="${release.dir}/${standalone.jar.name}-win-x86/"
             file="${dist.jar.dir}/${standalone.jar.name}-win-x86.jar" />
      <copy todir="${release.dir}/${standalone.jar.name}-win-x86/" file="${dist.jar.dir}/splashScreen.jpg"/>         
+     <copy todir="${release.dir}/${standalone.jar.name}-win-x86/" file="${dist.jar.dir}/database"/>
             
      <mkdir  dir="${release.dir}/${standalone.jar.name}-linux-x86" />
      <echo  file="${release.dir}/${standalone.jar.name}-linux-x86/${standalone.jar.name}.sh">
@@ -251,6 +255,7 @@ java -jar -splash:splashScreen.jpg -Xmx256m ${standalone.jar.name}-linux-x86.jar
      <copy todir="${release.dir}/${standalone.jar.name}-linux-x86/"
             file="${dist.jar.dir}/${standalone.jar.name}-linux-x86.jar" />
      <copy todir="${release.dir}/${standalone.jar.name}-linux-x86/" file="${dist.jar.dir}/splashScreen.jpg"/>  
+     <copy todir="${release.dir}/${standalone.jar.name}-linux-x86/" file="${dist.jar.dir}/database"/>
      
      <mkdir  dir="${release.dir}/${standalone.jar.name}-linux-x64" />
      <echo  file="${release.dir}/${standalone.jar.name}-linux-x64/${standalone.jar.name}.sh">
@@ -259,6 +264,7 @@ java -jar -splash:splashScreen.jpg -Xmx256m ${standalone.jar.name}-linux-x64.jar
      <copy todir="${release.dir}/${standalone.jar.name}-linux-x64/"
             file="${dist.jar.dir}/${standalone.jar.name}-linux-x64.jar" />
      <copy todir="${release.dir}/${standalone.jar.name}-linux-x64/" file="${dist.jar.dir}/splashScreen.jpg"/>
+     <copy todir="${release.dir}/${standalone.jar.name}-linux-x64/" file="${dist.jar.dir}/database"/>
      
      <mkdir  dir="${release.dir}/${standalone.jar.name}-linux-ia64" />
      <echo  file="${release.dir}/${standalone.jar.name}-linux-ia64/${standalone.jar.name}.sh">
@@ -267,6 +273,7 @@ java -jar -splash:splashScreen.jpg -Xmx256m ${standalone.jar.name}-linux-ia64.ja
      <copy todir="${release.dir}/${standalone.jar.name}-linux-ia64/"
             file="${dist.jar.dir}/${standalone.jar.name}-linux-ia64.jar" />
      <copy todir="${release.dir}/${standalone.jar.name}-linux-ia64/" file="${dist.jar.dir}/splashScreen.jpg"/>
+     <copy todir="${release.dir}/${standalone.jar.name}-linux-ia64/" file="${dist.jar.dir}/database"/>
      
      <mkdir  dir="${release.dir}/${standalone.jar.name}-linux-i686" />
      <echo  file="${release.dir}/${standalone.jar.name}-linux-i686/${standalone.jar.name}.sh">
@@ -275,6 +282,7 @@ java -jar -splash:splashScreen.jpg -Xmx256m ${standalone.jar.name}-linux-i686.ja
      <copy todir="${release.dir}/${standalone.jar.name}-linux-i686/"
             file="${dist.jar.dir}/${standalone.jar.name}-linux-i686.jar" />
      <copy todir="${release.dir}/${standalone.jar.name}-linux-i686/" file="${dist.jar.dir}/splashScreen.jpg"/>
+     <copy todir="${release.dir}/${standalone.jar.name}-linux-i686/" file="${dist.jar.dir}/database"/>
      
      <echo>Bundling: Creating ZIP Archives</echo>
      <zip destfile="${release.dir}/${standalone.jar.name}-win-x86.zip"  

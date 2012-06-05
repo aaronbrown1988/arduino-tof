@@ -22,8 +22,9 @@ public class Routine {
     private double totalTof_;
     private double totalTon_;
     private int worstJumpForLosingHeight_;
+    private String dateTime_;
     
-    Routine (Jump[] jumpList, int id) {
+    Routine (Jump[] jumpList, int id, String dateTime) {
         id_ = id;
         numberOfJumps_ = jumpList.length;
         jumpArray_     = new Jump[numberOfJumps_];
@@ -33,15 +34,17 @@ public class Routine {
         for (Jump j:jumpList) {
             addJump(j);
         }
+        dateTime_ = dateTime;
     }
     
-    Routine (int numberOfJumps, int id) {
+    Routine (int numberOfJumps, int id, String dateTime) {
         id_ = id;
         numberOfJumps_ = numberOfJumps;
         jumpArray_     = new Jump[numberOfJumps_];
         statsHeights_  = new double[numberOfJumps_];
         statsTimes_    = new double[numberOfJumps_];
         numberOfJumpsUsed_ = 0;
+        dateTime_ = dateTime;
     }
     
     //Simply adds another jump to the jumpArray and returns false if the jump wasn't added because the jumpArray_ is full.
@@ -87,8 +90,8 @@ public class Routine {
             totalTof_  += jumpArray_[i].getTof();
             totalTon_  += jumpArray_[i].getTon();
         }
-        
-        averageJumpTime_ = totalTime_ / 10.0;
+        System.out.println("here");
+        averageJumpTime_ = totalTime_ / numberOfJumps_;
     }
     
     public int getID() {
@@ -123,7 +126,15 @@ public class Routine {
         return totalTon_;
     }
     
+    public String getDateTime(){
+        return dateTime_;
+    }
+    
     public void setRoutineId(int id) {
         id_ = id;
+    }
+    
+    public void setDateTime(String dateTime){
+        dateTime_ = dateTime;
     }
 }

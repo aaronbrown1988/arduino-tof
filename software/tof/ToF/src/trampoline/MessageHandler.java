@@ -40,7 +40,10 @@ public class MessageHandler {
                                                           new java.awt.Color(0,0,255),
                                                           new java.awt.Color(0,0,255),
                                                           new java.awt.Color(255,0,0),
-                                                          new java.awt.Color(255,0,0)
+                                                          new java.awt.Color(255,0,0),
+                                                          new java.awt.Color(0,0,255),
+                                                          new java.awt.Color(255,0,0),
+                                                          new java.awt.Color(0,0,255)
                                                          };
     
     private static final String[] shortErrors_ =   {"","Error: Incorrect password",
@@ -66,7 +69,10 @@ public class MessageHandler {
                                                     "Club Deleted Successfully",
                                                     "Club Modified Successfully",
                                                     "Gymnast Delete Aborted",
-                                                    "Club Delete Aborted"
+                                                    "Club Delete Aborted",
+                                                    "Routine Deleted Successfully",
+                                                    "Routine Delete Aborted",
+                                                    "Tag Added Successfully"
                                                    };
     
     
@@ -93,8 +99,11 @@ public class MessageHandler {
                                                     "The new club was successfully added to the database.",
                                                     "The club was successfully deleted from the database.",
                                                     "The club details successfully modified in the database.",
-                                                    "Deleteing the gymnast was aborted by the user.",
-                                                    "Deleteing the club was aborted by the user."
+                                                    "Deleting the gymnast was aborted by the user.",
+                                                    "Deleting the club was aborted by the user.",
+                                                    "The routine was successfully deleted from the database.",
+                                                    "Deleting the routine was aborted by the user.",
+                                                    "The tag was successfully added to the selected routines."
                                                    };
     
     MessageHandler(){

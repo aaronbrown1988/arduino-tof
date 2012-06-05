@@ -56,7 +56,8 @@ public class DBConnect {
         return addJump(routineid, jumpnumber, j.getBreakStart(), j.getEngage(), j.getBreakEnd(), j.getTof(), j.getTon(), j.getTotal(), j.getLocation());
     }
     
-    public int addRoutine(Routine r, int gid, String datetime) {
+    public int addRoutine(Routine r, int gid) {
+        String datetime = r.getDateTime();
         int rid = executeUpdate("INSERT INTO routines (gymnastid, totaltof, totalton, totaltime, datetime, numberofjumps) "
             + "VALUES ('"+gid+"', '"+r.getTotalTof()+"', '"+r.getTotalTon()+"', '"+r.getTotalTime()+"', '"+datetime+"', '"+r.getNumberOfJumps()+"')");
         Jump[] jumpArray = r.getJumps();
@@ -70,6 +71,10 @@ public class DBConnect {
     
     public int addComments(int rid, String comments){
         return executeUpdate("UPDATE routines SET comments = '"+comments+"' WHERE rid = '"+rid+"'");
+    }
+    
+    public int addTagMap(int rid, int tid){
+        return executeUpdate("INSERT INTO tagmap (tagid, routineid) VALUES ('"+tid+"', '"+rid+"')");
     }
     
     public void deleteGymnast(int gid) {
@@ -91,7 +96,27 @@ public class DBConnect {
         executeUpdate("DELETE FROM clubs WHERE cid = '"+cid+"'");
     }
     
+    public void deleteJump(int jid){
+        executeUpdate("DELETE FROM jumps WHERE jid ='"+jid+"'");
+    }
+    
     public void deleteRoutine(int rid) {
+        executeQuery("SELECT * FROM jumps WHERE routineid = '"+rid+"'");
+        ArrayList<Integer> jlist = new ArrayList<Integer>(10);
+        try {
+            while(rs_.next()){
+                jlist.add(resultGetInt("jid"));
+            }
+            rs_.close();
+        } catch (Exception e) {
+            messageHandler_.setError(10);
+            messageHandler_.setMoreDetails(e.toString());
+        }
+        
+        for(int i:jlist){
+            deleteJump(i);
+        }
+        
         executeUpdate("DELETE FROM routines WHERE rid ='"+rid+"'");
     }
     
@@ -280,9 +305,9 @@ public class DBConnect {
     public Routine getRoutine(int rid) {
         executeQuery("SELECT * FROM routines WHERE rid = '"+rid+"'");
         int numberOfJumps = resultGetInt("numberofjumps");
-
-        Routine r = new Routine(numberOfJumps, rid);
-        //executeQuery("SELECT * FROM jumps WHERE routineid = '"+rid+"' ORDER BY jumpnumber ASC");
+        String dateTime = resultGetString("datetime");
+               
+        Routine r = new Routine(numberOfJumps, rid, dateTime);
         
         try {
             rs_ = stat_.executeQuery("SELECT * FROM jumps WHERE routineid = '"+rid+"' ORDER BY jumpnumber ASC");
@@ -295,7 +320,41 @@ public class DBConnect {
             messageHandler_.setMoreDetails(e.toString());
         }
         
+
+        
         return r;
+    }
+    
+    public ComboItem[] getRoutineTags(int rid){
+        executeQuery("SELECT * FROM tagmap WHERE routineid = '"+rid+"'");
+        
+        ArrayList<Integer> tagidList = new ArrayList<Integer>();
+        try {
+            while (rs_.next()) {
+                tagidList.add(resultGetInt("tagid"));
+            }
+        }
+        catch (Exception e) {
+            messageHandler_.setError(10);
+            messageHandler_.setMoreDetails(e.toString());
+        }
+        
+        ComboItem[] tags = new ComboItem[tagidList.size()];
+        
+        int count = 0;
+        for(int i:tagidList){
+            executeQuery("SELECT tname FROM tags WHERE tid ='"+i+"'");
+            try {
+                tags[count] = new ComboItem(i,resultGetString("tname"));
+            }
+            catch (Exception e) {
+                messageHandler_.setError(10);
+                messageHandler_.setMoreDetails(e.toString());
+            }
+            count++;
+        }
+        
+        return tags;
     }
     
     //Gets all a Gymnasts Routines
