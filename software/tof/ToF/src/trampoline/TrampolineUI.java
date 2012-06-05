@@ -2429,7 +2429,7 @@ public class TrampolineUI extends javax.swing.JFrame {
             } else {
                 messageHandler_.clearError();
                 //Then we need to add the gymnast. Start by entering the information into the databse. 
-                db_.addGymnast(txtName.getText(), Integer.parseInt(drpDate.getSelectedItem().toString()), Integer.parseInt(drpMonth.getSelectedItem().toString()), Integer.parseInt(drpYear.getSelectedItem().toString()), drpCategory.getSelectedItem().toString());
+                db_.addGymnast(txtName.getText(), Integer.parseInt(drpDate.getSelectedItem().toString()), Integer.parseInt(drpMonth.getSelectedItem().toString()), Integer.parseInt(drpYear.getSelectedItem().toString()), db_.getCategoryID(drpCategory.getSelectedItem().toString())+"");
                 if(!(messageHandler_.isError())){
                     //Add a success message.
                     messageHandler_.setError(12);
@@ -2455,7 +2455,7 @@ public class TrampolineUI extends javax.swing.JFrame {
             messageHandler_.clearError();
             //Note that we have to take 1 off the date and month because of offsets. 
             
-            db_.editGymnast(gymnastItem.getNumericID(), txtName.getText(), Integer.parseInt(drpDate.getSelectedItem().toString())-1, Integer.parseInt(drpMonth.getSelectedItem().toString())-1, Integer.parseInt(drpYear.getSelectedItem().toString()), drpCategory.getSelectedItem().toString(), 1);
+            db_.editGymnast(gymnastItem.getNumericID(), txtName.getText(), Integer.parseInt(drpDate.getSelectedItem().toString())-1, Integer.parseInt(drpMonth.getSelectedItem().toString())-1, Integer.parseInt(drpYear.getSelectedItem().toString()), db_.getCategoryID(drpCategory.getSelectedItem().toString())+"", 1);
             if(!(messageHandler_.isError())){
                 messageHandler_.setError(13);
             
