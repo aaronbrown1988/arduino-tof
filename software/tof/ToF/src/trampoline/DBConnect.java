@@ -131,7 +131,7 @@ public class DBConnect {
         return tagMap;
     }
     
-    public Category[] getCategories() {
+    public Category[] getAllCategories() {
         executeQuery("SELECT * FROM categories");
         
         ArrayList<Category> categoryList = new ArrayList<Category>();
@@ -148,6 +148,11 @@ public class DBConnect {
         }
         
         return categoryList.toArray(new Category[categoryList.size()]);
+    }
+    
+    public int getCategoryID(String name) {
+        Category c = getCategory(name);
+        return c.getID();
     }
     
     public Category getCategory(String name) {

@@ -1074,10 +1074,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         }
         
         //Category on Club Management. 
-        String[] categoryName = {"F.I.G. A","F.I.G. B","National C","Regional D","Regional E","Regional F","Regional G","Club H","Club I"};
-        for (int l = 1; l <= categoryName.length; l++) {
-            drpCategory.addItem(new ComboItem(Integer.toString(l), categoryName[l-1]));
-        }
+        updateCategoryDropDown();
          
         updateGymnastDropDown();
         updateClubDropDown();
@@ -1274,8 +1271,24 @@ public class TrampolineUI extends javax.swing.JFrame {
         updateChart(values, names, "Bounce Height");
     }
     
+    public void updateCategoryDropDown() {
+        JComboBox[] boxesToUpdate = {drpCategory};
+        Category[] categoryList = db_.getAllCategories();
+        
+        for (JComboBox jcb:boxesToUpdate) {
+            jcb.removeAllItems();
+            
+            //jcb.addItem(new ComboItem(0, "<< Please Select Gymnast >>"));
+
+            //Gymnast List on Statistics
+            for (Category c:categoryList) {
+                jcb.addItem(new ComboItem(c.getID(), c.getName()));
+            }
+        }
+    }
+    
     public void updateGymnastDropDown() {
-        JComboBox[] boxesToUpdate = {selStatsGymnast, drpSelectGymnast, drpGymnastName};
+        JComboBox[] boxesToUpdate = {drpStatsGymnast, drpSelectGymnast, drpGymnastName};
         Gymnast[] gymnastList = db_.getAllGymnasts();
         
         for (JComboBox jcb:boxesToUpdate) {
@@ -1421,7 +1434,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         pnlStatisticsSmall = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         btnUpdateImages = new javax.swing.JButton();
-        selStatsGymnast = new javax.swing.JComboBox();
+        drpStatsGymnast = new javax.swing.JComboBox();
         lblStatsGymnast = new javax.swing.JLabel();
         btnStatisticsUpdate = new javax.swing.JButton();
         lblStatsRoutine = new javax.swing.JLabel();
@@ -1987,9 +2000,9 @@ public class TrampolineUI extends javax.swing.JFrame {
             }
         });
 
-        selStatsGymnast.addActionListener(new java.awt.event.ActionListener() {
+        drpStatsGymnast.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selStatsGymnastActionPerformed(evt);
+                drpStatsGymnastActionPerformed(evt);
             }
         });
 
@@ -2029,7 +2042,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(drpStatsRoutine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(selStatsGymnast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(drpStatsGymnast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(249, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -2041,7 +2054,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                         .addComponent(btnUpdateImages)
                         .addGap(53, 53, 53)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(selStatsGymnast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(drpStatsGymnast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblStatsGymnast)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
@@ -2653,7 +2666,7 @@ public class TrampolineUI extends javax.swing.JFrame {
             } else {
                 messageHandler_.clearError();
                 //Then we need to add the gymnast. Start by entering the information into the databse. 
-                db_.addGymnast(txtName.getText(), Integer.parseInt(drpDate.getSelectedItem().toString()), Integer.parseInt(drpMonth.getSelectedItem().toString()), Integer.parseInt(drpYear.getSelectedItem().toString()), drpCategory.getSelectedItem().toString(), drpClubs.getSelectedIndex());
+                db_.addGymnast(txtName.getText(), Integer.parseInt(drpDate.getSelectedItem().toString()), Integer.parseInt(drpMonth.getSelectedItem().toString()), Integer.parseInt(drpYear.getSelectedItem().toString()), db_.getCategoryID(drpCategory.getSelectedItem().toString())+"");
                 if(!(messageHandler_.isError())){
                     //Add a success message.
                     messageHandler_.setError(12);
@@ -2668,7 +2681,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                     drpClubs.setSelectedIndex(0);
                     //Re-update the drop-down.
                     updateGymnastDropDown();
-                    gymnastPanelVisible(false);
+                    updateCategoryDropDown();
                 }
             }
         } else {
@@ -2677,7 +2690,7 @@ public class TrampolineUI extends javax.swing.JFrame {
             messageHandler_.clearError();
             //Note that we have to take 1 off the date and month because of offsets. 
             
-            db_.editGymnast(gymnastItem.getNumericID(), txtName.getText(), Integer.parseInt(drpDate.getSelectedItem().toString())-1, Integer.parseInt(drpMonth.getSelectedItem().toString())-1, Integer.parseInt(drpYear.getSelectedItem().toString()), drpCategory.getSelectedItem().toString(),drpClubs.getSelectedIndex());
+            db_.editGymnast(gymnastItem.getNumericID(), txtName.getText(), Integer.parseInt(drpDate.getSelectedItem().toString())-1, Integer.parseInt(drpMonth.getSelectedItem().toString())-1, Integer.parseInt(drpYear.getSelectedItem().toString()), db_.getCategoryID(drpCategory.getSelectedItem().toString())+"", 1);
             if(!(messageHandler_.isError())){
                 messageHandler_.setError(13);
             
@@ -2851,9 +2864,9 @@ public class TrampolineUI extends javax.swing.JFrame {
         }
     }                                           
 
-    private void selStatsGymnastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selStatsGymnastActionPerformed
+    private void drpStatsGymnastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpStatsGymnastActionPerformed
         //Get the selected gymnast. 
-        ComboItem c = (ComboItem) selStatsGymnast.getSelectedItem();
+        ComboItem c = (ComboItem) drpStatsGymnast.getSelectedItem();
         
         if (c != null && c.getNumericID() != 0) {
             Gymnast g = db_.getGymnast(c.getNumericID());
@@ -2867,7 +2880,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                 drpStatsRoutine.addItem(new ComboItem(r.getID(), "ID: "+r.getID()));
             }
         }
-    }//GEN-LAST:event_selStatsGymnastActionPerformed
+    }//GEN-LAST:event_drpStatsGymnastActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         setAdminAccess(false);
@@ -3258,6 +3271,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JComboBox drpGymnastName;
     private javax.swing.JComboBox drpMonth;
     private javax.swing.JComboBox drpSelectGymnast;
+    private javax.swing.JComboBox drpStatsGymnast;
     private javax.swing.JComboBox drpStatsRoutine;
     private javax.swing.JComboBox drpYear;
     private javax.swing.JMenu jMenu3;
@@ -3347,7 +3361,6 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JRadioButton rdoExportText;
     private javax.swing.JScrollPane sclComments;
     private javax.swing.JScrollPane sclTags;
-    private javax.swing.JComboBox selStatsGymnast;
     private javax.swing.JTabbedPane tabPane;
     private javax.swing.JTextField txtAddress1;
     private javax.swing.JTextField txtAddress2;
