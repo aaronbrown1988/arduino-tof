@@ -19,10 +19,10 @@ public class Club {
     private String county_;
     private String postcode_;
     private String headCoach_;
-    private String contactNumber_;
+    private String phoneNumber_;
     
     Club(int clubId, String shortName, String longName, String addressLine1, String addressLine2, String town,
-         String county, String postcode, String headCoach, String contactNumber){
+         String county, String postcode, String headCoach, String phoneNumber){
     
         this.clubId_ = clubId;
         this.shortName_ = shortName;
@@ -33,7 +33,7 @@ public class Club {
         this.county_ = county;
         this.postcode_ = postcode;
         this.headCoach_ = headCoach;
-        this.contactNumber_ = contactNumber;
+        this.phoneNumber_ = phoneNumber;
     }
     Club(){
         this(0,"","","","","","","","","");
@@ -75,7 +75,7 @@ public class Club {
         return this.headCoach_;
     }
     
-    String getContactDetails(){
-        return this.contactNumber_;
+    String getPhoneNumber(){
+        return this.phoneNumber_;
     }
 }

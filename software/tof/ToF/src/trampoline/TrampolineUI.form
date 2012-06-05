@@ -1180,7 +1180,6 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="pnlGymnastDetails" alignment="1" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -1190,7 +1189,7 @@
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
                                           <Component id="pnlGymnast" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                                           <Component id="pnlClub" min="-2" max="-2" attributes="0"/>
@@ -1201,6 +1200,10 @@
                                       </Group>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="354" max="-2" attributes="0"/>
+                                  <Component id="pnlGymnastDetails" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -1220,13 +1223,13 @@
                           </Group>
                           <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                           <Component id="pnlClubDetails" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                           <Component id="pnlGymnastDetails" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="pnlRoutines" min="-2" pref="306" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="pnlAdmin" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="696" max="32767" attributes="0"/>
+                          <EmptySpace pref="690" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1287,7 +1290,7 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="btnAddGymnast">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Add New User"/>
+                        <Property name="text" type="java.lang.String" value="Add New Gymnast"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddGymnastActionPerformed"/>
@@ -1420,11 +1423,11 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace min="-2" pref="444" max="-2" attributes="0"/>
-                                              <Component id="btnAddModifyUser" min="-2" max="-2" attributes="0"/>
+                                              <Component id="btnAddModifyGymnast" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="1" attributes="0">
                                               <EmptySpace min="-2" pref="474" max="-2" attributes="0"/>
-                                              <Component id="btnDeleteUser" min="-2" max="-2" attributes="0"/>
+                                              <Component id="btnDeleteGymnast" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -1449,11 +1452,11 @@
                                   <Component id="drpDate" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="drpMonth" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="drpYear" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnAddModifyUser" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnAddModifyGymnast" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnDeleteUser" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnDeleteGymnast" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="lblClubName" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="drpClubs" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1510,20 +1513,20 @@
                         </Property>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="btnAddModifyUser">
+                    <Component class="javax.swing.JButton" name="btnAddModifyGymnast">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Add / Modify User"/>
+                        <Property name="text" type="java.lang.String" value="Add / Modify Gymnast"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddModifyUserActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddModifyGymnastActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="btnDeleteUser">
+                    <Component class="javax.swing.JButton" name="btnDeleteGymnast">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Delete User"/>
+                        <Property name="text" type="java.lang.String" value="Delete Gymnast"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteUserActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteGymnastActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="lblClubName">
@@ -1656,15 +1659,192 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Component id="lblPostcode" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="lblLongName" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblShortName" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblHeadCoach" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblPhoneNumber" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnAddModifyClub" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Component id="btnDeleteClub" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="txtLongName" max="32767" attributes="0"/>
+                                                  <Component id="txtShortName" max="32767" attributes="0"/>
+                                                  <Component id="txtHeadCoach" max="32767" attributes="0"/>
+                                                  <Component id="txtPhoneNumber" pref="74" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace pref="69" max="32767" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="lblAddress1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lblAddress2" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lblTown" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lblCounty" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="txtCounty" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
+                                                  <Component id="txtTown" alignment="0" min="-2" pref="58" max="-2" attributes="0"/>
+                                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                                      <Component id="txtAddress1" alignment="0" pref="35" max="32767" attributes="0"/>
+                                                      <Component id="txtAddress2" alignment="0" max="32767" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                                              <Component id="txtPostcode" min="-2" pref="45" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                          </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lblLongName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtLongName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtAddress1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblAddress1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lblShortName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtShortName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblAddress2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtAddress2" alignment="1" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="txtTown" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblHeadCoach" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtHeadCoach" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblTown" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="txtCounty" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtPostcode" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblPhoneNumber" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtPhoneNumber" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblCounty" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="lblPostcode" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                      <Component id="btnAddModifyClub" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnDeleteClub" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JLabel" name="lblLongName">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Long Name :"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblShortName">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Short Name:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblHeadCoach">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Head Coach:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="txtLongName">
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="txtShortName">
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="txtHeadCoach">
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="txtAddress1">
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="txtAddress2">
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="txtTown">
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="txtCounty">
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="txtPostcode">
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblPhoneNumber">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Phone Number:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="txtPhoneNumber">
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPhoneNumberActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblAddress1">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Address 1:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblAddress2">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Address 2:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblTown">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Town:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblCounty">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="County:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="lblPostcode">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Postcode:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="btnAddModifyClub">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Add / Modify Club"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddModifyClubActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="btnDeleteClub">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Delete Club"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteClubActionPerformed"/>
+                      </Events>
+                    </Component>
+                  </SubComponents>
                 </Container>
               </SubComponents>
             </Container>

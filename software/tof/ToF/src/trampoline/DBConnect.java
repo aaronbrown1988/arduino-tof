@@ -35,8 +35,9 @@ public class DBConnect {
                               + "VALUES ('"+gid+"' ,'"+tag+"')");
     }
     
-    public int addClub(String name) {
-        return executeUpdate("INSERT INTO clubs (name) VALUES ('"+name+"')");
+    public int addClub(String shortName, String longName, String headCoach, String phoneNumber, String addressLine1, String addressLine2, String town, String county, String postcode) {
+        return executeUpdate("INSERT INTO clubs (shortname, longname, headcoach, phonenumber, addressline1, addressline2, town, county, postcode)"
+                + "VALUES ('"+shortName+"', '"+longName+"', '"+headCoach+"', '"+phoneNumber+"', '"+addressLine1+"', '"+addressLine2+"', '"+town+"', '"+county+"', '"+postcode+"')");
     }
     
     public int addGymnast(String name, int dobDay, int dobMonth, int dobYear, String category, int cid) {
@@ -45,12 +46,7 @@ public class DBConnect {
         return executeUpdate("INSERT INTO gymnasts (clubid, gname, dobday, dobmonth, dobyear, dobfull, category) "
                 + "VALUES ('"+cid+"', '"+name+"', '"+dobDay+"', '"+dobMonth+"', '"+dobYear+"', '"+dobfull+"', '"+category+"')");
     }
-    
-    public int addGymnast(String name, int dobDay, int dobMonth, int dobYear, String category) {
-        //Default to Club 1 for a single-glub gym. 
-        return addGymnast(name, dobDay, dobMonth, dobYear, category, 1);
-    }
-    
+
     private int addJump(int routineid, int jumpnumber, double b1, double en, double b2, double tof, double ton, double total, String location) {
         return executeUpdate("INSERT INTO jumps (routineid, jumpnumber, break1, engage, break2, tof, ton, total, location) "
                 + "VALUES ('"+routineid+"', '"+jumpnumber+"', '"+b1+"', '"+en+"', '"+b2+"', '"+tof+"', '"+ton+"', '"+total+"', '"+location+"')");
@@ -77,7 +73,26 @@ public class DBConnect {
     }
     
     public void deleteGymnast(int gid) {
-        executeQuery("DELETE FROM gymnasts WHERE gid = '"+gid+"'");
+        Routine[] routines = getRoutinesForGymnast(gid);
+        
+        for(Routine r:routines){
+            deleteRoutine(r.getID());
+        }
+                
+        executeUpdate("DELETE FROM gymnasts WHERE gid = '"+gid+"'");
+    }
+    
+    public void deleteClub(int cid) {
+        Gymnast[] gymnasts = getGymnastsForClub(cid);
+        
+        for(Gymnast g:gymnasts){
+            deleteGymnast(g.getID());
+        }
+        executeUpdate("DELETE FROM clubs WHERE cid = '"+cid+"'");
+    }
+    
+    public void deleteRoutine(int rid) {
+        executeUpdate("DELETE FROM routines WHERE rid ='"+rid+"'");
     }
     
     public int editGymnast(int gid, String name, int dobDay, int dobMonth, int dobYear, String category, int cid) {
@@ -89,6 +104,13 @@ public class DBConnect {
         return executeUpdate("UPDATE gymnasts SET clubid = '"+cid+"', gname = '"+name+"', dobday = '"+dobDay+"', dobmonth = '"+dobMonth+"', "
                 + "dobyear = '"+dobYear+"', dobfull = '"+dobfull+"', category = '"+category+"' "
                 + "WHERE gid = '"+gid+"'");
+    }
+    
+    public int editClub(int cid, String shortName, String longName, String headCoach, String phoneNumber, String addressLine1, String addressLine2, String town, String county, String postcode) {
+        
+        return executeUpdate("UPDATE clubs SET shortname = '"+shortName+"', longname = '"+longName+"', headcoach = '"+headCoach+"', " 
+               +"phoneNumber = '"+phoneNumber+"', addressLine1 = '"+addressLine1+"', addressLine2 = '"+addressLine2+"', town = '"+town+"', "
+               +" county ='"+county+"', postcode = '"+postcode + "' WHERE cid = '"+cid+"'");
     }
     
     public Map<Integer,String> getTags(int gid){
@@ -161,7 +183,13 @@ public class DBConnect {
     public Gymnast getGymnast(int gid) {
         executeQuery("SELECT g.*, c.* FROM gymnasts g, clubs c WHERE g.gid = '"+gid+"' AND g.clubid = c.cid");
         
-        return new Gymnast(resultGetInt("gid"), resultGetString("gname"), resultGetInt("cid"), resultGetString("cname"), resultGetInt("dobday"), resultGetInt("dobmonth"), resultGetInt("dobyear"), resultGetInt("category"));
+        return new Gymnast(resultGetInt("gid"), resultGetString("gname"), resultGetInt("cid"), resultGetInt("dobday"), resultGetInt("dobmonth"), resultGetInt("dobyear"), resultGetInt("category"));
+    }
+    
+    public Club getClub(int cid){
+        executeQuery("SELECT * FROM clubs WHERE cid = '"+cid+"'");
+        
+        return new Club(resultGetInt("cid"), resultGetString("shortname"), resultGetString("longname"), resultGetString("addressline1"), resultGetString("addressline2"), resultGetString("town"), resultGetString("county"), resultGetString("postcode"),resultGetString("headcoach"),resultGetString("phonenumber"));
     }
     
     public Gymnast[] getAllGymnasts() {
@@ -171,7 +199,29 @@ public class DBConnect {
         
         try {
             while (rs_.next()) {
-                gymnastList.add(new Gymnast(resultGetInt("gid"), resultGetString("gname"), resultGetInt("cid"), resultGetString("cname"), resultGetInt("dobday"), resultGetInt("dobmonth"), resultGetInt("dobyear"), resultGetInt("category")));
+                gymnastList.add(new Gymnast(resultGetInt("gid"), resultGetString("gname"), resultGetInt("clubid"), resultGetInt("dobday"), resultGetInt("dobmonth"), resultGetInt("dobyear"), resultGetInt("category")));
+            }
+            rs_.close();
+        }
+        catch (Exception e) {
+            messageHandler_.setError(10);
+            messageHandler_.setMoreDetails(e.toString());
+        }
+        
+        return gymnastList.toArray(new Gymnast[gymnastList.size()]);
+    }
+    
+    public Gymnast[] getGymnastsForClub(int cid){
+        executeQuery("SELECT g.*, c.* FROM gymnasts AS g, clubs AS c WHERE g.clubid = c.cid");
+        
+        ArrayList<Gymnast> gymnastList = new ArrayList<Gymnast>();
+        
+        try {
+            while (rs_.next()) {
+                Gymnast newgym = new Gymnast(resultGetInt("gid"), resultGetString("gname"), resultGetInt("clubid"), resultGetInt("dobday"), resultGetInt("dobmonth"), resultGetInt("dobyear"), resultGetInt("category"));
+                if(newgym.getClubID()==cid){
+                    gymnastList.add(newgym);
+                }
             }
             rs_.close();
         }
@@ -189,7 +239,7 @@ public class DBConnect {
         ArrayList<Club> clubList = new ArrayList<Club>();
         try {
             while (rs_.next()) {
-                clubList.add(new Club(resultGetInt("cid"), resultGetString("shortname"), resultGetString("longname"), resultGetString("addressline1"), resultGetString("addressline2"), resultGetString("town"), resultGetString("county"), resultGetString("postcode"),resultGetString("headcoach"),resultGetString("contactdetails")));
+                clubList.add(new Club(resultGetInt("cid"), resultGetString("shortname"), resultGetString("longname"), resultGetString("addressline1"), resultGetString("addressline2"), resultGetString("town"), resultGetString("county"), resultGetString("postcode"),resultGetString("headcoach"),resultGetString("phonenumber")));
             }
             rs_.close();
         }

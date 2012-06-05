@@ -199,8 +199,8 @@ public class TrampolineUI extends javax.swing.JFrame {
         this.splashProgress(75);
         initHardware();
         this.setVisible(true);
-        this.bounceCounter_ = new BounceCounter();
-        this.bounceCounter_.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        //this.bounceCounter_ = new BounceCounter();
+        //this.bounceCounter_.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         if (mySplash_.isVisible())   // check if we really had a spash screen
             mySplash_.close();   // we're done with it
     }
@@ -840,9 +840,9 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addComponent(pnlGymnast, 85, 85, 85)
                 .addComponent(pnlClub, 85, 85, 85))
             .addGroup(pnlClubManagementLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
-                .addComponent(pnlGymnastDetails,200,200,200)
-                .addComponent(pnlClubDetails,200,200,200))
-            .addComponent(pnlRoutines, screenHeight - 470, screenHeight - 470, screenHeight - 470)
+                .addComponent(pnlGymnastDetails,230,230,230)
+                .addComponent(pnlClubDetails,230,230,230))
+            .addComponent(pnlRoutines, screenHeight - 500, screenHeight - 500, screenHeight - 500)
             .addComponent(pnlAdmin,85,85,85)
             .addContainerGap(5,5)
         );
@@ -853,9 +853,9 @@ public class TrampolineUI extends javax.swing.JFrame {
             .addContainerGap(5,5)
             .addComponent(lblGymnast,60,60,60)
             .addGap(5,5,5)
-            .addComponent(drpGymnastName,((screenWidth-20)/2)-235,((screenWidth-20)/2)-235,((screenWidth-20)/2)-235)
+            .addComponent(drpGymnastName,((screenWidth-20)/2)-245,((screenWidth-20)/2)-245,((screenWidth-20)/2)-245)
             .addGap(20,20,20)    
-            .addComponent(btnAddGymnast,115,115,115)   
+            .addComponent(btnAddGymnast,125,125,125)   
             .addContainerGap(5,5)
         );
 
@@ -896,14 +896,15 @@ public class TrampolineUI extends javax.swing.JFrame {
             pnlGymnastDetailsLayout.createSequentialGroup()
             .addContainerGap(5,5)
             .addGroup(pnlGymnastDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
-                .addComponent(lblGymnastName,100,100,100)
-                .addComponent(lblDob,100,100,100)
-                .addComponent(lblCategory,100,100,100)
-                .addComponent(lblClubName,100,100,100)
-                .addComponent(btnAddModifyUser,100,100,100))
+                .addComponent(lblGymnastName,125,125,125)
+                .addComponent(lblClubName,125,125,125)
+                .addComponent(lblDob,125,125,125)
+                .addComponent(lblCategory,125,125,125)
+                .addComponent(btnAddModifyGymnast,125,125,125))
             .addGap(5,5,5)
             .addGroup(pnlGymnastDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
-                .addComponent(txtName,((screenWidth-20)/2)-140,((screenWidth-20)/2)-140,((screenWidth-20)/2)-140)
+                .addComponent(txtName,((screenWidth-20)/2)-165,((screenWidth-20)/2)-165,((screenWidth-20)/2)-165)
+                .addComponent(drpClubs,((screenWidth-20)/2)-165,((screenWidth-20)/2)-165,((screenWidth-20)/2)-165)
                 .addGroup(pnlGymnastDetailsLayout.createSequentialGroup()
                     .addComponent(drpDate,50,50,50)
                     .addGap(5,5,5)
@@ -912,8 +913,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                     .addComponent(drpYear,75,75,75)
                     .addGap(5,5,5))
                 .addComponent(drpCategory,100,100,100)
-                .addComponent(drpClubs,100,100,100)
-                .addComponent(btnDeleteUser,100,100,100))
+                .addComponent(btnDeleteGymnast,125,125,125))
             .addContainerGap(5,5)
         );
 
@@ -925,6 +925,10 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addComponent(txtName,25,25,25))
             .addGap(5,5,5)
             .addGroup(pnlGymnastDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
+                .addComponent(lblClubName,25,25,25)
+                .addComponent(drpClubs,25,25,25))  
+            .addGap(5,5,5)
+            .addGroup(pnlGymnastDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
                 .addComponent(lblDob,25,25,25)
                 .addComponent(drpDate,25,25,25)
                 .addComponent(drpMonth,25,25,25)
@@ -933,14 +937,80 @@ public class TrampolineUI extends javax.swing.JFrame {
             .addGroup(pnlGymnastDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
                 .addComponent(lblCategory,25,25,25)
                 .addComponent(drpCategory,25,25,25))
+            .addGap(35,35,35)   
+            .addGroup(pnlGymnastDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
+                .addComponent(btnAddModifyGymnast,25,25,25)
+                .addComponent(btnDeleteGymnast,25,25,25))
+            .addContainerGap(5,5)
+        );
+        
+        GroupLayout pnlClubDetailsLayout = (GroupLayout)pnlClubDetails.getLayout();
+        pnlClubDetailsLayout.setHorizontalGroup(
+            pnlClubDetailsLayout.createSequentialGroup()
+            .addContainerGap(5,5)
+            .addGroup(pnlClubDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
+                .addComponent(lblLongName,100,100,100)
+                .addComponent(lblShortName,100,100,100)
+                .addComponent(lblHeadCoach,100,100,100)
+                .addComponent(lblPhoneNumber,100,100,100)
+                .addComponent(btnAddModifyClub,100,100,100)
+                )
+            .addGap(5,5,5)    
+            .addGroup(pnlClubDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
+                .addComponent(txtLongName,(((screenWidth-20)/2)-225)/2,(((screenWidth-20)/2)-225)/2,(((screenWidth-20)/2)-225)/2)
+                .addComponent(txtShortName,(((screenWidth-20)/2)-225)/2,(((screenWidth-20)/2)-225)/2,(((screenWidth-20)/2)-225)/2)
+                .addComponent(txtHeadCoach,(((screenWidth-20)/2)-225)/2,(((screenWidth-20)/2)-225)/2,(((screenWidth-20)/2)-225)/2)
+                .addComponent(txtPhoneNumber,(((screenWidth-20)/2)-225)/2,(((screenWidth-20)/2)-225)/2,(((screenWidth-20)/2)-225)/2)
+                .addComponent(btnDeleteClub,100,100,100)
+                )
             .addGap(5,5,5)
-            .addGroup(pnlGymnastDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
-                .addComponent(lblClubName,25,25,25)
-                .addComponent(drpClubs,25,25,25))  
-            .addGap(5,5,5)   
-            .addGroup(pnlGymnastDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
-                .addComponent(btnAddModifyUser,25,25,25)
-                .addComponent(btnDeleteUser,25,25,25))
+            .addGroup(pnlClubDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
+                .addComponent(lblAddress1,75,75,75)
+                .addComponent(lblAddress2,75,75,75)
+                .addComponent(lblTown,75,75,75)
+                .addComponent(lblCounty,75,75,75)
+                .addComponent(lblPostcode,75,75,75)
+                )
+            .addGap(5,5,5)    
+            .addGroup(pnlClubDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
+                .addComponent(txtAddress1,(((screenWidth-20)/2)-225)/2,(((screenWidth-20)/2)-225)/2,(((screenWidth-20)/2)-225)/2)
+                .addComponent(txtAddress2,(((screenWidth-20)/2)-225)/2,(((screenWidth-20)/2)-225)/2,(((screenWidth-20)/2)-225)/2)
+                .addComponent(txtTown,(((screenWidth-20)/2)-225)/2,(((screenWidth-20)/2)-225)/2,(((screenWidth-20)/2)-225)/2)
+                .addComponent(txtCounty,(((screenWidth-20)/2)-225)/2,(((screenWidth-20)/2)-225)/2,(((screenWidth-20)/2)-225)/2)
+                .addComponent(txtPostcode,(((screenWidth-20)/2)-225)/2,(((screenWidth-20)/2)-225)/2,(((screenWidth-20)/2)-225)/2)
+                )
+            .addContainerGap(5,5)
+        );
+        
+        pnlClubDetailsLayout.setVerticalGroup(
+            pnlClubDetailsLayout.createSequentialGroup()
+            .addContainerGap(5,5)
+            .addGroup(pnlClubDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
+                .addComponent(lblLongName,25,25,25)
+                .addComponent(txtLongName,25,25,25)
+                .addComponent(lblAddress1,25,25,25)
+                .addComponent(txtAddress1,25,25,25))
+            .addGap(5,5,5)
+            .addGroup(pnlClubDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
+                .addComponent(lblShortName,25,25,25)
+                .addComponent(txtShortName,25,25,25)
+                .addComponent(lblAddress2,25,25,25)
+                .addComponent(txtAddress2,25,25,25))
+            .addGap(5,5,5)
+            .addGroup(pnlClubDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
+                .addComponent(lblTown,25,25,25)
+                .addComponent(txtTown,25,25,25))
+                .addGap(5,5,5)
+            .addGroup(pnlClubDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
+                .addComponent(lblHeadCoach,25,25,25)
+                .addComponent(txtHeadCoach,25,25,25)
+                .addComponent(lblCounty,25,25,25)
+                .addComponent(txtCounty,25,25,25))
+            .addGroup(pnlClubDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)    
+                .addComponent(lblPhoneNumber,25,25,25)
+                .addComponent(txtPhoneNumber,25,25,25)
+                .addComponent(lblPostcode,25,25,25)
+                .addComponent(txtPostcode,25,25,25))
             .addContainerGap(5,5)
         );
 
@@ -1004,7 +1074,9 @@ public class TrampolineUI extends javax.swing.JFrame {
         }
          
         updateGymnastDropDown();
-        gymnastPanelVisible(false);               
+        updateClubDropDown();
+        gymnastPanelVisible(false);
+        clubPanelVisible(false);
         //Make club management tab invisible
         setAdminAccess(false);
     }
@@ -1020,10 +1092,35 @@ public class TrampolineUI extends javax.swing.JFrame {
         drpYear.setVisible(state);
         lblClubName.setVisible(state);
         drpClubs.setVisible(state);
-        btnAddModifyUser.setVisible(state);
-        btnDeleteUser.setVisible(state);
-        btnAddModifyUser.setEnabled(state);
-        btnDeleteUser.setEnabled(state);
+        btnAddModifyGymnast.setVisible(state);
+        btnDeleteGymnast.setVisible(state);
+        btnAddModifyGymnast.setEnabled(state);
+        btnDeleteGymnast.setEnabled(state);
+    }
+    
+    private void clubPanelVisible(boolean state){
+        lblLongName.setVisible(state);
+        txtLongName.setVisible(state);
+        lblShortName.setVisible(state);
+        txtShortName.setVisible(state);
+        lblHeadCoach.setVisible(state);
+        txtHeadCoach.setVisible(state);
+        lblPhoneNumber.setVisible(state);
+        txtPhoneNumber.setVisible(state);
+        lblAddress1.setVisible(state);
+        txtAddress1.setVisible(state);
+        lblAddress2.setVisible(state);
+        txtAddress2.setVisible(state);
+        lblTown.setVisible(state);
+        txtTown.setVisible(state);
+        lblCounty.setVisible(state);
+        txtCounty.setVisible(state);
+        lblPostcode.setVisible(state);
+        txtPostcode.setVisible(state);
+        btnAddModifyClub.setVisible(state);
+        btnDeleteClub.setVisible(state);
+        btnAddModifyClub.setEnabled(state);
+        btnDeleteClub.setEnabled(state);
     }
             
     private void initGeneralUI() { 
@@ -1196,6 +1293,7 @@ public class TrampolineUI extends javax.swing.JFrame {
             jcb.addItem(new ComboItem(0,"<< Please Select Club >>"));
             
             for(Club c:clubList){
+                System.out.println(c.getShortName());
                 jcb.addItem(new ComboItem(c.getId(),c.getShortName()));
             }
         }
@@ -1351,8 +1449,8 @@ public class TrampolineUI extends javax.swing.JFrame {
         drpYear = new javax.swing.JComboBox();
         lblCategory = new javax.swing.JLabel();
         drpCategory = new javax.swing.JComboBox();
-        btnAddModifyUser = new javax.swing.JButton();
-        btnDeleteUser = new javax.swing.JButton();
+        btnAddModifyGymnast = new javax.swing.JButton();
+        btnDeleteGymnast = new javax.swing.JButton();
         lblClubName = new javax.swing.JLabel();
         drpClubs = new javax.swing.JComboBox();
         pnlRoutines = new javax.swing.JPanel();
@@ -1362,6 +1460,26 @@ public class TrampolineUI extends javax.swing.JFrame {
         drpClubName = new javax.swing.JComboBox();
         btnAddClub = new javax.swing.JButton();
         pnlClubDetails = new javax.swing.JPanel();
+        lblLongName = new javax.swing.JLabel();
+        lblShortName = new javax.swing.JLabel();
+        lblHeadCoach = new javax.swing.JLabel();
+        txtLongName = new javax.swing.JTextField();
+        txtShortName = new javax.swing.JTextField();
+        txtHeadCoach = new javax.swing.JTextField();
+        txtAddress1 = new javax.swing.JTextField();
+        txtAddress2 = new javax.swing.JTextField();
+        txtTown = new javax.swing.JTextField();
+        txtCounty = new javax.swing.JTextField();
+        txtPostcode = new javax.swing.JTextField();
+        lblPhoneNumber = new javax.swing.JLabel();
+        txtPhoneNumber = new javax.swing.JTextField();
+        lblAddress1 = new javax.swing.JLabel();
+        lblAddress2 = new javax.swing.JLabel();
+        lblTown = new javax.swing.JLabel();
+        lblCounty = new javax.swing.JLabel();
+        lblPostcode = new javax.swing.JLabel();
+        btnAddModifyClub = new javax.swing.JButton();
+        btnDeleteClub = new javax.swing.JButton();
         lblError = new javax.swing.JLabel();
         menBar = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
@@ -2046,7 +2164,7 @@ public class TrampolineUI extends javax.swing.JFrame {
             }
         });
 
-        btnAddGymnast.setText("Add New User");
+        btnAddGymnast.setText("Add New Gymnast");
         btnAddGymnast.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddGymnastActionPerformed(evt);
@@ -2140,17 +2258,17 @@ public class TrampolineUI extends javax.swing.JFrame {
 
         lblCategory.setText("Category:");
 
-        btnAddModifyUser.setText("Add / Modify User");
-        btnAddModifyUser.addActionListener(new java.awt.event.ActionListener() {
+        btnAddModifyGymnast.setText("Add / Modify Gymnast");
+        btnAddModifyGymnast.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddModifyUserActionPerformed(evt);
+                btnAddModifyGymnastActionPerformed(evt);
             }
         });
 
-        btnDeleteUser.setText("Delete User");
-        btnDeleteUser.addActionListener(new java.awt.event.ActionListener() {
+        btnDeleteGymnast.setText("Delete Gymnast");
+        btnDeleteGymnast.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteUserActionPerformed(evt);
+                btnDeleteGymnastActionPerformed(evt);
             }
         });
 
@@ -2188,10 +2306,10 @@ public class TrampolineUI extends javax.swing.JFrame {
                         .addGroup(pnlGymnastDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlGymnastDetailsLayout.createSequentialGroup()
                                 .addGap(444, 444, 444)
-                                .addComponent(btnAddModifyUser))
+                                .addComponent(btnAddModifyGymnast))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlGymnastDetailsLayout.createSequentialGroup()
                                 .addGap(474, 474, 474)
-                                .addComponent(btnDeleteUser)))))
+                                .addComponent(btnDeleteGymnast)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlGymnastDetailsLayout.setVerticalGroup(
@@ -2209,10 +2327,10 @@ public class TrampolineUI extends javax.swing.JFrame {
                     .addComponent(drpDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(drpMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(drpYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAddModifyUser))
+                    .addComponent(btnAddModifyGymnast))
                 .addGap(18, 18, 18)
                 .addGroup(pnlGymnastDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDeleteUser)
+                    .addComponent(btnDeleteGymnast)
                     .addGroup(pnlGymnastDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblClubName)
                         .addComponent(drpClubs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -2281,15 +2399,126 @@ public class TrampolineUI extends javax.swing.JFrame {
 
         pnlClubDetails.setBorder(javax.swing.BorderFactory.createTitledBorder("Club Details"));
 
+        lblLongName.setText("Long Name :");
+
+        lblShortName.setText("Short Name:");
+
+        lblHeadCoach.setText("Head Coach:");
+
+        lblPhoneNumber.setText("Phone Number:");
+
+        txtPhoneNumber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPhoneNumberActionPerformed(evt);
+            }
+        });
+
+        lblAddress1.setText("Address 1:");
+
+        lblAddress2.setText("Address 2:");
+
+        lblTown.setText("Town:");
+
+        lblCounty.setText("County:");
+
+        lblPostcode.setText("Postcode:");
+
+        btnAddModifyClub.setText("Add / Modify Club");
+        btnAddModifyClub.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddModifyClubActionPerformed(evt);
+            }
+        });
+
+        btnDeleteClub.setText("Delete Club");
+        btnDeleteClub.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteClubActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlClubDetailsLayout = new javax.swing.GroupLayout(pnlClubDetails);
         pnlClubDetails.setLayout(pnlClubDetailsLayout);
         pnlClubDetailsLayout.setHorizontalGroup(
             pnlClubDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(pnlClubDetailsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlClubDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlClubDetailsLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblPostcode)
+                        .addGap(59, 59, 59))
+                    .addGroup(pnlClubDetailsLayout.createSequentialGroup()
+                        .addGroup(pnlClubDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblLongName)
+                            .addComponent(lblShortName)
+                            .addComponent(lblHeadCoach)
+                            .addComponent(lblPhoneNumber)
+                            .addComponent(btnAddModifyClub))
+                        .addGap(30, 30, 30)
+                        .addGroup(pnlClubDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlClubDetailsLayout.createSequentialGroup()
+                                .addComponent(btnDeleteClub)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(pnlClubDetailsLayout.createSequentialGroup()
+                                .addGroup(pnlClubDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtLongName)
+                                    .addComponent(txtShortName)
+                                    .addComponent(txtHeadCoach)
+                                    .addComponent(txtPhoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                                .addGroup(pnlClubDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblAddress1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblAddress2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblTown, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblCounty, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(39, 39, 39)
+                                .addGroup(pnlClubDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCounty, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTown, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(pnlClubDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txtAddress1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                                        .addComponent(txtAddress2, javax.swing.GroupLayout.Alignment.LEADING)))
+                                .addGap(35, 35, 35)
+                                .addComponent(txtPostcode, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))))
         );
         pnlClubDetailsLayout.setVerticalGroup(
             pnlClubDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(pnlClubDetailsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlClubDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblLongName)
+                    .addComponent(txtLongName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAddress1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAddress1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlClubDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblShortName)
+                    .addComponent(txtShortName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAddress2)
+                    .addComponent(txtAddress2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlClubDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblHeadCoach)
+                    .addComponent(txtHeadCoach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTown))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlClubDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCounty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPostcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPhoneNumber)
+                    .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCounty))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlClubDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlClubDetailsLayout.createSequentialGroup()
+                        .addComponent(lblPostcode)
+                        .addGap(25, 25, 25))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlClubDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnAddModifyClub)
+                        .addComponent(btnDeleteClub))))
         );
 
         javax.swing.GroupLayout pnlClubManagementLayout = new javax.swing.GroupLayout(pnlClubManagement);
@@ -2298,7 +2527,6 @@ public class TrampolineUI extends javax.swing.JFrame {
             pnlClubManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlClubManagementLayout.createSequentialGroup()
                 .addGroup(pnlClubManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlGymnastDetails, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlClubManagementLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(pnlClubManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2313,7 +2541,10 @@ public class TrampolineUI extends javax.swing.JFrame {
                             .addGroup(pnlClubManagementLayout.createSequentialGroup()
                                 .addGap(438, 438, 438)
                                 .addComponent(pnlClubDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pnlClubManagementLayout.createSequentialGroup()
+                        .addGap(354, 354, 354)
+                        .addComponent(pnlGymnastDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnlClubManagementLayout.setVerticalGroup(
@@ -2327,13 +2558,13 @@ public class TrampolineUI extends javax.swing.JFrame {
                         .addComponent(pnlClub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24)
                 .addComponent(pnlClubDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(86, 86, 86)
+                .addGap(38, 38, 38)
                 .addComponent(pnlGymnastDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(pnlRoutines, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(pnlAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(696, Short.MAX_VALUE))
+                .addContainerGap(690, Short.MAX_VALUE))
         );
 
         tabPane.addTab("Club Management", pnlClubManagement);
@@ -2409,14 +2640,14 @@ public class TrampolineUI extends javax.swing.JFrame {
         }       
     }//GEN-LAST:event_drpDeviceNameActionPerformed
 
-    private void btnAddModifyUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddModifyUserActionPerformed
+    private void btnAddModifyGymnastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddModifyGymnastActionPerformed
         if (drpGymnastName.getSelectedIndex() == 0) {
             if (txtName.getText() == "") {
                 messageHandler_.setError(14);
             } else {
                 messageHandler_.clearError();
                 //Then we need to add the gymnast. Start by entering the information into the databse. 
-                db_.addGymnast(txtName.getText(), Integer.parseInt(drpDate.getSelectedItem().toString()), Integer.parseInt(drpMonth.getSelectedItem().toString()), Integer.parseInt(drpYear.getSelectedItem().toString()), drpCategory.getSelectedItem().toString());
+                db_.addGymnast(txtName.getText(), Integer.parseInt(drpDate.getSelectedItem().toString()), Integer.parseInt(drpMonth.getSelectedItem().toString()), Integer.parseInt(drpYear.getSelectedItem().toString()), drpCategory.getSelectedItem().toString(), drpClubs.getSelectedIndex());
                 if(!(messageHandler_.isError())){
                     //Add a success message.
                     messageHandler_.setError(12);
@@ -2429,10 +2660,9 @@ public class TrampolineUI extends javax.swing.JFrame {
                     drpCategory.setSelectedIndex(0);
                     drpGymnastName.setSelectedIndex(0);
                     drpClubs.setSelectedIndex(0);
-                    gymnastPanelVisible(false);
-
                     //Re-update the drop-down.
                     updateGymnastDropDown();
+                    gymnastPanelVisible(false);
                 }
             }
         } else {
@@ -2441,7 +2671,7 @@ public class TrampolineUI extends javax.swing.JFrame {
             messageHandler_.clearError();
             //Note that we have to take 1 off the date and month because of offsets. 
             
-            db_.editGymnast(gymnastItem.getNumericID(), txtName.getText(), Integer.parseInt(drpDate.getSelectedItem().toString())-1, Integer.parseInt(drpMonth.getSelectedItem().toString())-1, Integer.parseInt(drpYear.getSelectedItem().toString()), drpCategory.getSelectedItem().toString(), 1);
+            db_.editGymnast(gymnastItem.getNumericID(), txtName.getText(), Integer.parseInt(drpDate.getSelectedItem().toString())-1, Integer.parseInt(drpMonth.getSelectedItem().toString())-1, Integer.parseInt(drpYear.getSelectedItem().toString()), drpCategory.getSelectedItem().toString(),drpClubs.getSelectedIndex());
             if(!(messageHandler_.isError())){
                 messageHandler_.setError(13);
             
@@ -2453,13 +2683,12 @@ public class TrampolineUI extends javax.swing.JFrame {
                 drpCategory.setSelectedIndex(0);
                 drpGymnastName.setSelectedIndex(0);
                 drpClubs.setSelectedIndex(0);
-                gymnastPanelVisible(false);
-
                 //Re-update the drop-down.
                 updateGymnastDropDown();
+                gymnastPanelVisible(false);
             }
         }
-    }//GEN-LAST:event_btnAddModifyUserActionPerformed
+    }//GEN-LAST:event_btnAddModifyGymnastActionPerformed
 
     private void btnUpdateImagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateImagesActionPerformed
        bounceCounter_.loadImages();
@@ -2572,17 +2801,28 @@ public class TrampolineUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lblErrorMouseClicked
 
-    private void btnDeleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteUserActionPerformed
+    private void btnDeleteGymnastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteGymnastActionPerformed
         ComboItem c = (ComboItem) drpGymnastName.getSelectedItem();
-        int confirmInt = (int) JOptionPane.showConfirmDialog(pnlStatistics, "Are you sure you want to Delete '"+c+"'?", "Delete User", 0, 0);
+        int confirmInt = (int) JOptionPane.showConfirmDialog(this, "Are you sure you want to Delete '"+c+"'?", "Delete Gymnast", 0, 0);
         
         if (confirmInt == 0) {
-            messageHandler_.setError(15);
-            db_.deleteGymnast(c.getNumericID());
+            int confirmInt2 = (int) JOptionPane.showConfirmDialog(this, "This will delete all associated routines as well. Are you sure you wish to continue?", "Delete Gymnast", 0, 0);
+            if(confirmInt2 == 0){
+                db_.deleteGymnast(c.getNumericID());
+                if(!messageHandler_.isError()){
+                    messageHandler_.setError(15);
+                }
+            }else{
+                messageHandler_.setError(23);
+            }
+        }else{
+            messageHandler_.setError(23);
         }
         
-        updateGymnastDropDown();
-    }//GEN-LAST:event_btnDeleteUserActionPerformed
+        //drpGymnastName.setSelectedIndex(0);
+        //updateGymnastDropDown();
+        //gymnastPanelVisible(false);
+    }//GEN-LAST:event_btnDeleteGymnastActionPerformed
 
     private void drpGymnastNameActionPerformed(java.awt.event.ActionEvent evt) {                                               
         ComboItem c = (ComboItem) drpGymnastName.getSelectedItem();
@@ -2593,12 +2833,13 @@ public class TrampolineUI extends javax.swing.JFrame {
             } else {
                 Gymnast g = db_.getGymnast(c.getNumericID());
                 txtName.setText(g.getName());
-
+                System.out.println(g.getClubID());
+                drpClubs.setSelectedIndex(g.getClubID());
                 drpDate.setSelectedIndex(g.getDobDay());
                 drpMonth.setSelectedIndex(g.getDobMonth());
                 drpYear.setSelectedIndex(g.getDobYear()-1900);
                 drpCategory.setSelectedIndex(g.getCategory());
-                btnAddModifyUser.setText("Modify User");
+                btnAddModifyGymnast.setText("Modify Gymnast");
                 gymnastPanelVisible(true);
             }
         }
@@ -2718,7 +2959,7 @@ public class TrampolineUI extends javax.swing.JFrame {
 	}//GEN-LAST:event_drpStatsRoutineActionPerformed
 
     private void btnAddGymnastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddGymnastActionPerformed
-        btnAddModifyUser.setText("Add User");
+        btnAddModifyGymnast.setText("Add Gymnast");
         drpGymnastName.setSelectedIndex(0);
         txtName.setText("");
         drpDate.setSelectedIndex(0);
@@ -2727,15 +2968,139 @@ public class TrampolineUI extends javax.swing.JFrame {
         drpCategory.setSelectedIndex(0);
         drpClubs.setSelectedIndex(0);
         gymnastPanelVisible(true);
+        btnDeleteGymnast.setVisible(false);
+        btnDeleteGymnast.setEnabled(false);
     }//GEN-LAST:event_btnAddGymnastActionPerformed
 
     private void drpClubNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpClubNameActionPerformed
-        // TODO add your handling code here:
+       ComboItem c = (ComboItem) drpClubName.getSelectedItem();
+        
+        if (c != null) {
+            if (c.getNumericID() == 0) {
+                btnAddClubActionPerformed(evt);
+            } else {
+                Club club = db_.getClub(c.getNumericID());
+                
+                txtLongName.setText(club.getLongName());
+                txtShortName.setText(club.getShortName());
+                txtHeadCoach.setText(club.getHeadCoach());
+                txtPhoneNumber.setText(club.getPhoneNumber());
+                txtAddress1.setText(club.getAddressLine1());
+                txtAddress2.setText(club.getAddressLine2());
+                txtTown.setText(club.getTown());
+                txtCounty.setText(club.getCounty());
+                txtPostcode.setText(club.getPostcode());
+                
+                btnAddModifyClub.setText("Modify Club");
+                clubPanelVisible(true);
+            }
+        }
     }//GEN-LAST:event_drpClubNameActionPerformed
 
     private void btnAddClubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddClubActionPerformed
-        // TODO add your handling code here:
+        drpClubName.setSelectedIndex(0);
+        txtLongName.setText("");
+        txtShortName.setText("");
+        txtHeadCoach.setText("");
+        txtPhoneNumber.setText("");
+        txtAddress1.setText("");
+        txtAddress2.setText("");
+        txtTown.setText("");
+        txtCounty.setText("");
+        txtPostcode.setText("");
+        
+        btnAddModifyClub.setText("Add Club");
+        clubPanelVisible(true);
+        btnDeleteClub.setVisible(false);
+        btnDeleteClub.setEnabled(false);
     }//GEN-LAST:event_btnAddClubActionPerformed
+
+    private void txtPhoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPhoneNumberActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPhoneNumberActionPerformed
+
+    private void btnAddModifyClubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddModifyClubActionPerformed
+        if (drpClubName.getSelectedIndex() == 0) {
+            if (txtShortName.getText() == "" || txtLongName.getText() == "") {
+                messageHandler_.setError(19);
+            } else {
+                messageHandler_.clearError();
+                //Then we need to add the club. Start by entering the information into the databse. 
+                db_.addClub(txtShortName.getText(),txtLongName.getText(),txtHeadCoach.getText(),txtPhoneNumber.getText(),txtAddress1.getText(),txtAddress2.getText(),txtTown.getText(),txtCounty.getText(),txtPostcode.getText());
+                if(!(messageHandler_.isError())){
+                    //Add a success message.
+                    messageHandler_.setError(20);
+
+                    //Then clear all the items. 
+                    txtLongName.setText("");
+                    txtShortName.setText("");
+                    txtHeadCoach.setText("");
+                    txtPhoneNumber.setText("");
+                    txtAddress1.setText("");
+                    txtAddress2.setText("");
+                    txtTown.setText("");
+                    txtCounty.setText("");
+                    txtPostcode.setText("");
+                    
+                    //Re-update the drop-down.
+                    updateClubDropDown();
+                    clubPanelVisible(false);
+                    gymnastPanelVisible(false);
+                }
+            }
+        } else {
+            //Then we need to edit the club. 
+            ComboItem clubItem = (ComboItem) drpClubName.getSelectedItem();
+            messageHandler_.clearError();
+            db_.editClub(clubItem.getNumericID(), txtShortName.getText(),txtLongName.getText(),txtHeadCoach.getText(),txtPhoneNumber.getText(),txtAddress1.getText(),txtAddress2.getText(),txtTown.getText(),txtCounty.getText(),txtPostcode.getText());
+            
+            if(!(messageHandler_.isError())){
+                messageHandler_.setError(22);
+            
+                //Then clear all the items. 
+                txtLongName.setText("");
+                txtShortName.setText("");
+                txtHeadCoach.setText("");
+                txtPhoneNumber.setText("");
+                txtAddress1.setText("");
+                txtAddress2.setText("");
+                txtTown.setText("");
+                txtCounty.setText("");
+                txtPostcode.setText("");
+                
+                //Re-update the drop-down.
+                updateClubDropDown();
+                clubPanelVisible(false);
+                gymnastPanelVisible(false);
+            }
+        }
+    }//GEN-LAST:event_btnAddModifyClubActionPerformed
+
+    private void btnDeleteClubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteClubActionPerformed
+        ComboItem c = (ComboItem) drpClubName.getSelectedItem();
+        int confirmInt = (int) JOptionPane.showConfirmDialog(this, "Are you sure you want to delete '"+c+"'?", "Delete Club", 0, 0);
+        
+        if (confirmInt == 0) {
+            int confirmInt2 = (int) JOptionPane.showConfirmDialog(this, "This will delete all associated gymnasts and routines. Are you sure you want to continue?", "Delete Club", 0, 0);
+             if(confirmInt2 == 0){
+                db_.deleteClub(c.getNumericID());
+                if(!messageHandler_.isError()){
+                    messageHandler_.setError(21);
+                }
+            }else{
+                messageHandler_.setError(24);
+            }
+        }else{
+            messageHandler_.setError(24);
+        }
+        
+        drpGymnastName.setSelectedItem(0);
+        drpClubName.setSelectedItem(0);
+        updateClubDropDown();
+        updateGymnastDropDown();
+        clubPanelVisible(false);
+        gymnastPanelVisible(false);
+    }//GEN-LAST:event_btnDeleteClubActionPerformed
    
     /**
      * @param args the command line arguments
@@ -2865,11 +3230,13 @@ public class TrampolineUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddClub;
     private javax.swing.JButton btnAddGymnast;
-    private javax.swing.JButton btnAddModifyUser;
+    private javax.swing.JButton btnAddModifyClub;
+    private javax.swing.JButton btnAddModifyGymnast;
     private javax.swing.JButton btnClearComments;
     private javax.swing.JButton btnClearData;
     private javax.swing.JButton btnCollectData;
-    private javax.swing.JButton btnDeleteUser;
+    private javax.swing.JButton btnDeleteClub;
+    private javax.swing.JButton btnDeleteGymnast;
     private javax.swing.JButton btnExportUser;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnNewPassword;
@@ -2895,6 +3262,8 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JLayeredPane layBeamStatus;
     private javax.swing.JLayeredPane layMainLayer;
     private javax.swing.JLabel lblAddNewTag;
+    private javax.swing.JLabel lblAddress1;
+    private javax.swing.JLabel lblAddress2;
     private javax.swing.JLabel lblAvPositionNo;
     private javax.swing.JLabel lblAvPositionTxt;
     private javax.swing.JLabel lblAvToFNo;
@@ -2907,17 +3276,20 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblClub;
     private javax.swing.JLabel lblClubName;
     private javax.swing.JLabel lblComments;
+    private javax.swing.JLabel lblCounty;
     private javax.swing.JLabel lblDob;
     private javax.swing.JLabel lblError;
     private javax.swing.JLabel lblFurthestNo;
     private javax.swing.JLabel lblFurthestTxt;
     private javax.swing.JLabel lblGymnast;
     private javax.swing.JLabel lblGymnastName;
+    private javax.swing.JLabel lblHeadCoach;
     private javax.swing.JLabel lblHighestToFNo;
     private javax.swing.JLabel lblHighestToFTxt;
     private javax.swing.JLabel lblLargestPositionNo;
     private javax.swing.JLabel lblLargestPositionTxt;
     private javax.swing.JLabel lblLocation;
+    private javax.swing.JLabel lblLongName;
     private javax.swing.JLabel lblLowestToFNo;
     private javax.swing.JLabel lblLowestToFTxt;
     private javax.swing.JLabel lblNewPassword;
@@ -2929,8 +3301,11 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblOvToNTxt;
     private javax.swing.JLabel lblOvTotalNo;
     private javax.swing.JLabel lblOvTotalTxt;
+    private javax.swing.JLabel lblPhoneNumber;
+    private javax.swing.JLabel lblPostcode;
     private javax.swing.JLabel lblSelectGymnast;
     private javax.swing.JLabel lblSelectTof;
+    private javax.swing.JLabel lblShortName;
     private javax.swing.JLabel lblSmallestPositionNo;
     private javax.swing.JLabel lblSmallestPositionTxt;
     private javax.swing.JLabel lblStatsGymnast;
@@ -2939,6 +3314,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblTof;
     private javax.swing.JLabel lblTon;
     private javax.swing.JLabel lblTotal;
+    private javax.swing.JLabel lblTown;
     private javax.swing.JLabel lblTrampoline;
     private javax.swing.JList lstTags;
     private javax.swing.JMenuBar menBar;
@@ -2967,10 +3343,19 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane sclTags;
     private javax.swing.JComboBox selStatsGymnast;
     private javax.swing.JTabbedPane tabPane;
+    private javax.swing.JTextField txtAddress1;
+    private javax.swing.JTextField txtAddress2;
     private javax.swing.JTextArea txtComments;
+    private javax.swing.JTextField txtCounty;
+    private javax.swing.JTextField txtHeadCoach;
+    private javax.swing.JTextField txtLongName;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtNumberOfBounces;
     private javax.swing.JTextField txtPassword1;
     private javax.swing.JTextField txtPassword2;
+    private javax.swing.JTextField txtPhoneNumber;
+    private javax.swing.JTextField txtPostcode;
+    private javax.swing.JTextField txtShortName;
+    private javax.swing.JTextField txtTown;
     // End of variables declaration//GEN-END:variables
 }

@@ -34,7 +34,13 @@ public class MessageHandler {
                                                           new java.awt.Color(0,0,255),
                                                           new java.awt.Color(255,0,0),
                                                           new java.awt.Color(255,0,0),
-                                                          new java.awt.Color(0,0,255)
+                                                          new java.awt.Color(0,0,255),
+                                                          new java.awt.Color(255,0,0),
+                                                          new java.awt.Color(0,0,255),
+                                                          new java.awt.Color(0,0,255),
+                                                          new java.awt.Color(0,0,255),
+                                                          new java.awt.Color(255,0,0),
+                                                          new java.awt.Color(255,0,0)
                                                          };
     
     private static final String[] shortErrors_ =   {"","Error: Incorrect password",
@@ -49,12 +55,18 @@ public class MessageHandler {
                                                     "Error: Database Access",
                                                     "Error: No tag name",
                                                     "Gymnast Added Successfully",
-                                                    "Gymnast modified Successfully",
+                                                    "Gymnast Modified Successfully",
                                                     "Error: Gymnast Name",
-                                                    "Gymnast deleted Successfully",
+                                                    "Gymnast Deleted Successfully",
                                                     "Error: Incorrect password",
-                                                    "Master reset aborted",
-                                                    "Master reset successful"
+                                                    "Master Reset Aborted",
+                                                    "Master Reset Successful",
+                                                    "Error: Club Name",
+                                                    "Club Added Successfully",
+                                                    "Club Deleted Successfully",
+                                                    "Club Modified Successfully",
+                                                    "Gymnast Delete Aborted",
+                                                    "Club Delete Aborted"
                                                    };
     
     
@@ -76,7 +88,13 @@ public class MessageHandler {
                                                     "The gymnast was successfully deleted from the database.",
                                                     "The password supplied for the master reset was incorrect. Please try again.",
                                                     "The master reset of all the database data was aborted by the user.",
-                                                    "The database was successfully purged of all data."
+                                                    "The database was successfully purged of all data.",
+                                                    "Please provide a short and long name for the new club to be added to the database.",
+                                                    "The new club was successfully added to the database.",
+                                                    "The club was successfully deleted from the database.",
+                                                    "The club details successfully modified in the database.",
+                                                    "Deleteing the gymnast was aborted by the user.",
+                                                    "Deleteing the club was aborted by the user."
                                                    };
     
     MessageHandler(){
