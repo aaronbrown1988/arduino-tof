@@ -181,7 +181,7 @@ public class Chart {
         );
         
         final CategoryItemRenderer renderer = plot.getRenderer();
-        renderer.setItemLabelsVisible(true);
+        renderer.setBaseItemLabelsVisible(true);
         final BarRenderer r = (BarRenderer) renderer;
         //r.setMaxBarWidth(0.05);
         
