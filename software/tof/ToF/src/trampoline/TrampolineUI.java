@@ -806,13 +806,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     }
     
     private void initStatisticsUI(){
-
         
-        //Create the chart objects with dummy data.
-        //chartObjectStats_ = new Chart(values, names, "title ststs");
-        //Set the two panels to have the appropriate layouts and add the charts. 
-        pnlStatisticsSmall.setLayout(new java.awt.BorderLayout());
-        //pnlStatisticsSmall.add(chartObjectStats_, BorderLayout.CENTER);
     }
     
     private void initImportExportUI(){
@@ -1330,7 +1324,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     }
     
     public void updateGymnastDropDown() {
-        JComboBox[] boxesToUpdate = {drpStatsGymnast, drpSelectGymnast, drpGymnastName};
+        JComboBox[] boxesToUpdate = {drpStatsGymnast, drpSelectGymnast, drpStatsGymnast2, drpGymnastName};
         Gymnast[] gymnastList = db_.getAllGymnasts();
         
         for (JComboBox jcb:boxesToUpdate) {
@@ -1452,6 +1446,15 @@ public class TrampolineUI extends javax.swing.JFrame {
         updateJumpTime(String.valueOf(jumpNum), j);
     }
     
+    public void updateRoutineDropDown(JComboBox box, Gymnast g) {
+        //Update the routine drop-down. 
+        Routine[] routineList = db_.getRoutinesForGymnast(g.getID());
+        box.removeAllItems();
+        for (Routine r:routineList) {
+            box.addItem(new ComboItem(r.getID(), "ID: "+r.getID()));
+        }
+    }
+    
     //Given a routine, this function will update the main Statistics panel with a graph as well
     //as textual information (the exact nature of which is to be decided).
     public void updateStatistics(Routine r) {
@@ -1556,14 +1559,23 @@ public class TrampolineUI extends javax.swing.JFrame {
         layBeamStatus = new javax.swing.JLayeredPane();
         lblTrampoline = new javax.swing.JLabel();
         pnlStatistics = new javax.swing.JPanel();
-        pnlStatisticsSmall = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        pnlStatisticsButtons = new javax.swing.JPanel();
         btnUpdateImages = new javax.swing.JButton();
         drpStatsGymnast = new javax.swing.JComboBox();
         lblStatsGymnast = new javax.swing.JLabel();
         btnStatisticsUpdate = new javax.swing.JButton();
         lblStatsRoutine = new javax.swing.JLabel();
         drpStatsRoutine = new javax.swing.JComboBox();
+        lblStatsGymnast2 = new javax.swing.JLabel();
+        lblStatsRoutine1 = new javax.swing.JLabel();
+        drpStatsGymnast2 = new javax.swing.JComboBox();
+        drpStatsRoutine2 = new javax.swing.JComboBox();
+        btnStatisticsRoutine = new javax.swing.JButton();
+        btnStatisticsGymnast = new javax.swing.JButton();
+        btnStatisticsCompareRoutines = new javax.swing.JButton();
+        btnStatisticsCompareGymnasts = new javax.swing.JButton();
+        pnlStatisticsData = new javax.swing.JPanel();
+        pnlStatisticsGraph = new javax.swing.JPanel();
         pnlImportExport = new javax.swing.JPanel();
         pnlImport = new javax.swing.JPanel();
         pnlExport = new javax.swing.JPanel();
@@ -2110,18 +2122,8 @@ public class TrampolineUI extends javax.swing.JFrame {
 
         tabPane.addTab("Time of Flight", pnlToF);
 
-        pnlStatisticsSmall.setPreferredSize(new java.awt.Dimension(495, 495));
-
-        javax.swing.GroupLayout pnlStatisticsSmallLayout = new javax.swing.GroupLayout(pnlStatisticsSmall);
-        pnlStatisticsSmall.setLayout(pnlStatisticsSmallLayout);
-        pnlStatisticsSmallLayout.setHorizontalGroup(
-            pnlStatisticsSmallLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 495, Short.MAX_VALUE)
-        );
-        pnlStatisticsSmallLayout.setVerticalGroup(
-            pnlStatisticsSmallLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        pnlStatisticsButtons.setMaximumSize(new java.awt.Dimension(100, 100));
+        pnlStatisticsButtons.setPreferredSize(new java.awt.Dimension(100, 100));
 
         btnUpdateImages.setText("Update Images on Display for Bounce Counter");
         btnUpdateImages.addActionListener(new java.awt.event.ActionListener() {
@@ -2138,7 +2140,7 @@ public class TrampolineUI extends javax.swing.JFrame {
 
         lblStatsGymnast.setText("Select Gymnast:");
 
-        btnStatisticsUpdate.setText("Update Lists Below");
+        btnStatisticsUpdate.setText("This is a test button and should be removed when we finish the program");
         btnStatisticsUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnStatisticsUpdateActionPerformed(evt);
@@ -2154,67 +2156,152 @@ public class TrampolineUI extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        lblStatsGymnast2.setText("Select Second Gymnast:");
+
+        lblStatsRoutine1.setText("Select Second Routine:");
+
+        drpStatsGymnast2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drpStatsGymnast2ActionPerformed(evt);
+            }
+        });
+
+        drpStatsRoutine2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "<< Select Gymnast First >>" }));
+        drpStatsRoutine2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drpStatsRoutine2ActionPerformed(evt);
+            }
+        });
+
+        btnStatisticsRoutine.setText("See Routine");
+        btnStatisticsRoutine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStatisticsRoutineActionPerformed(evt);
+            }
+        });
+
+        btnStatisticsGymnast.setText("See Gymnast");
+
+        btnStatisticsCompareRoutines.setText("Compare Routines");
+
+        btnStatisticsCompareGymnasts.setText("Compare Gymnasts");
+
+        javax.swing.GroupLayout pnlStatisticsButtonsLayout = new javax.swing.GroupLayout(pnlStatisticsButtons);
+        pnlStatisticsButtons.setLayout(pnlStatisticsButtonsLayout);
+        pnlStatisticsButtonsLayout.setHorizontalGroup(
+            pnlStatisticsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlStatisticsButtonsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnUpdateImages)
-                        .addGap(117, 117, 117)
-                        .addComponent(btnStatisticsUpdate))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblStatsGymnast)
-                            .addComponent(lblStatsRoutine))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(drpStatsRoutine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(drpStatsGymnast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(249, Short.MAX_VALUE))
+                .addGroup(pnlStatisticsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnUpdateImages)
+                    .addComponent(btnStatisticsUpdate)
+                    .addGroup(pnlStatisticsButtonsLayout.createSequentialGroup()
+                        .addGroup(pnlStatisticsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlStatisticsButtonsLayout.createSequentialGroup()
+                                .addGroup(pnlStatisticsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblStatsGymnast)
+                                    .addComponent(lblStatsRoutine))
+                                .addGap(18, 18, 18)
+                                .addGroup(pnlStatisticsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(drpStatsGymnast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(drpStatsRoutine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(pnlStatisticsButtonsLayout.createSequentialGroup()
+                                .addComponent(btnStatisticsRoutine)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnStatisticsGymnast)))
+                        .addGap(56, 56, 56)
+                        .addGroup(pnlStatisticsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlStatisticsButtonsLayout.createSequentialGroup()
+                                .addGroup(pnlStatisticsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblStatsGymnast2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblStatsRoutine1))
+                                .addGap(18, 18, 18)
+                                .addGroup(pnlStatisticsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(drpStatsRoutine2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(drpStatsGymnast2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(pnlStatisticsButtonsLayout.createSequentialGroup()
+                                .addComponent(btnStatisticsCompareRoutines)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnStatisticsCompareGymnasts)))))
+                .addContainerGap(614, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnUpdateImages)
-                        .addGap(53, 53, 53)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(drpStatsGymnast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblStatsGymnast)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(btnStatisticsUpdate)))
+        pnlStatisticsButtonsLayout.setVerticalGroup(
+            pnlStatisticsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlStatisticsButtonsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnUpdateImages)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnStatisticsUpdate)
+                .addGap(24, 24, 24)
+                .addGroup(pnlStatisticsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(drpStatsGymnast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblStatsGymnast)
+                    .addComponent(lblStatsGymnast2)
+                    .addComponent(drpStatsGymnast2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblStatsRoutine)
-                    .addComponent(drpStatsRoutine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(1455, Short.MAX_VALUE))
+                .addGroup(pnlStatisticsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlStatisticsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblStatsRoutine)
+                        .addComponent(drpStatsRoutine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblStatsRoutine1))
+                    .addComponent(drpStatsRoutine2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlStatisticsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlStatisticsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnStatisticsRoutine)
+                        .addComponent(btnStatisticsGymnast))
+                    .addGroup(pnlStatisticsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnStatisticsCompareRoutines)
+                        .addComponent(btnStatisticsCompareGymnasts)))
+                .addContainerGap(119, Short.MAX_VALUE))
+        );
+
+        pnlStatisticsData.setPreferredSize(new java.awt.Dimension(495, 495));
+
+        javax.swing.GroupLayout pnlStatisticsDataLayout = new javax.swing.GroupLayout(pnlStatisticsData);
+        pnlStatisticsData.setLayout(pnlStatisticsDataLayout);
+        pnlStatisticsDataLayout.setHorizontalGroup(
+            pnlStatisticsDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pnlStatisticsDataLayout.setVerticalGroup(
+            pnlStatisticsDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 165, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout pnlStatisticsGraphLayout = new javax.swing.GroupLayout(pnlStatisticsGraph);
+        pnlStatisticsGraph.setLayout(pnlStatisticsGraphLayout);
+        pnlStatisticsGraphLayout.setHorizontalGroup(
+            pnlStatisticsGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pnlStatisticsGraphLayout.setVerticalGroup(
+            pnlStatisticsGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 508, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout pnlStatisticsLayout = new javax.swing.GroupLayout(pnlStatistics);
         pnlStatistics.setLayout(pnlStatisticsLayout);
         pnlStatisticsLayout.setHorizontalGroup(
             pnlStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlStatisticsLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlStatisticsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlStatisticsSmall, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pnlStatisticsData, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1255, Short.MAX_VALUE)
+                    .addComponent(pnlStatisticsButtons, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1255, Short.MAX_VALUE)
+                    .addComponent(pnlStatisticsGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlStatisticsLayout.setVerticalGroup(
             pnlStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlStatisticsLayout.createSequentialGroup()
+            .addGroup(pnlStatisticsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlStatisticsSmall, javax.swing.GroupLayout.DEFAULT_SIZE, 1600, Short.MAX_VALUE))
-                .addContainerGap())
+                .addComponent(pnlStatisticsButtons, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlStatisticsData, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlStatisticsGraph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(621, Short.MAX_VALUE))
         );
 
         tabPane.addTab("Statistics", pnlStatistics);
@@ -2963,12 +3050,12 @@ public class TrampolineUI extends javax.swing.JFrame {
 		if (currentItem != null) {
 			int routineID = currentItem.getNumericID();
 			chartObjectStats_ = new Chart(db_.getRoutine(routineID));
-			pnlStatisticsSmall.setLayout(new java.awt.BorderLayout());
+			pnlStatisticsGraph.setLayout(new java.awt.BorderLayout());
 			JFreeChart jChart = chartObjectStats_.createChart();
 			ChartPanel CP = new ChartPanel(jChart);
-			pnlStatisticsSmall.removeAll();
-			pnlStatisticsSmall.add(CP);
-			pnlStatisticsSmall.validate();
+			pnlStatisticsGraph.removeAll();
+			pnlStatisticsGraph.add(CP);
+			pnlStatisticsGraph.validate();
 		}
     }//GEN-LAST:event_btnStatisticsUpdateActionPerformed
 
@@ -3060,15 +3147,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         
         if (c != null && c.getNumericID() != 0) {
             Gymnast g = db_.getGymnast(c.getNumericID());
-			
-			System.out.println("Selected gymnastID "+c.getNumericID()+" in selStatsGymnastActionPerformed in UI.java");
-
-            //Update the routine drop-down. 
-            Routine[] routineList = db_.getRoutinesForGymnast(g.getID());
-            drpStatsRoutine.removeAllItems();
-            for (Routine r:routineList) {
-                drpStatsRoutine.addItem(new ComboItem(r.getID(), "ID: "+r.getID()));
-            }
+            updateRoutineDropDown(drpStatsRoutine, g);
         }
     }//GEN-LAST:event_drpStatsGymnastActionPerformed
 
@@ -3454,6 +3533,35 @@ public class TrampolineUI extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnAddTagActionPerformed
+
+    private void drpStatsGymnast2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpStatsGymnast2ActionPerformed
+        //Get the selected gymnast. 
+        ComboItem c = (ComboItem) drpStatsGymnast2.getSelectedItem();
+        
+        if (c != null && c.getNumericID() != 0) {
+            Gymnast g = db_.getGymnast(c.getNumericID());
+            updateRoutineDropDown(drpStatsRoutine2, g);
+        }
+    }//GEN-LAST:event_drpStatsGymnast2ActionPerformed
+
+    private void drpStatsRoutine2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpStatsRoutine2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_drpStatsRoutine2ActionPerformed
+
+    private void btnStatisticsRoutineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatisticsRoutineActionPerformed
+        ComboItem currentItem = (ComboItem)drpStatsRoutine.getSelectedItem();
+		
+        if (currentItem != null) {
+            int routineID = currentItem.getNumericID();
+            chartObjectStats_ = new Chart(db_.getRoutine(routineID));
+            pnlStatisticsGraph.setLayout(new java.awt.BorderLayout());
+            JFreeChart jChart = chartObjectStats_.createChart();
+            ChartPanel CP = new ChartPanel(jChart);
+            pnlStatisticsGraph.removeAll();
+            pnlStatisticsGraph.add(CP);
+            pnlStatisticsGraph.validate();
+        }
+    }//GEN-LAST:event_btnStatisticsRoutineActionPerformed
    
     /**
      * @param args the command line arguments
@@ -3599,6 +3707,10 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JButton btnNewPassword;
     private javax.swing.JButton btnResetAll;
     private javax.swing.JButton btnSaveComments;
+    private javax.swing.JButton btnStatisticsCompareGymnasts;
+    private javax.swing.JButton btnStatisticsCompareRoutines;
+    private javax.swing.JButton btnStatisticsGymnast;
+    private javax.swing.JButton btnStatisticsRoutine;
     private javax.swing.JButton btnStatisticsUpdate;
     private javax.swing.JButton btnUpdateImages;
     private javax.swing.JComboBox drpCategory;
@@ -3610,12 +3722,13 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JComboBox drpMonth;
     private javax.swing.JComboBox drpSelectGymnast;
     private javax.swing.JComboBox drpStatsGymnast;
+    private javax.swing.JComboBox drpStatsGymnast2;
     private javax.swing.JComboBox drpStatsRoutine;
+    private javax.swing.JComboBox drpStatsRoutine2;
     private javax.swing.JComboBox drpYear;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLayeredPane layBeamStatus;
     private javax.swing.JLayeredPane layMainLayer;
     private javax.swing.JLabel lblAddNewTag;
@@ -3666,7 +3779,9 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblSmallestPositionNo;
     private javax.swing.JLabel lblSmallestPositionTxt;
     private javax.swing.JLabel lblStatsGymnast;
+    private javax.swing.JLabel lblStatsGymnast2;
     private javax.swing.JLabel lblStatsRoutine;
+    private javax.swing.JLabel lblStatsRoutine1;
     private javax.swing.JLabel lblTags;
     private javax.swing.JLabel lblTof;
     private javax.swing.JLabel lblTon;
@@ -3690,7 +3805,9 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JPanel pnlRoutines;
     private javax.swing.JPanel pnlStart;
     private javax.swing.JPanel pnlStatistics;
-    private javax.swing.JPanel pnlStatisticsSmall;
+    private javax.swing.JPanel pnlStatisticsButtons;
+    private javax.swing.JPanel pnlStatisticsData;
+    private javax.swing.JPanel pnlStatisticsGraph;
     private javax.swing.JPanel pnlStats;
     private javax.swing.JPanel pnlToF;
     private javax.swing.JRadioButton rdoExportCsv;
