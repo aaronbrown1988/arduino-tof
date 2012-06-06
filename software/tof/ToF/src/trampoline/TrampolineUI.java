@@ -3553,12 +3553,49 @@ public class TrampolineUI extends javax.swing.JFrame {
 		
         if (currentItem != null) {
             int routineID = currentItem.getNumericID();
-            chartObjectStats_ = new Chart(db_.getRoutine(routineID));
-            pnlStatisticsGraph.setLayout(new java.awt.BorderLayout());
+            Routine r = db_.getRoutine(routineID);
+            
+            //Update the Data bit with text data about the item. 
+            pnlStatisticsData.removeAll();
+            pnlStatisticsData.setLayout(new java.awt.GridLayout(4, 6));
+            String[] addMe = {"Average ToF", r.getAverageTof()+"", "Overall ToF", r.getTotalTof()+"", 
+                "Average ToN", r.getAverageTon()+"", "Overall ToN", r.getTotalTon()+"",
+                "Average Time", r.getAverageTime()+"", "Overall Time", r.getTotalTime()+""
+            };
+            JLabel temp;
+            
+            for (String s:addMe) {
+                pnlStatisticsData.add(new JLabel(s));
+            }
+            pnlStatisticsData.validate();
+            
+            //Then update the Graph.
+            chartObjectStats_ = new Chart(r);
+            pnlStatisticsGraph.removeAll();
+            pnlStatisticsGraph.setLayout(new java.awt.GridLayout(1, 2));
             JFreeChart jChart = chartObjectStats_.createChart();
             ChartPanel CP = new ChartPanel(jChart);
-            pnlStatisticsGraph.removeAll();
             pnlStatisticsGraph.add(CP);
+            
+            //Then finally add the Table of Data
+            JPanel pnlDataTable = new JPanel();
+            pnlDataTable.setLayout(new java.awt.GridLayout(1 + r.getNumberOfJumps(), 5));
+            pnlDataTable.add(new JLabel(""));
+            pnlDataTable.add(new JLabel("ToF"));
+            pnlDataTable.add(new JLabel("ToN"));
+            pnlDataTable.add(new JLabel("Total"));
+            pnlDataTable.add(new JLabel("Location"));
+            
+            Jump[] jumpList = r.getJumps();
+            for (int i = 0; i < jumpList.length; i++) {
+                pnlDataTable.add(new JLabel("Jump "+(i+1)));
+                pnlDataTable.add(new JLabel(jumpList[i].getTof()+""));
+                pnlDataTable.add(new JLabel(jumpList[i].getTon()+""));
+                pnlDataTable.add(new JLabel(jumpList[i].getTotal()+""));
+                pnlDataTable.add(new JLabel(""));
+            }
+            pnlStatisticsGraph.add(pnlDataTable);
+            
             pnlStatisticsGraph.validate();
         }
     }//GEN-LAST:event_btnStatisticsRoutineActionPerformed

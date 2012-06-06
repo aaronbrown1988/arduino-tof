@@ -94,6 +94,21 @@ public class Routine {
         averageJumpTime_ = totalTime_ / numberOfJumps_;
     }
     
+    public double getAverageTime() {
+        double temp = numberOfJumps_;
+        return roundToDecimals(totalTime_ / temp, 3);
+    }
+    
+    public double getAverageTof() {
+        double temp = numberOfJumps_;
+        return roundToDecimals(totalTof_ / temp, 3);
+    }
+    
+    public double getAverageTon() {
+        double temp = numberOfJumps_;
+        return roundToDecimals(totalTon_ / temp, 3);
+    }
+    
     public int getID() {
         return id_;
     }
@@ -115,19 +130,24 @@ public class Routine {
     }
     
     public double getTotalTime() {
-        return totalTime_;
+        return roundToDecimals(totalTime_, 3);
     }
     
     public double getTotalTof() {
-        return totalTof_;
+        return roundToDecimals(totalTof_, 3);
     }
     
     public double getTotalTon() {
-        return totalTon_;
+        return roundToDecimals(totalTon_, 3);
     }
     
     public String getDateTime(){
         return dateTime_;
+    }
+    
+    public static double roundToDecimals(double d, int c) {
+        int temp=(int)((d*Math.pow(10,c)));
+        return (((double)temp)/Math.pow(10,c));
     }
     
     public void setRoutineId(int id) {
