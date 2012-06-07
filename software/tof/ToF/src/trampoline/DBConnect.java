@@ -40,11 +40,11 @@ public class DBConnect {
                 + "VALUES ('"+shortName+"', '"+longName+"', '"+headCoach+"', '"+phoneNumber+"', '"+addressLine1+"', '"+addressLine2+"', '"+town+"', '"+county+"', '"+postcode+"')");
     }
     
-    public int addGymnast(String name, int dobDay, int dobMonth, int dobYear, String category, int cid) {
+    public int addGymnast(String name, int dobDay, int dobMonth, int dobYear, int categoryid, int cid) {
         String dobfull = dobYear+"-"+dobMonth+"-"+dobDay;
         
-        return executeUpdate("INSERT INTO gymnasts (clubid, gname, dobday, dobmonth, dobyear, dobfull, category) "
-                + "VALUES ('"+cid+"', '"+name+"', '"+dobDay+"', '"+dobMonth+"', '"+dobYear+"', '"+dobfull+"', '"+category+"')");
+        return executeUpdate("INSERT INTO gymnasts (clubid, gname, dobday, dobmonth, dobyear, dobfull, categoryid) "
+                + "VALUES ('"+cid+"', '"+name+"', '"+dobDay+"', '"+dobMonth+"', '"+dobYear+"', '"+dobfull+"', '"+categoryid+"')");
     }
 
     private int addJump(int routineid, int jumpnumber, double b1, double en, double b2, double tof, double ton, double total, String location) {
@@ -68,7 +68,7 @@ public class DBConnect {
         
         return rid;
     }
-    
+      
     public int addComments(int rid, String comments){
         return executeUpdate("UPDATE routines SET comments = '"+comments+"' WHERE rid = '"+rid+"'");
     }
@@ -87,6 +87,12 @@ public class DBConnect {
         for(Routine r:routines){
             deleteRoutine(r.getID());
         }
+        
+        Map<Integer,String> tags = getTags(gid);
+        
+        for(int tid:tags.keySet()){
+            deleteTag(tid);
+        }
                 
         executeUpdate("DELETE FROM gymnasts WHERE gid = '"+gid+"'");
     }
@@ -102,6 +108,10 @@ public class DBConnect {
     
     public void deleteJump(int jid){
         executeUpdate("DELETE FROM jumps WHERE jid ='"+jid+"'");
+    }
+    
+    public void deleteTag(int tid){
+        executeUpdate("DELETE FROM tags WHERE tid='"+tid+"'");
     }
     
     public void deleteRoutine(int rid) {
@@ -124,14 +134,11 @@ public class DBConnect {
         executeUpdate("DELETE FROM routines WHERE rid ='"+rid+"'");
     }
     
-    public int editGymnast(int gid, String name, int dobDay, int dobMonth, int dobYear, String category, int cid) {
+    public int editGymnast(int gid, String name, int dobDay, int dobMonth, int dobYear, int categoryid, int cid) {
         String dobfull = dobYear+"-"+dobMonth+"-"+dobDay;
         
-        System.out.println("UPDATE gymnasts SET clubid = '"+cid+"', gname = '"+name+"', dobday = '"+dobDay+"', dobmonth = '"+dobMonth+"', "
-                + "dobyear = '"+dobYear+"', dobfull = '"+dobfull+"', category = '"+category+"' "
-                + "WHERE gid = '"+gid+"'");
         return executeUpdate("UPDATE gymnasts SET clubid = '"+cid+"', gname = '"+name+"', dobday = '"+dobDay+"', dobmonth = '"+dobMonth+"', "
-                + "dobyear = '"+dobYear+"', dobfull = '"+dobfull+"', category = '"+category+"' "
+                + "dobyear = '"+dobYear+"', dobfull = '"+dobfull+"', categoryid = '"+categoryid+"' "
                 + "WHERE gid = '"+gid+"'");
     }
     
@@ -142,6 +149,10 @@ public class DBConnect {
                +" county ='"+county+"', postcode = '"+postcode + "' WHERE cid = '"+cid+"'");
     }
     
+    public int editTag(int tid, String tag){
+        return executeUpdate("UPDATE tags SET tname = '"+tag+"' WHERE tid = '"+tid+"'");
+    }
+ 
     public Map<Integer,String> getTags(int gid){
         executeQuery("SELECT * FROM tags WHERE gymnastid = '"+gid+"'");
         
@@ -178,12 +189,7 @@ public class DBConnect {
         
         return categoryList.toArray(new Category[categoryList.size()]);
     }
-    
-    public int getCategoryID(String name) {
-        Category c = getCategory(name);
-        return c.getID();
-    }
-    
+        
     public Category getCategory(String name) {
         executeQuery("SELECT * FROM categories WHERE categoryname = '"+name+"'");
         
@@ -217,7 +223,7 @@ public class DBConnect {
     public Gymnast getGymnast(int gid) {
         executeQuery("SELECT g.*, c.* FROM gymnasts g, clubs c WHERE g.gid = '"+gid+"' AND g.clubid = c.cid");
         
-        return new Gymnast(resultGetInt("gid"), resultGetString("gname"), resultGetInt("cid"), resultGetInt("dobday"), resultGetInt("dobmonth"), resultGetInt("dobyear"), resultGetInt("category"));
+        return new Gymnast(resultGetInt("gid"), resultGetString("gname"), resultGetInt("cid"), resultGetInt("dobday"), resultGetInt("dobmonth"), resultGetInt("dobyear"), resultGetInt("categoryid"));
     }
     
     public Club getClub(int cid){
@@ -233,7 +239,7 @@ public class DBConnect {
         
         try {
             while (rs_.next()) {
-                gymnastList.add(new Gymnast(resultGetInt("gid"), resultGetString("gname"), resultGetInt("clubid"), resultGetInt("dobday"), resultGetInt("dobmonth"), resultGetInt("dobyear"), resultGetInt("category")));
+                gymnastList.add(new Gymnast(resultGetInt("gid"), resultGetString("gname"), resultGetInt("clubid"), resultGetInt("dobday"), resultGetInt("dobmonth"), resultGetInt("dobyear"), resultGetInt("categoryid")));
             }
             rs_.close();
         }
@@ -252,7 +258,7 @@ public class DBConnect {
         
         try {
             while (rs_.next()) {
-                Gymnast newgym = new Gymnast(resultGetInt("gid"), resultGetString("gname"), resultGetInt("clubid"), resultGetInt("dobday"), resultGetInt("dobmonth"), resultGetInt("dobyear"), resultGetInt("category"));
+                Gymnast newgym = new Gymnast(resultGetInt("gid"), resultGetString("gname"), resultGetInt("clubid"), resultGetInt("dobday"), resultGetInt("dobmonth"), resultGetInt("dobyear"), resultGetInt("categoryid"));
                 if(newgym.getClubID()==cid){
                     gymnastList.add(newgym);
                 }
@@ -310,8 +316,9 @@ public class DBConnect {
         executeQuery("SELECT * FROM routines WHERE rid = '"+rid+"'");
         int numberOfJumps = resultGetInt("numberofjumps");
         String dateTime = resultGetString("datetime");
+        String comments = resultGetString("comments");
                
-        Routine r = new Routine(numberOfJumps, rid, dateTime);
+        Routine r = new Routine(numberOfJumps, rid, dateTime, comments);
         
         try {
             rs_ = stat_.executeQuery("SELECT * FROM jumps WHERE routineid = '"+rid+"' ORDER BY jumpnumber ASC");
@@ -422,7 +429,6 @@ public class DBConnect {
             messageHandler_.setError(10);
             messageHandler_.setMoreDetails(e.toString());
         }
-        
         System.out.println("Update:"+i);
         return i;
     }

@@ -59,7 +59,7 @@ public class MessageHandler {
                                                     "Error: No tag name",
                                                     "Gymnast Added Successfully",
                                                     "Gymnast Modified Successfully",
-                                                    "Error: Gymnast Name",
+                                                    "Error: Gymnast Details",
                                                     "Gymnast Deleted Successfully",
                                                     "Error: Incorrect password",
                                                     "Master Reset Aborted",
@@ -90,7 +90,7 @@ public class MessageHandler {
                                                     "The new tag was not added to the database because no tag name was provided or it was the same as an existing tag name. Please try again and input a different tag name.",
                                                     "The new gymnast was successfully added to the database.",
                                                     "The gymnast details were succesfully modified in the database.",
-                                                    "Please provide a name for the new gymnast to be added to the database.",
+                                                    "Please provide a name and selected a club for the new gymnast to be added to the database.",
                                                     "The gymnast was successfully deleted from the database.",
                                                     "The password supplied for the master reset was incorrect. Please try again.",
                                                     "The master reset of all the database data was aborted by the user.",
@@ -144,6 +144,7 @@ public class MessageHandler {
     
     void setMoreDetails(String details){
         this.moreDetails_ = details;
+        System.out.println(this.moreDetails_);
     }
     
     void clearError(){

@@ -176,7 +176,7 @@ public class TofInterface {
          DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
          Date date = new Date();
          
-         this.routine_ = new Routine(noOfBounces, 0, dateFormat.format(date));
+         this.routine_ = new Routine(noOfBounces, 0, dateFormat.format(date),"");
          this.currentRoutineID_ = 0;
          
          this.myPort_.clearBuffer();       

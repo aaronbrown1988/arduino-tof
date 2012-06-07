@@ -23,8 +23,9 @@ public class Routine {
     private double totalTon_;
     private int worstJumpForLosingHeight_;
     private String dateTime_;
+    private String comments_;
     
-    Routine (Jump[] jumpList, int id, String dateTime) {
+    Routine (Jump[] jumpList, int id, String dateTime, String comments) {
         id_ = id;
         numberOfJumps_ = jumpList.length;
         jumpArray_     = new Jump[numberOfJumps_];
@@ -35,9 +36,10 @@ public class Routine {
             addJump(j);
         }
         dateTime_ = dateTime;
+        comments_ = comments;
     }
     
-    Routine (int numberOfJumps, int id, String dateTime) {
+    Routine (int numberOfJumps, int id, String dateTime, String comments) {
         id_ = id;
         numberOfJumps_ = numberOfJumps;
         jumpArray_     = new Jump[numberOfJumps_];
@@ -45,6 +47,7 @@ public class Routine {
         statsTimes_    = new double[numberOfJumps_];
         numberOfJumpsUsed_ = 0;
         dateTime_ = dateTime;
+        comments_ = comments;
     }
     
     //Simply adds another jump to the jumpArray and returns false if the jump wasn't added because the jumpArray_ is full.
@@ -156,5 +159,13 @@ public class Routine {
     
     public void setDateTime(String dateTime){
         dateTime_ = dateTime;
+    }
+    
+    public void setComments(String comments){
+        comments_ = comments;
+    }
+    
+    public String getComments(){
+        return comments_;
     }
 }

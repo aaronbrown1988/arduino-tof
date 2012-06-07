@@ -121,6 +121,11 @@ public class TrampolineUI extends javax.swing.JFrame {
                     currentMessage_ = messageHandler_.getCurrentErrorShort();
                     messagePersist_ = 10000;
                 }
+            }else{
+                messagePersist_ = 0;
+                lblError.setText("");
+                lblError.setCursor(new Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+                currentMessage_ = "";
             }
        }
    };
@@ -1079,6 +1084,60 @@ public class TrampolineUI extends javax.swing.JFrame {
             .addContainerGap(5,5)    
         );
    
+        //Set Fonts
+        lblGymnast.setFont(getFont("ClubManagementLabelFont"));
+        lblClub.setFont(getFont("ClubManagementLabelFont"));
+        lblNewPassword.setFont(getFont("ClubManagementLabelFont"));
+        lblNewPassword2.setFont(getFont("ClubManagementLabelFont"));
+        lblGymnastName.setFont(getFont("ClubManagementLabelFont"));
+        lblDob.setFont(getFont("ClubManagementLabelFont"));
+        lblCategory.setFont(getFont("ClubManagementLabelFont"));
+        lblClubName.setFont(getFont("ClubManagementLabelFont"));
+        lblLongName.setFont(getFont("ClubManagementLabelFont"));
+        lblShortName.setFont(getFont("ClubManagementLabelFont"));
+        lblHeadCoach.setFont(getFont("ClubManagementLabelFont"));
+        lblPhoneNumber.setFont(getFont("ClubManagementLabelFont"));
+        lblAddress1.setFont(getFont("ClubManagementLabelFont"));
+        lblAddress2.setFont(getFont("ClubManagementLabelFont"));
+        lblTown.setFont(getFont("ClubManagementLabelFont"));
+        lblCounty.setFont(getFont("ClubManagementLabelFont"));
+        lblPostcode.setFont(getFont("ClubManagementLabelFont"));
+                       
+        drpGymnastName.setFont(getFont("ClubManagementDropDownFont"));
+        drpClubName.setFont(getFont("ClubManagementDropDownFont"));
+        drpDate.setFont(getFont("ClubManagementDropDownFont"));
+        drpMonth.setFont(getFont("ClubManagementDropDownFont"));
+        drpYear.setFont(getFont("ClubManagementDropDownFont"));
+        drpCategory.setFont(getFont("ClubManagementDropDownFont"));
+        drpClubs.setFont(getFont("ClubManagementDropDownFont"));
+                
+        btnAddGymnast.setFont(getFont("ClubManagementButtonFont"));
+        btnAddClub.setFont(getFont("ClubManagementButtonFont"));
+        btnResetAll.setFont(getFont("ClubManagementButtonFont"));
+        btnNewPassword.setFont(getFont("ClubManagementButtonFont"));
+        btnLogout.setFont(getFont("ClubManagementButtonFont"));
+        btnAddModifyGymnast.setFont(getFont("ClubManagementButtonFont"));
+        btnDeleteGymnast.setFont(getFont("ClubManagementButtonFont"));
+        btnManageTags.setFont(getFont("ClubManagementButtonFont"));
+        btnAddModifyClub.setFont(getFont("ClubManagementButtonFont"));
+        btnDeleteClub.setFont(getFont("ClubManagementButtonFont"));
+        btnDeleteRoutine.setFont(getFont("ClubManagementButtonFont"));
+        btnAddTag.setFont(getFont("ClubManagementButtonFont"));
+        btnDeleteTag.setFont(getFont("ClubManagementButtonFont"));
+        
+        txtPassword1.setFont(getFont("ClubManagementTextBoxFont"));
+        txtPassword2.setFont(getFont("ClubManagementTextBoxFont"));
+        txtName.setFont(getFont("ClubManagementTextBoxFont"));
+        txtLongName.setFont(getFont("ClubManagementTextBoxFont"));
+        txtShortName.setFont(getFont("ClubManagementTextBoxFont"));
+        txtHeadCoach.setFont(getFont("ClubManagementTextBoxFont"));
+        txtPhoneNumber.setFont(getFont("ClubManagementTextBoxFont"));
+        txtAddress1.setFont(getFont("ClubManagementTextBoxFont"));
+        txtAddress2.setFont(getFont("ClubManagementTextBoxFont"));
+        txtTown.setFont(getFont("ClubManagementTextBoxFont"));
+        txtCounty.setFont(getFont("ClubManagementTextBoxFont"));
+        txtPostcode.setFont(getFont("ClubManagementTextBoxFont"));
+                
          //Set the numbers for the date of birth entries on Club Management. 
         for (int k = 1; k <= 31; k++) {
             drpDate.addItem(k);
@@ -1215,52 +1274,68 @@ public class TrampolineUI extends javax.swing.JFrame {
     }
     
     public Font getFont(String s){
-        Font returnFont = new Font("Verdana", Font.PLAIN, 1);
+        if(s.equals("ClubManagementLabelFont")){
+            return new Font("Verdana", Font.PLAIN, 11);
+        }
+        
+        if(s.equals("ClubManagementButtonFont")){
+            return new Font("Verdana", Font.PLAIN, 11);
+        }
+        
+        if(s.equals("ClubManagementDropDownFont")){
+            return new Font("Verdana", Font.PLAIN, 11);
+        }
+        
+        if(s.equals("ClubManagementTextBoxFont")){
+            return new Font("Verdana", Font.PLAIN, 11);
+        }
         
         if(s.equals("labelFont")){
-            returnFont = new Font("Verdana", Font.PLAIN, 12);
+            return new Font("Verdana", Font.PLAIN, 12);
         }
         
         if(s.equals("centralTitleFontLarge")){
-            returnFont = new Font("Verdana", Font.BOLD, 14);
+            return new Font("Verdana", Font.BOLD, 14);
         }
         
         if(s.equals("centralTitleFontSmall")){
-            returnFont = new Font("Verdana", Font.BOLD, 12);
+            return new Font("Verdana", Font.BOLD, 12);
         }
         
         if(s.equals("centralNumbersFontLarge")){
-            returnFont = new Font("Verdana", Font.PLAIN, 14);
+            return new Font("Verdana", Font.PLAIN, 14);
         }
         
         if(s.equals("centralNumbersFontSmall")){
-            returnFont = new Font("Verdana", Font.PLAIN, 12);
+            return new Font("Verdana", Font.PLAIN, 12);
         }
         
         if(s.equals("dropdownFont")){
-            returnFont = new Font("Verdana", Font.PLAIN, 12);
+            return new Font("Verdana", Font.PLAIN, 12);
         }
         
         if(s.equals("scrollboxFont")){
-            returnFont = new Font("Verdana", Font.PLAIN, 12);
+            return new Font("Verdana", Font.PLAIN, 12);
         }
         
         if(s.equals("buttonFont")){
-            returnFont = new Font("Verdana", Font.PLAIN, 12);
+            return new Font("Verdana", Font.PLAIN, 12);
         }
         
         if(s.equals("borderFont")){
-                returnFont = new Font("Verdana", Font.BOLD, 14);
+            return new Font("Verdana", Font.BOLD, 14);
         }
         
         if(s.equals("errorFont")){
-                returnFont = new Font("Verdana", Font.BOLD, 16);
+            return new Font("Verdana", Font.BOLD, 16);
         }
         
         if(s.equals("statsPanelFont")){
-            returnFont = new Font("Verdana",Font.PLAIN, 14);
+            return new Font("Verdana",Font.PLAIN, 14);
         }
-        return returnFont;
+        
+        return new Font("Verdana", Font.PLAIN, 1);
+        
     }
     
     public TofInterface stringToTof(String s) {
@@ -1359,7 +1434,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         Routine[] routines = db_.getRoutinesForGymnast(Integer.parseInt(selectedItem.getID()));
         RoutinesModel model = new RoutinesModel();
                
-        Object data[][] = new java.lang.Object[routines.length][9];
+        Object data[][] = new java.lang.Object[routines.length][10];
         
         int row = 0;
         for(Routine r:routines){
@@ -1383,6 +1458,7 @@ public class TrampolineUI extends javax.swing.JFrame {
             data[row][6]=r.getTotalTon();
             data[row][7]=r.getTotalTime();
             data[row][8]=tagList;
+            data[row][9]=r.getComments();
             row++;
         }
         model.setData(data);
@@ -1414,9 +1490,12 @@ public class TrampolineUI extends javax.swing.JFrame {
         columnModel.getColumn(6).setWidth(100);
         columnModel.getColumn(6).setMaxWidth(100);
         columnModel.getColumn(6).setMinWidth(100);
-        columnModel.getColumn(7).setWidth(screenWidth-765);
-        columnModel.getColumn(7).setMaxWidth(screenWidth-765);
-        columnModel.getColumn(7).setMinWidth(screenWidth-765);
+        columnModel.getColumn(7).setWidth((screenWidth-765)/2);
+        columnModel.getColumn(7).setMaxWidth((screenWidth-765)/2);
+        columnModel.getColumn(7).setMinWidth((screenWidth-765)/2);
+        columnModel.getColumn(8).setWidth((screenWidth-765)/2);
+        columnModel.getColumn(8).setMaxWidth((screenWidth-765)/2);
+        columnModel.getColumn(8).setMinWidth((screenWidth-765)/2);
         
         model.addTableModelListener(new TableModelListener(){
             public void tableChanged(TableModelEvent e) {
@@ -1560,7 +1639,6 @@ public class TrampolineUI extends javax.swing.JFrame {
         lblTrampoline = new javax.swing.JLabel();
         pnlStatistics = new javax.swing.JPanel();
         pnlStatisticsButtons = new javax.swing.JPanel();
-        btnUpdateImages = new javax.swing.JButton();
         drpStatsGymnast = new javax.swing.JComboBox();
         lblStatsGymnast = new javax.swing.JLabel();
         btnStatisticsUpdate = new javax.swing.JButton();
@@ -2125,13 +2203,6 @@ public class TrampolineUI extends javax.swing.JFrame {
         pnlStatisticsButtons.setMaximumSize(new java.awt.Dimension(100, 100));
         pnlStatisticsButtons.setPreferredSize(new java.awt.Dimension(100, 100));
 
-        btnUpdateImages.setText("Update Images on Display for Bounce Counter");
-        btnUpdateImages.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateImagesActionPerformed(evt);
-            }
-        });
-
         drpStatsGymnast.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 drpStatsGymnastActionPerformed(evt);
@@ -2193,7 +2264,6 @@ public class TrampolineUI extends javax.swing.JFrame {
             .addGroup(pnlStatisticsButtonsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlStatisticsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUpdateImages)
                     .addComponent(btnStatisticsUpdate)
                     .addGroup(pnlStatisticsButtonsLayout.createSequentialGroup()
                         .addGroup(pnlStatisticsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2228,9 +2298,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         pnlStatisticsButtonsLayout.setVerticalGroup(
             pnlStatisticsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlStatisticsButtonsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnUpdateImages)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(40, 40, 40)
                 .addComponent(btnStatisticsUpdate)
                 .addGap(24, 24, 24)
                 .addGroup(pnlStatisticsButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -2513,6 +2581,11 @@ public class TrampolineUI extends javax.swing.JFrame {
         drpClubs.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnManageTags.setText("Manage Tags");
+        btnManageTags.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageTagsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlGymnastDetailsLayout = new javax.swing.GroupLayout(pnlGymnastDetails);
         pnlGymnastDetails.setLayout(pnlGymnastDetailsLayout);
@@ -2901,7 +2974,6 @@ public class TrampolineUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveCommentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveCommentsActionPerformed
-        // CURRENTLY THE ROUTINE ID OF DISPLAYED ROUTINE IS IN THE VARIABLE currentRoutineId_
         db_.addComments(currentRoutineId_,txtComments.getText());
     }//GEN-LAST:event_btnSaveCommentsActionPerformed
 
@@ -2934,16 +3006,16 @@ public class TrampolineUI extends javax.swing.JFrame {
 
     private void btnAddModifyGymnastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddModifyGymnastActionPerformed
         if (drpGymnastName.getSelectedIndex() == 0) {
-            if (txtName.getText() == "") {
+            if (txtName.getText() == "" || drpClubs.getSelectedIndex() == 0) {
                 messageHandler_.setError(14);
             } else {
                 messageHandler_.clearError();
                 //Then we need to add the gymnast. Start by entering the information into the databse. 
-                db_.addGymnast(txtName.getText(), Integer.parseInt(drpDate.getSelectedItem().toString()), Integer.parseInt(drpMonth.getSelectedItem().toString()), Integer.parseInt(drpYear.getSelectedItem().toString()), db_.getCategoryID(drpCategory.getSelectedItem().toString())+"", drpClubs.getSelectedIndex());
+                db_.addGymnast(txtName.getText(), Integer.parseInt(drpDate.getSelectedItem().toString()), Integer.parseInt(drpMonth.getSelectedItem().toString()), Integer.parseInt(drpYear.getSelectedItem().toString()), ((ComboItem)drpCategory.getSelectedItem()).getNumericID(), ((ComboItem)drpClubs.getSelectedItem()).getNumericID());
                 if(!(messageHandler_.isError())){
                     //Add a success message.
                     messageHandler_.setError(12);
-
+                    
                     //Then clear all the items. 
                     txtName.setText("");
                     drpDate.setSelectedIndex(0);
@@ -2964,7 +3036,7 @@ public class TrampolineUI extends javax.swing.JFrame {
             messageHandler_.clearError();
             //Note that we have to take 1 off the date and month because of offsets. 
             
-            db_.editGymnast(gymnastItem.getNumericID(), txtName.getText(), Integer.parseInt(drpDate.getSelectedItem().toString())-1, Integer.parseInt(drpMonth.getSelectedItem().toString())-1, Integer.parseInt(drpYear.getSelectedItem().toString()), db_.getCategoryID(drpCategory.getSelectedItem().toString())+"", drpClubs.getSelectedIndex());
+            db_.editGymnast(gymnastItem.getNumericID(), txtName.getText(), Integer.parseInt(drpDate.getSelectedItem().toString())-1, Integer.parseInt(drpMonth.getSelectedItem().toString())-1, Integer.parseInt(drpYear.getSelectedItem().toString()), ((ComboItem)drpCategory.getSelectedItem()).getNumericID(), ((ComboItem)drpClubs.getSelectedItem()).getNumericID());
             if(!(messageHandler_.isError())){
                 messageHandler_.setError(13);
             
@@ -2983,10 +3055,6 @@ public class TrampolineUI extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnAddModifyGymnastActionPerformed
-
-    private void btnUpdateImagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateImagesActionPerformed
-       bounceCounter_.loadImages();
-    }//GEN-LAST:event_btnUpdateImagesActionPerformed
 
     private void tabPaneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tabPaneFocusGained
         // TODO add your handling code here:
@@ -3097,11 +3165,12 @@ public class TrampolineUI extends javax.swing.JFrame {
 
     private void btnDeleteGymnastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteGymnastActionPerformed
         ComboItem c = (ComboItem) drpGymnastName.getSelectedItem();
-        int confirmInt = (int) JOptionPane.showConfirmDialog(this, "Are you sure you want to Delete '"+c+"'?", "Delete Gymnast", 0, 0);
+        int confirmInt = (int) JOptionPane.showConfirmDialog(this, "Are you sure you want to delete '"+c+"'?", "Delete Gymnast", 0, 0);
         
         if (confirmInt == 0) {
-            int confirmInt2 = (int) JOptionPane.showConfirmDialog(this, "This will delete all associated routines as well. Are you sure you wish to continue?", "Delete Gymnast", 0, 0);
+            int confirmInt2 = (int) JOptionPane.showConfirmDialog(this, "This will delete all associated routines and tags as well. Are you sure you wish to continue?", "Delete Gymnast", 0, 0);
             if(confirmInt2 == 0){
+                messageHandler_.clearError();
                 db_.deleteGymnast(c.getNumericID());
                 if(!messageHandler_.isError()){
                     messageHandler_.setError(15);
@@ -3599,6 +3668,13 @@ public class TrampolineUI extends javax.swing.JFrame {
             pnlStatisticsGraph.validate();
         }
     }//GEN-LAST:event_btnStatisticsRoutineActionPerformed
+
+    private void btnManageTagsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageTagsActionPerformed
+        // TODO add your handling code here:
+        ManageTags tagManager = new ManageTags(messageHandler_,db_,((ComboItem)drpGymnastName.getSelectedItem()).getNumericID());
+        tagManager.setVisible(true);
+        tagManager.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnManageTagsActionPerformed
    
     /**
      * @param args the command line arguments
@@ -3749,7 +3825,6 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JButton btnStatisticsGymnast;
     private javax.swing.JButton btnStatisticsRoutine;
     private javax.swing.JButton btnStatisticsUpdate;
-    private javax.swing.JButton btnUpdateImages;
     private javax.swing.JComboBox drpCategory;
     private javax.swing.JComboBox drpClubName;
     private javax.swing.JComboBox drpClubs;

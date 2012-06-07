@@ -10,7 +10,7 @@ import javax.swing.table.AbstractTableModel;
  * @author Kieran
  */
   class RoutinesModel extends AbstractTableModel {
-    private String[] columnNames = {"Id","","Date","Time","No. Jumps","ToF","ToN","Total","Tags"};
+    private String[] columnNames = {"Id","","Date","Time","No. Jumps","ToF","ToN","Total","Tags","Comments"};
 
     private Object[][] data = {};
 
