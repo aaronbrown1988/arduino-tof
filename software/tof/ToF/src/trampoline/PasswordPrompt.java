@@ -160,6 +160,7 @@ public class PasswordPrompt extends javax.swing.JDialog {
     private void btnokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnokActionPerformed
         char[] password = txtpassword.getPassword();
         String testPassword = md5Password(password);
+        
         if(this.adminPassword_.equals(testPassword)){
             doClose(RET_OK);
         }else{

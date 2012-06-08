@@ -11,6 +11,8 @@ import javax.swing.event.*;
 import java.awt.*;
 import java.awt.Image.*;
 import java.awt.geom.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import javax.xml.parsers.*;
@@ -61,7 +63,6 @@ public class TrampolineUI extends javax.swing.JFrame {
     private String currentLocation_; // String of location currently displayed
     
     private boolean adminAccessGranted_;
-    private String adminPassword_;
     private Dimension screenResolution_; //Current screen resolution when program loaded
     private MessageHandler messageHandler_;  // Instance of the project Error Handler.
     private int messagePersist_;          // Length of time to show error for.
@@ -1027,13 +1028,13 @@ public class TrampolineUI extends javax.swing.JFrame {
         pnlAdminLayout.setHorizontalGroup(
             pnlAdminLayout.createSequentialGroup()
             .addContainerGap(5,5)
-            .addComponent(lblNewPassword,90,90,90)
+            .addComponent(lblOldPassword,90,90,90)
             .addGap(5,5,5)
-            .addComponent(txtPassword1,150,150,150)
+            .addComponent(txtOldPassword,150,150,150)
             .addGap(15,15,15)
-            .addComponent(lblNewPassword2,100,100,100)
+            .addComponent(lblNewPassword,100,100,100)
             .addGap(5,5,5)
-            .addComponent(txtPassword2,150,150,150)
+            .addComponent(txtNewPassword,150,150,150)
             .addGap(5,5,5)
             .addComponent(btnNewPassword,120,120,120)
             .addGap(screenWidth - 900,screenWidth - 900,screenWidth - 900)
@@ -1047,10 +1048,10 @@ public class TrampolineUI extends javax.swing.JFrame {
             pnlAdminLayout.createSequentialGroup()
             .addContainerGap(5,5)
             .addGroup(pnlAdminLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
+                .addComponent(lblOldPassword,25,25,25)
+                .addComponent(txtOldPassword,26,26,26)
                 .addComponent(lblNewPassword,25,25,25)
-                .addComponent(txtPassword1,26,26,26)
-                .addComponent(lblNewPassword2,25,25,25)
-                .addComponent(txtPassword2,26,26,26)
+                .addComponent(txtNewPassword,26,26,26)
                 .addComponent(btnNewPassword,25,25,25)
                 .addComponent(btnResetAll,25,25,25)
                 .addComponent(btnLogout,25,25,25))
@@ -1087,8 +1088,8 @@ public class TrampolineUI extends javax.swing.JFrame {
         //Set Fonts
         lblGymnast.setFont(getFont("ClubManagementLabelFont"));
         lblClub.setFont(getFont("ClubManagementLabelFont"));
+        lblOldPassword.setFont(getFont("ClubManagementLabelFont"));
         lblNewPassword.setFont(getFont("ClubManagementLabelFont"));
-        lblNewPassword2.setFont(getFont("ClubManagementLabelFont"));
         lblGymnastName.setFont(getFont("ClubManagementLabelFont"));
         lblDob.setFont(getFont("ClubManagementLabelFont"));
         lblCategory.setFont(getFont("ClubManagementLabelFont"));
@@ -1125,8 +1126,8 @@ public class TrampolineUI extends javax.swing.JFrame {
         btnAddTag.setFont(getFont("ClubManagementButtonFont"));
         btnDeleteTag.setFont(getFont("ClubManagementButtonFont"));
         
-        txtPassword1.setFont(getFont("ClubManagementTextBoxFont"));
-        txtPassword2.setFont(getFont("ClubManagementTextBoxFont"));
+        txtOldPassword.setFont(getFont("ClubManagementTextBoxFont"));
+        txtNewPassword.setFont(getFont("ClubManagementTextBoxFont"));
         txtName.setFont(getFont("ClubManagementTextBoxFont"));
         txtLongName.setFont(getFont("ClubManagementTextBoxFont"));
         txtShortName.setFont(getFont("ClubManagementTextBoxFont"));
@@ -1167,6 +1168,9 @@ public class TrampolineUI extends javax.swing.JFrame {
         routinesPanelVisible(false);
         //Make club management tab invisible
         setAdminAccess(false);
+        
+        //For now disable master reset
+        btnResetAll.setEnabled(false);
     }
     
     private void gymnastPanelVisible(boolean state){
@@ -1267,10 +1271,6 @@ public class TrampolineUI extends javax.swing.JFrame {
         db_ = new DBConnect(this.messageHandler_);
         adminAccessGranted_ = false;
         currentRoutineId_ = 0;
-        
-        // Change to retrieve from database
-        adminPassword_ = "21232F297A57A5A743894A0E4A801FC3";
-        
     }
     
     public Font getFont(String s){
@@ -1667,13 +1667,13 @@ public class TrampolineUI extends javax.swing.JFrame {
         drpGymnastName = new javax.swing.JComboBox();
         btnAddGymnast = new javax.swing.JButton();
         pnlAdmin = new javax.swing.JPanel();
+        lblOldPassword = new javax.swing.JLabel();
         lblNewPassword = new javax.swing.JLabel();
-        lblNewPassword2 = new javax.swing.JLabel();
-        txtPassword2 = new javax.swing.JTextField();
-        txtPassword1 = new javax.swing.JTextField();
         btnResetAll = new javax.swing.JButton();
         btnNewPassword = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
+        txtNewPassword = new javax.swing.JPasswordField();
+        txtOldPassword = new javax.swing.JPasswordField();
         pnlGymnastDetails = new javax.swing.JPanel();
         lblGymnastName = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
@@ -1805,7 +1805,7 @@ public class TrampolineUI extends javax.swing.JFrame {
         });
 
         lblAddNewTag.setForeground(new java.awt.Color(0, 0, 255));
-        lblAddNewTag.setText("(or click here to add a new tag):");
+        lblAddNewTag.setText("(or click here to manage tags):");
         lblAddNewTag.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblAddNewTagMouseClicked(evt);
@@ -2458,7 +2458,7 @@ public class TrampolineUI extends javax.swing.JFrame {
             }
         });
 
-        pnlGymnast.setBorder(javax.swing.BorderFactory.createTitledBorder("Gymnast"));
+        pnlGymnast.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gymnast", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Verdana", 1, 12))); // NOI18N
 
         lblGymnast.setText("Gymnast:");
 
@@ -2499,11 +2499,11 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addContainerGap(65, Short.MAX_VALUE))
         );
 
-        pnlAdmin.setBorder(javax.swing.BorderFactory.createTitledBorder("Administration"));
+        pnlAdmin.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Administration", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Verdana", 1, 12))); // NOI18N
+
+        lblOldPassword.setText("Old Password:");
 
         lblNewPassword.setText("New Password:");
-
-        lblNewPassword2.setText("Retype Password:");
 
         btnResetAll.setText("Reset All Data");
         btnResetAll.addActionListener(new java.awt.event.ActionListener() {
@@ -2513,6 +2513,11 @@ public class TrampolineUI extends javax.swing.JFrame {
         });
 
         btnNewPassword.setText("New Password");
+        btnNewPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewPasswordActionPerformed(evt);
+            }
+        });
 
         btnLogout.setText("Logout");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
@@ -2521,40 +2526,56 @@ public class TrampolineUI extends javax.swing.JFrame {
             }
         });
 
+        txtNewPassword.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+
         javax.swing.GroupLayout pnlAdminLayout = new javax.swing.GroupLayout(pnlAdmin);
         pnlAdmin.setLayout(pnlAdminLayout);
         pnlAdminLayout.setHorizontalGroup(
             pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAdminLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(lblOldPassword)
+                .addGap(201, 201, 201)
                 .addComponent(lblNewPassword)
-                .addGap(32, 32, 32)
-                .addComponent(txtPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69)
-                .addComponent(lblNewPassword2)
-                .addGap(37, 37, 37)
-                .addComponent(txtPassword2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(147, 147, 147)
                 .addComponent(btnNewPassword)
                 .addGap(99, 99, 99)
                 .addComponent(btnResetAll)
                 .addGap(52, 52, 52)
                 .addComponent(btnLogout)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlAdminLayout.createSequentialGroup()
+                    .addGap(690, 690, 690)
+                    .addComponent(txtNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(691, Short.MAX_VALUE)))
+            .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlAdminLayout.createSequentialGroup()
+                    .addGap(690, 690, 690)
+                    .addComponent(txtOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(691, Short.MAX_VALUE)))
         );
         pnlAdminLayout.setVerticalGroup(
             pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(lblNewPassword)
-                .addComponent(txtPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblOldPassword)
                 .addComponent(btnResetAll)
                 .addComponent(btnNewPassword)
-                .addComponent(txtPassword2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(lblNewPassword2)
+                .addComponent(lblNewPassword)
                 .addComponent(btnLogout))
+            .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlAdminLayout.createSequentialGroup()
+                    .addGap(1, 1, 1)
+                    .addComponent(txtNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlAdminLayout.createSequentialGroup()
+                    .addGap(7, 7, 7)
+                    .addComponent(txtOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        pnlGymnastDetails.setBorder(javax.swing.BorderFactory.createTitledBorder("Gymnast Details"));
+        pnlGymnastDetails.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gymnast Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Verdana", 1, 12))); // NOI18N
 
         lblGymnastName.setText("Name:");
 
@@ -2653,7 +2674,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnlRoutines.setBorder(javax.swing.BorderFactory.createTitledBorder("Routines"));
+        pnlRoutines.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Routines", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Verdana", 1, 12))); // NOI18N
 
         tblRoutines.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -2720,7 +2741,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addContainerGap(112, Short.MAX_VALUE))
         );
 
-        pnlClub.setBorder(javax.swing.BorderFactory.createTitledBorder("Club"));
+        pnlClub.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Club", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Verdana", 1, 12))); // NOI18N
 
         lblClub.setText("Club:");
 
@@ -2761,7 +2782,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addContainerGap(65, Short.MAX_VALUE))
         );
 
-        pnlClubDetails.setBorder(javax.swing.BorderFactory.createTitledBorder("Club Details"));
+        pnlClubDetails.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Club Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Verdana", 1, 12))); // NOI18N
 
         lblLongName.setText("Long Name :");
 
@@ -2929,7 +2950,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addComponent(pnlRoutines, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(pnlAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(510, Short.MAX_VALUE))
+                .addContainerGap(485, Short.MAX_VALUE))
         );
 
         tabPane.addTab("Club Management", pnlClubManagement);
@@ -2967,7 +2988,9 @@ public class TrampolineUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(layMainLayer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(layMainLayer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(254, Short.MAX_VALUE))
         );
 
         pack();
@@ -3136,14 +3159,14 @@ public class TrampolineUI extends javax.swing.JFrame {
         if(this.adminAccessGranted_){
             setAdminAccess(true);
         }else{
-            PasswordPrompt passwordPopup = new PasswordPrompt(this, true, adminPassword_);
+            PasswordPrompt passwordPopup = new PasswordPrompt(this, true, db_.getPassword(1));
             passwordPopup.setVisible(true);
-            //switch(passwordPopup.getReturnStatus()){
-            switch(1){
+            switch(passwordPopup.getReturnStatus()){
                 case 0:
                     //BAD PASSWORD
                     setAdminAccess(false);
                     this.messageHandler_.setError(1);
+                    tabPane.setSelectedIndex(0);
                     break;
                 case 1:
                     setAdminAccess(true);
@@ -3223,12 +3246,13 @@ public class TrampolineUI extends javax.swing.JFrame {
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         setAdminAccess(false);
         this.messageHandler_.setError(4);
+        tabPane.setSelectedIndex(0);
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnResetAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetAllActionPerformed
         
         //Password currently hardcoded to "MasterReset" -> to be retrived from database later
-        ResetAllConfirm resetDialog = new ResetAllConfirm(this, true, "D642FBD7CACF27F7568A6ED701AA44D8");
+        ResetAllConfirm resetDialog = new ResetAllConfirm(this, true, db_.getPassword(2));
         resetDialog.setVisible(true);
         switch(resetDialog.getReturnStatus()){
             case 0:
@@ -3286,29 +3310,9 @@ public class TrampolineUI extends javax.swing.JFrame {
     }//GEN-LAST:event_drpSelectGymnastActionPerformed
 
     private void lblAddNewTagMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddNewTagMouseClicked
-        // TODO add your handling code here:
-        String newTag = (String)JOptionPane.showInputDialog(this,"Please enter the name for the new Tag:","Add New Tag",
-                                                            JOptionPane.QUESTION_MESSAGE,null,null,"");
-        if(newTag.equals("")){
-            messageHandler_.setError(11);
-        }else{
-            ComboItem currentGymnast = (ComboItem)drpSelectGymnast.getSelectedItem();
-            Map<Integer, String> tagMapToF = db_.getTags(Integer.parseInt(currentGymnast.getID()));
-            
-            boolean differentName = true;
-            for(String tags : tagMapToF.values()){
-                if(tags.equals(newTag)){
-                    differentName = false;
-                }
-            }
-            
-            if(differentName){
-                db_.addTag(Integer.parseInt(currentGymnast.getID()),newTag);
-                this.drpSelectGymnastActionPerformed(null);
-            }else{
-                messageHandler_.setError(11);
-            }
-        }
+        ManageTags tagManager = new ManageTags(messageHandler_,db_,((ComboItem)drpSelectGymnast.getSelectedItem()).getNumericID());
+        tagManager.setVisible(true);
+        tagManager.setLocationRelativeTo(null);
     }//GEN-LAST:event_lblAddNewTagMouseClicked
 
 	private void drpStatsRoutineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpStatsRoutineActionPerformed
@@ -3675,6 +3679,40 @@ public class TrampolineUI extends javax.swing.JFrame {
         tagManager.setVisible(true);
         tagManager.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnManageTagsActionPerformed
+
+    private void btnNewPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewPasswordActionPerformed
+        // TODO add your handling code here:
+        
+        char[] oldPassword = txtOldPassword.getPassword();
+        char[] newPassword = txtNewPassword.getPassword();
+        
+        String oldMD5 = md5Password(oldPassword);
+        String newMD5 = md5Password(newPassword);
+        System.out.println(oldPassword.toString());
+        System.out.println(oldMD5);
+        if(this.db_.getPassword(1).equals(oldMD5)){
+            JLabel label = new JLabel("Please re-enter the new password:");
+            label.setFont(getFont("ClubManagementLabelFont"));
+            JPasswordField jpf = new JPasswordField();
+            jpf.setFont(getFont("ClubManagementTextBoxFont"));
+            JOptionPane.showConfirmDialog(null,
+                                        new Object[]{label, jpf}, "Re-enter New Password",
+                                        JOptionPane.OK_CANCEL_OPTION);
+            
+            char[] newPassword2 = jpf.getPassword();
+            if(newMD5.equals(md5Password(newPassword2))){
+                db_.editPassword(1, newMD5);
+                messageHandler_.setError(30);
+                setAdminAccess(false);
+                tabPane.setSelectedIndex(0);
+            }else{
+                messageHandler_.setError(29);
+            }
+        }else{
+            messageHandler_.setError(28);
+        }
+        
+    }//GEN-LAST:event_btnNewPasswordActionPerformed
    
     /**
      * @param args the command line arguments
@@ -3718,6 +3756,36 @@ public class TrampolineUI extends javax.swing.JFrame {
                 new TrampolineUI().setVisible(true);
             }
         });
+    }
+    
+    String md5Password(char[] password){
+        String passwordMD5 = null;
+        try {
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            byte[] tmp = new byte[password.length];
+            for(int i=0;i<password.length;i++){
+                tmp[i] = (byte)password[i];
+            }
+            md5.update(tmp);
+            passwordMD5 = byteArrToString(md5.digest());
+        } catch (NoSuchAlgorithmException ex) {
+            System.out.println(ex);
+        }
+      return passwordMD5;
+    }
+    
+    private static String byteArrToString(byte[] b){
+        String res;
+        StringBuffer sb = new StringBuffer(b.length * 2);
+        for (int i = 0; i < b.length; i++){
+            int j = b[i] & 0xff;
+            if (j < 16) {
+                sb.append('0');
+            }
+            sb.append(Integer.toHexString(j));
+        }
+        res = sb.toString();
+        return res.toUpperCase();
     }
     
     private static void splashInit(){
@@ -3875,8 +3943,8 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblLowestToFNo;
     private javax.swing.JLabel lblLowestToFTxt;
     private javax.swing.JLabel lblNewPassword;
-    private javax.swing.JLabel lblNewPassword2;
     private javax.swing.JLabel lblNumberOfBounces;
+    private javax.swing.JLabel lblOldPassword;
     private javax.swing.JLabel lblOvToFNo;
     private javax.swing.JLabel lblOvToFTxt;
     private javax.swing.JLabel lblOvToNNo;
@@ -3937,9 +4005,9 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JTextField txtHeadCoach;
     private javax.swing.JTextField txtLongName;
     private javax.swing.JTextField txtName;
+    private javax.swing.JPasswordField txtNewPassword;
     private javax.swing.JTextField txtNumberOfBounces;
-    private javax.swing.JTextField txtPassword1;
-    private javax.swing.JTextField txtPassword2;
+    private javax.swing.JPasswordField txtOldPassword;
     private javax.swing.JTextField txtPhoneNumber;
     private javax.swing.JTextField txtPostcode;
     private javax.swing.JTextField txtShortName;

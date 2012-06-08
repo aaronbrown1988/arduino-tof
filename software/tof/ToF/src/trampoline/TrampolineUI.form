@@ -55,7 +55,10 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="layMainLayer" min="-2" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <Component id="layMainLayer" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="254" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -360,7 +363,7 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="0" red="0" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="(or click here to add a new tag):"/>
+                        <Property name="text" type="java.lang.String" value="(or click here to manage tags):"/>
                       </Properties>
                       <Events>
                         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblAddNewTagMouseClicked"/>
@@ -1335,7 +1338,7 @@
                           <Component id="pnlRoutines" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="pnlAdmin" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="510" max="32767" attributes="0"/>
+                          <EmptySpace pref="485" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1345,7 +1348,9 @@
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Gymnast"/>
+                        <TitledBorder title="Gymnast">
+                          <Font PropertyName="font" name="Verdana" size="12" style="1"/>
+                        </TitledBorder>
                       </Border>
                     </Property>
                   </Properties>
@@ -1408,7 +1413,9 @@
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Administration"/>
+                        <TitledBorder title="Administration">
+                          <Font PropertyName="font" name="Verdana" size="12" style="1"/>
+                        </TitledBorder>
                       </Border>
                     </Property>
                   </Properties>
@@ -1418,14 +1425,10 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lblOldPassword" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="201" max="-2" attributes="0"/>
                               <Component id="lblNewPassword" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                              <Component id="txtPassword1" min="-2" pref="100" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
-                              <Component id="lblNewPassword2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="txtPassword2" min="-2" pref="100" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="147" max="-2" attributes="0"/>
                               <Component id="btnNewPassword" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
                               <Component id="btnResetAll" min="-2" max="-2" attributes="0"/>
@@ -1433,36 +1436,58 @@
                               <Component id="btnLogout" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
+                          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="690" max="-2" attributes="0"/>
+                                  <Component id="txtNewPassword" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace pref="691" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" rootIndex="2" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="690" max="-2" attributes="0"/>
+                                  <Component id="txtOldPassword" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace pref="691" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lblNewPassword" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtPassword1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblOldPassword" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnResetAll" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnNewPassword" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtPassword2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblNewPassword2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblNewPassword" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnLogout" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                                  <Component id="txtNewPassword" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" rootIndex="2" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                                  <Component id="txtOldPassword" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
+                    <Component class="javax.swing.JLabel" name="lblOldPassword">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Old Password:"/>
+                      </Properties>
+                    </Component>
                     <Component class="javax.swing.JLabel" name="lblNewPassword">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="New Password:"/>
                       </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="lblNewPassword2">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Retype Password:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtPassword2">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="txtPassword1">
                     </Component>
                     <Component class="javax.swing.JButton" name="btnResetAll">
                       <Properties>
@@ -1476,6 +1501,9 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="New Password"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNewPasswordActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnLogout">
                       <Properties>
@@ -1485,13 +1513,24 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogoutActionPerformed"/>
                       </Events>
                     </Component>
+                    <Component class="javax.swing.JPasswordField" name="txtNewPassword">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Verdana" size="12" style="0"/>
+                        </Property>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JPasswordField" name="txtOldPassword">
+                    </Component>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="pnlGymnastDetails">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Gymnast Details"/>
+                        <TitledBorder title="Gymnast Details">
+                          <Font PropertyName="font" name="Verdana" size="12" style="1"/>
+                        </TitledBorder>
                       </Border>
                     </Property>
                   </Properties>
@@ -1674,7 +1713,9 @@
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Routines"/>
+                        <TitledBorder title="Routines">
+                          <Font PropertyName="font" name="Verdana" size="12" style="1"/>
+                        </TitledBorder>
                       </Border>
                     </Property>
                   </Properties>
@@ -1769,7 +1810,9 @@
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Club"/>
+                        <TitledBorder title="Club">
+                          <Font PropertyName="font" name="Verdana" size="12" style="1"/>
+                        </TitledBorder>
                       </Border>
                     </Property>
                   </Properties>
@@ -1832,7 +1875,9 @@
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Club Details"/>
+                        <TitledBorder title="Club Details">
+                          <Font PropertyName="font" name="Verdana" size="12" style="1"/>
+                        </TitledBorder>
                       </Border>
                     </Property>
                   </Properties>

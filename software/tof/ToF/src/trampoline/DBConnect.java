@@ -4,6 +4,8 @@
  */
 package trampoline;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -152,6 +154,13 @@ public class DBConnect {
     public int editTag(int tid, String tag){
         return executeUpdate("UPDATE tags SET tname = '"+tag+"' WHERE tid = '"+tid+"'");
     }
+    
+    public int editPassword(int pid, String password){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        java.util.Date date = new java.util.Date();
+        
+        return executeUpdate("UPDATE password SET passvalue ='"+password+"', datechanged ='"+dateFormat.format(date)+"' WHERE pid = '"+pid+"'");
+    }
  
     public Map<Integer,String> getTags(int gid){
         executeQuery("SELECT * FROM tags WHERE gymnastid = '"+gid+"'");
@@ -230,6 +239,12 @@ public class DBConnect {
         executeQuery("SELECT * FROM clubs WHERE cid = '"+cid+"'");
         
         return new Club(resultGetInt("cid"), resultGetString("shortname"), resultGetString("longname"), resultGetString("addressline1"), resultGetString("addressline2"), resultGetString("town"), resultGetString("county"), resultGetString("postcode"),resultGetString("headcoach"),resultGetString("phonenumber"));
+    }
+    
+    public String getPassword(int pid){
+        executeQuery("SELECT * FROM password WHERE pid ='"+pid+"'");
+        
+        return resultGetString("passvalue");
     }
     
     public Gymnast[] getAllGymnasts() {

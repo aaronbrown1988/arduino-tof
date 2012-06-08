@@ -43,6 +43,9 @@ public class MessageHandler {
                                                           new java.awt.Color(255,0,0),
                                                           new java.awt.Color(0,0,255),
                                                           new java.awt.Color(255,0,0),
+                                                          new java.awt.Color(0,0,255),
+                                                          new java.awt.Color(255,0,0),
+                                                          new java.awt.Color(255,0,0),
                                                           new java.awt.Color(0,0,255)
                                                          };
     
@@ -72,7 +75,10 @@ public class MessageHandler {
                                                     "Club Delete Aborted",
                                                     "Routine Deleted Successfully",
                                                     "Routine Delete Aborted",
-                                                    "Tag Added Successfully"
+                                                    "Tag Added Successfully",
+                                                    "Error: Incorrect Password",
+                                                    "Error: Password mismatch",
+                                                    "Password Successfully Changed"
                                                    };
     
     
@@ -103,7 +109,10 @@ public class MessageHandler {
                                                     "Deleting the club was aborted by the user.",
                                                     "The routine was successfully deleted from the database.",
                                                     "Deleting the routine was aborted by the user.",
-                                                    "The tag was successfully added to the selected routines."
+                                                    "The tag was successfully added to the selected routines.",
+                                                    "The old password supplied for access to the Club Management tab was incorrect. Please try again.",
+                                                    "The two new passwords supplied were different. Please try again and enter the same password both times.",
+                                                    "The password to access the Club Management tab was successfully changed. Please use the new password to login."
                                                    };
     
     MessageHandler(){
