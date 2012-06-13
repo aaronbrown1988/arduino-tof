@@ -34,7 +34,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     
     public ArrayList<PortController> portsAvaliable_;
     public ArrayList<String> portStrings_;
-    public ArrayList<Integer> noOfTof_;
+    public ArrayList<Integer[]> noOfTof_;
     public TofInterface currentInterface_;
     public DBConnect db_;
     
@@ -49,7 +49,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     javax.swing.Timer errorTimer_;
     private int refresh;
     private int nextJumpToFill;
-    private static int REFRESH_TIME = 30; // Time to keep refreshing for after GO event
+    private static int REFRESH_TIME = 300; // Time to keep refreshing for after GO event
     private double[] chartValues;
     private String[] chartNames;
     private Chart chartObject_;
@@ -74,8 +74,8 @@ public class TrampolineUI extends javax.swing.JFrame {
             if(currentInterface_ != null){
                 boolean beamStatus[] = currentInterface_.getBeamStatus();
 
-                for(int i=0;i<8;i++){
-                    if(beamStatus[0]==true){
+                for(int i=0;i<currentInterface_.getNoBeams();i++){
+                    if(beamStatus[i]==true){
                         beamStatusRedArray_[2*i].setVisible(false);
                         beamStatusRedArray_[2*i+1].setVisible(false);
                         beamStatusGreenArray_[2*i].setVisible(true);
@@ -90,10 +90,10 @@ public class TrampolineUI extends javax.swing.JFrame {
                 
                 String location = currentInterface_.getLastLocation();
                 
-                if(location.equals("")){
+                if(location.equals("  ")){
                     location = "none";
                 }
-                if(!(location.equals(currentLocation_))){
+               if(!(location.equals(currentLocation_))){
                     lblTrampoline.setIcon(locationImagesLarge_.get(location));
                 }
             }
@@ -134,53 +134,69 @@ public class TrampolineUI extends javax.swing.JFrame {
     ActionListener jumpAction = new ActionListener(){
         public void actionPerformed(ActionEvent evt){        
             if(refresh>0){
-                if(currentInterface_.getRoutine().getJumps().length >= nextJumpToFill){
-                    Jump thisJump = currentInterface_.getRoutine().getJumps()[nextJumpToFill-1];
-                    
+                Jump thisJump = currentInterface_.getRoutine().getJumps()[nextJumpToFill-1];
+                if(currentInterface_.getRoutine().finishedRoutine()){
+                    refresh = 0;
+                }
+                if(currentInterface_.getRoutine().getNumberOfJumpsUsed() >= nextJumpToFill){
                     labelArray_[(nextJumpToFill-1)*5].setVisible(true);
                     labelArray_[(nextJumpToFill-1)*5+1].setText(thisJump.getTof()+"");
                     labelArray_[(nextJumpToFill-1)*5+2].setText(thisJump.getTon()+"");
                     labelArray_[(nextJumpToFill-1)*5+3].setText(thisJump.getTotal()+"");
                     labelArray_[(nextJumpToFill-1)*5+4].setIcon(locationImagesSmall_.get(thisJump.getLocation()));
+                    System.out.println(thisJump.getLocation());
                     
                     // UPDATE BAR GRAPH
-                    pnlGraph.removeAll();
+                    /*pnlGraph.removeAll();
                     chartObject_.addValue(thisJump.getTof());
                     JFreeChart jChart = chartObject_.createChart();
                     ChartPanel CP = new ChartPanel(jChart);
                     pnlGraph.add(CP);
-                    pnlGraph.validate();
+                    pnlGraph.validate();*/
                     
                     nextJumpToFill++;
-                    refresh--;
+                }
+                
+                if(refresh==0){
+                    double lowestToF = thisJump.getTof();
+                    double highestToF = thisJump.getTof();
 
-                    if(refresh==0){
-                        double lowestToF = thisJump.getTof();
-                        
-                        for(Jump aJump : currentInterface_.getRoutine().getJumps()){
-                            if(aJump.getTof()<lowestToF){
-                                lowestToF = aJump.getTof();
-                            }
+                    for(Jump aJump : currentInterface_.getRoutine().getJumps()){
+                        if(aJump.getTof()<lowestToF){
+                            lowestToF = aJump.getTof();
                         }
                         
-                        for(int i=0;i<currentInterface_.getRoutine().getNumberOfJumps();i++){
-                            if(currentInterface_.getRoutine().getJumps()[i].getTof()==lowestToF){
-                                labelArray_[i*5].setForeground(new java.awt.Color(255, 0, 0));
-                                labelArray_[i*5+1].setForeground(new java.awt.Color(255, 0, 0));
-                                labelArray_[i*5+2].setForeground(new java.awt.Color(255, 0, 0));
-                                labelArray_[i*5+3].setForeground(new java.awt.Color(255, 0, 0));
-                            }
+                        if(aJump.getTof()>highestToF){
+                            highestToF = aJump.getTof();
                         }
-                        
-                        btnSaveComments.setVisible(true);
-                        btnClearComments.setVisible(true);
-                        sclComments.setVisible(true);
-                        txtComments.setVisible(true);
-                        lblComments.setVisible(true);
-                        btnClearData.setVisible(true);
-                        jumpTimer.stop();
-                        currentRoutineId_ = currentInterface_.getRoutineId();
                     }
+
+                    for(int i=0;i<currentInterface_.getRoutine().getNumberOfJumps();i++){
+                        if(currentInterface_.getRoutine().getJumps()[i].getTof()==lowestToF){
+                            labelArray_[i*5].setForeground(new java.awt.Color(255, 0, 0));
+                            labelArray_[i*5+1].setForeground(new java.awt.Color(255, 0, 0));
+                            labelArray_[i*5+2].setForeground(new java.awt.Color(255, 0, 0));
+                            labelArray_[i*5+3].setForeground(new java.awt.Color(255, 0, 0));
+                        }
+                        
+                        if(currentInterface_.getRoutine().getJumps()[i].getTof()==highestToF){
+                            labelArray_[i*5].setForeground(new java.awt.Color(0, 0, 255));
+                            labelArray_[i*5+1].setForeground(new java.awt.Color(0, 0, 255));
+                            labelArray_[i*5+2].setForeground(new java.awt.Color(0, 0, 255));
+                            labelArray_[i*5+3].setForeground(new java.awt.Color(0, 0, 255));
+                        }
+                    }
+
+                    btnSaveComments.setVisible(true);
+                    btnClearComments.setVisible(true);
+                    sclComments.setVisible(true);
+                    txtComments.setVisible(true);
+                    lblComments.setVisible(true);
+                    btnClearData.setVisible(true);
+                    jumpTimer.stop();
+                    currentRoutineId_ = currentInterface_.getRoutineId();
+                }else{
+                    refresh--;
                 }
             }
         }
@@ -230,12 +246,11 @@ public class TrampolineUI extends javax.swing.JFrame {
         }
         
         this.splashText("Connecting to available ToF Devices.");
-        this.splashProgress(33);
         for (int i=0; i<portStrings_.size();i++) {
             String s = this.portStrings_.get(i);
             thisPort = new PortController(this.messageHandler_, s);
             this.portsAvaliable_.add(thisPort);
-            for(int j=1;j<=this.noOfTof_.get(i);j++){
+            for(int j=1;j<=this.noOfTof_.get(i)[0];j++){
                 drpDeviceName.addItem(s+" Device "+j);
             }
         }
@@ -248,10 +263,9 @@ public class TrampolineUI extends javax.swing.JFrame {
         }
         
         this.splashText("Getting beam status from ToF.");
-        this.splashProgress(66);
         pageRefreshTimer_ = new javax.swing.Timer(1, pageRefresh);
         pageRefreshTimer_.start();
-        jumpTimer = new javax.swing.Timer(1000, jumpAction);
+        jumpTimer = new javax.swing.Timer(100, jumpAction);
         messagePersist_ = 0;
         errorTimer_ = new javax.swing.Timer(1, errorAction);
         errorTimer_.start();
@@ -463,7 +477,10 @@ public class TrampolineUI extends javax.swing.JFrame {
                     Graphics g = bi.createGraphics();
                     g.drawImage(img, 0,0, 60, 35, null);
                     locationImagesSmall_.put(""+letter+number, new ImageIcon(bi));
-                    locationImagesLarge_.put(""+letter+number, icon);
+                    java.awt.image.BufferedImage bi2 = new java.awt.image.BufferedImage(366, 217, java.awt.image.BufferedImage.TYPE_INT_ARGB);
+                    Graphics g2 = bi2.createGraphics();
+                    g2.drawImage(img, 0,0, 366, 217, null);
+                    locationImagesLarge_.put(""+letter+number, new ImageIcon(bi2));
                     count++;
                 }
             }
@@ -474,7 +491,10 @@ public class TrampolineUI extends javax.swing.JFrame {
             Graphics g = bi.createGraphics();
             g.drawImage(img, 0,0, 60, 35, null);
             locationImagesSmall_.put("none", new ImageIcon(bi));
-            locationImagesLarge_.put("none", icon);
+            java.awt.image.BufferedImage bi2 = new java.awt.image.BufferedImage(366, 217, java.awt.image.BufferedImage.TYPE_INT_ARGB);
+            Graphics g2 = bi2.createGraphics();
+            g2.drawImage(img, 0,0, 366, 217, null);
+            locationImagesLarge_.put("none", new ImageIcon(bi2));
                                         
             centralTitleFont = getFont("centralTitleFontLarge");
             centralNumberFont = getFont("centralNumbersFontLarge");
@@ -3003,7 +3023,7 @@ public class TrampolineUI extends javax.swing.JFrame {
     private void btnCollectDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCollectDataActionPerformed
         this.btnClearDataActionPerformed(evt);
         if(this.currentInterface_!=null){
-            this.currentInterface_.collectBounces(Integer.parseInt(txtNumberOfBounces.getText()), this.db_, 1);
+            this.currentInterface_.collectBounces(Integer.parseInt(txtNumberOfBounces.getText()), this.db_, ((ComboItem)drpSelectGymnast.getSelectedItem()).getNumericID());
             refresh = REFRESH_TIME;
             nextJumpToFill = 1;
             btnSaveComments.setVisible(false);

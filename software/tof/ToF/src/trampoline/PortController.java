@@ -18,7 +18,7 @@ import java.util.*;
 public class PortController implements SerialPortEventListener{
     private ArrayList<CommPortIdentifier> portsInUse_;  // The ports ToFs have been found on.
     private ArrayList<String> nameOfPorts_;             // The name of each ToF.
-    private ArrayList<Integer> noOfTof_;                // The number of Tof on each port.
+    private ArrayList<Integer[]> noOfTof_;                // The number of Tof on each port.
     private TofInterface tofInterfaces_[];              // Interfaces to each Tof device.
     private int timeOut_;                               // Milliseconds to block while waiting for port open.
     private int dataRate_;                              // Default bits per second for COM port.
@@ -31,7 +31,7 @@ public class PortController implements SerialPortEventListener{
     PortController(MessageHandler errHandl){
         this.portsInUse_ = new ArrayList<CommPortIdentifier>();
         this.nameOfPorts_ = new ArrayList<String>();
-        this.noOfTof_ = new ArrayList<Integer>();
+        this.noOfTof_ = new ArrayList<Integer[]>();
         this.serialPort_ = null;
         this.input_ = null;
         this.output_ = null;
@@ -94,15 +94,17 @@ public class PortController implements SerialPortEventListener{
         //iterate through them, looking for ToFs
         while(portEnum.hasMoreElements()){
             CommPortIdentifier currPortId = (CommPortIdentifier) portEnum.nextElement();
-
-            String s = this.handshake(currPortId);
- 
-            if(!(s.equals("Failed"))){      
+            
+            //String s = this.handshake(currPortId);
+            String s = "COM2 1 3 0";
+            //if(!(s.equals("Failed"))){
+            if(currPortId.getName().equals("COM2")){
                 //Add it to our lists
                 String split[] = s.split(" ");                               
                 this.portsInUse_.add(currPortId);
-                this.nameOfPorts_.add(split[1]);
-                this.noOfTof_.add(Integer.parseInt(split[2]));
+                this.nameOfPorts_.add(split[0]);
+                Integer[] noOfTof = {Integer.parseInt(split[1]),Integer.parseInt(split[2]),Integer.parseInt(split[3])};
+                this.noOfTof_.add(noOfTof);
             }
         }
 
@@ -142,9 +144,9 @@ public class PortController implements SerialPortEventListener{
                 result = "Failed";
             }
             
+            result = thisComm.getName()+" 1";
             serialPort.removeEventListener();
             serialPort.close();
-            result = "Failed";
         }catch (Exception e) {
             result = "Failed";
             
@@ -187,41 +189,39 @@ public class PortController implements SerialPortEventListener{
         }
         
         //Intialise Tof Interfaces for all Tof on the port
-        this.tofInterfaces_ = new TofInterface[this.noOfTof_.get(index)];        
-        for(int i=0;i<this.noOfTof_.get(index);i++){
-            this.tofInterfaces_[i] = new TofInterface(this.messageHandler_, this);
+        this.tofInterfaces_ = new TofInterface[this.noOfTof_.get(index)[0]];        
+        for(int i=0;i<this.noOfTof_.get(index)[0];i++){
+            this.tofInterfaces_[i] = new TofInterface(this.messageHandler_, this, this.noOfTof_.get(index)[i+1]);
         }
     }
     
     public synchronized void serialEvent(SerialPortEvent oEvent) {
         if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
-            try{   
-                StringBuilder tempStr = new StringBuilder();
-
+            StringBuilder tempStr = new StringBuilder();
+            try{
                 byte chunk = (byte)this.input_.read();
                 while((char)chunk!='\n'){
                     tempStr.append((char)chunk);
                     chunk = (byte)this.input_.read();
                 }
 
-                tempStr.deleteCharAt(tempStr.length()-1);
-
-                String inputString = tempStr.toString();
-                String[] split = inputString.split(" ");
-                int tofId;
-                int time;
-                int broken;
-
-                tofId = Integer.parseInt(split[0]);
-                time = Integer.parseInt(split[1]);
-                broken = Integer.parseInt(split[2]);
                 
-                if(tofId < this.tofInterfaces_.length){
-                    this.tofInterfaces_[tofId-1].receiveBounce(time, broken);
-                }
             }catch (Exception e){
                 this.messageHandler_.setError(8);
+                
                 this.messageHandler_.setMoreDetails(e.toString());
+            }
+        
+            String inputString = tempStr.toString();
+            String[] split = inputString.split(" ");
+            int tofId;
+            int time;
+            String broken;
+            tofId = Integer.parseInt(split[0]);
+            time = Integer.parseInt(split[1]);
+            broken = split[2];
+            if(tofId <= this.tofInterfaces_.length){
+                this.tofInterfaces_[tofId-1].receiveBounce(time, broken);
             }
         }
     // Ignore all the other eventTypes, but you should consider the other ones.
@@ -253,7 +253,7 @@ public class PortController implements SerialPortEventListener{
         return this.nameOfPorts_;
     }
     
-    public ArrayList<Integer> getNoTof(){
+    public ArrayList<Integer[]> getNoTof(){
         return this.noOfTof_;
     }
     

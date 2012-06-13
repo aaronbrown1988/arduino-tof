@@ -24,6 +24,7 @@ public class Routine {
     private int worstJumpForLosingHeight_;
     private String dateTime_;
     private String comments_;
+    private boolean routineComplete_;
     
     Routine (Jump[] jumpList, int id, String dateTime, String comments) {
         id_ = id;
@@ -37,6 +38,7 @@ public class Routine {
         }
         dateTime_ = dateTime;
         comments_ = comments;
+        routineComplete_ = false;
     }
     
     Routine (int numberOfJumps, int id, String dateTime, String comments) {
@@ -48,17 +50,19 @@ public class Routine {
         numberOfJumpsUsed_ = 0;
         dateTime_ = dateTime;
         comments_ = comments;
+        routineComplete_ = false;
     }
     
     //Simply adds another jump to the jumpArray and returns false if the jump wasn't added because the jumpArray_ is full.
     public boolean addJump(Jump j) {
-        if (numberOfJumpsUsed_ >= numberOfJumps_) {
+        if (routineComplete_) {
             return false;
         }
         jumpArray_[numberOfJumpsUsed_] = j;
         numberOfJumpsUsed_++;
         if (numberOfJumpsUsed_ == numberOfJumps_) {
             generateStats();
+            routineComplete_ = true;
         }
         return true;
     }
@@ -93,7 +97,6 @@ public class Routine {
             totalTof_  += jumpArray_[i].getTof();
             totalTon_  += jumpArray_[i].getTon();
         }
-        System.out.println("here");
         averageJumpTime_ = totalTime_ / numberOfJumps_;
     }
     
@@ -122,6 +125,10 @@ public class Routine {
     
     public int getNumberOfJumps() {
         return numberOfJumps_;
+    }
+    
+    public int getNumberOfJumpsUsed(){
+        return numberOfJumpsUsed_;
     }
     
     public double[] getStatsHeights() {
@@ -167,5 +174,9 @@ public class Routine {
     
     public String getComments(){
         return comments_;
+    }
+    
+    public boolean finishedRoutine(){
+        return routineComplete_;
     }
 }
