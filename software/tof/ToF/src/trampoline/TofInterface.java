@@ -34,6 +34,9 @@ public class TofInterface {
     private MessageHandler messageHandler_;         // Error Handler inherited from main project.
     
     
+    private int currentID_;                     // Bounce counter bits
+    private int currentBounces_;
+    
     TofInterface(MessageHandler errHandl, int noOfBeams){
         this.noOfBeamsOnDevice_ = noOfBeams;
         this.beamStatus_ = new boolean[8];
@@ -55,7 +58,7 @@ public class TofInterface {
         this.jump_ = null;
         this.currentRoutineID_ = 0;
         
-        this.lastLocation_ = "";
+        this.lastLocation_ = "none";
         this.jumpData_ = new int[3];
         this.jumpData_[0] = -1;
         this.jumpData_[1] = -1;
@@ -71,6 +74,9 @@ public class TofInterface {
         this.noBeamsBrokenShort_ = 0;
         this.noBeamsBrokenLong_ = 0;
         this.messageHandler_ = errHandl;
+        
+        this.currentID_ = 0;
+        this.currentBounces_ = 0;
     }
     
     TofInterface(MessageHandler errHandl, PortController myPort, int noOfBeams){
@@ -82,7 +88,7 @@ public class TofInterface {
         this.myPort_ = myPort;
     }
     
-    public void receiveBounce(int time, String broken){
+    public void receiveBounce(int time, String broken, int uniqueID){
         char[] chrBeamStatus = broken.toCharArray();
         if(this.gridStatus_==true && !(Integer.parseInt(broken) == this.engagedStatus_)){
             //grid was intact and is now broken
@@ -157,11 +163,12 @@ public class TofInterface {
                     }
                     break;
             }
-            if(location[0] == ' '){
-                location[0] = 'D';
-            }
             
-            lastLocation_ = location[0]+""+location[1];
+            if(location[0] == ' ' || location[1] == ' '){
+                lastLocation_ = "none";
+            }else{         
+                lastLocation_ = location[0]+""+location[1];
+            }
             this.jumpData_[1] = time;
             for(int i=0;i<3;i++){
                 this.breakOrderShortSide_[i] = -1;
@@ -170,6 +177,8 @@ public class TofInterface {
             for(int i=0;i<5;i++){
                 this.breakOrderLongSide_[i] = -1;
             }
+            
+            countBounce(uniqueID);
         }
         
         for(int i=0;i<3;i++){
@@ -181,7 +190,7 @@ public class TofInterface {
 
         for(int i=3;i<8;i++){
             if(chrBeamStatus[7-i]=='0' && this.beamStatus_[i] == true){
-                this.breakOrderShortSide_[this.noBeamsBrokenLong_] = i+1;
+                this.breakOrderLongSide_[this.noBeamsBrokenLong_] = i+1;
                 this.noBeamsBrokenLong_++;
             }
         }
@@ -194,6 +203,19 @@ public class TofInterface {
         }
     }
     
+     public void countBounce(int uniqueID){
+         if(uniqueID == this.currentID_){
+             this.currentBounces_++;
+         }else{
+             //STORE BOUNCES
+             this.currentID_ = uniqueID;
+             this.currentBounces_ = 1;
+         }
+         
+         if(this.currentBounces_ == 50){
+             //STORE BOUNCES
+         }
+     }
      public void collectBounces(int noOfBounces, DBConnect database, int gymnast){
          
          this.db_ = database;

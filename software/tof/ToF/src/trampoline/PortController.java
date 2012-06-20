@@ -96,9 +96,9 @@ public class PortController implements SerialPortEventListener{
             CommPortIdentifier currPortId = (CommPortIdentifier) portEnum.nextElement();
             
             //String s = this.handshake(currPortId);
-            String s = "COM2 1 3 0";
+            String s = "COM6 1 5 0";
             //if(!(s.equals("Failed"))){
-            if(currPortId.getName().equals("COM2")){
+            if(currPortId.getName().equals("COM6")){
                 //Add it to our lists
                 String split[] = s.split(" ");                               
                 this.portsInUse_.add(currPortId);
@@ -214,14 +214,13 @@ public class PortController implements SerialPortEventListener{
         
             String inputString = tempStr.toString();
             String[] split = inputString.split(" ");
-            int tofId;
-            int time;
-            String broken;
-            tofId = Integer.parseInt(split[0]);
-            time = Integer.parseInt(split[1]);
-            broken = split[2];
+           
+            int tofId = Integer.parseInt(split[0]);
+            int time = Integer.parseInt(split[1]);
+            String broken = split[2];
+            int uniqueID = Integer.parseInt(split[3]);
             if(tofId <= this.tofInterfaces_.length){
-                this.tofInterfaces_[tofId-1].receiveBounce(time, broken);
+                this.tofInterfaces_[tofId-1].receiveBounce(time, broken, uniqueID);
             }
         }
     // Ignore all the other eventTypes, but you should consider the other ones.

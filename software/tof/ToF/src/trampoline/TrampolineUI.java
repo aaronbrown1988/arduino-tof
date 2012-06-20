@@ -177,6 +177,7 @@ public class TrampolineUI extends javax.swing.JFrame {
                             labelArray_[i*5+1].setForeground(new java.awt.Color(255, 0, 0));
                             labelArray_[i*5+2].setForeground(new java.awt.Color(255, 0, 0));
                             labelArray_[i*5+3].setForeground(new java.awt.Color(255, 0, 0));
+                            lblLowestToFNo.setText(lowestToF + "");
                         }
                         
                         if(currentInterface_.getRoutine().getJumps()[i].getTof()==highestToF){
@@ -184,8 +185,16 @@ public class TrampolineUI extends javax.swing.JFrame {
                             labelArray_[i*5+1].setForeground(new java.awt.Color(0, 0, 255));
                             labelArray_[i*5+2].setForeground(new java.awt.Color(0, 0, 255));
                             labelArray_[i*5+3].setForeground(new java.awt.Color(0, 0, 255));
+                            lblHighestToFNo.setText(highestToF + "");                            
                         }
                     }
+                    
+                    lblAvToFNo.setText(currentInterface_.getRoutine().getAverageTof()+"");
+                    lblAvToNNo.setText(currentInterface_.getRoutine().getAverageTon()+"");
+                    lblAvTotalNo.setText(currentInterface_.getRoutine().getAverageTime()+"");
+                    lblOvToFNo.setText(currentInterface_.getRoutine().getTotalTof()+"");
+                    lblOvToNNo.setText(currentInterface_.getRoutine().getTotalTon()+"");
+                    lblOvTotalNo.setText(currentInterface_.getRoutine().getTotalTime()+"");
 
                     btnSaveComments.setVisible(true);
                     btnClearComments.setVisible(true);
@@ -507,17 +516,17 @@ public class TrampolineUI extends javax.swing.JFrame {
              .addGroup(pnlStatsLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
                     .addGroup(pnlStatsLayout.createSequentialGroup()
                         .addGroup(pnlStatsLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
-                            .addComponent(lblAvToFTxt,110,110,110)
-                            .addComponent(lblAvToNTxt,110,110,110)
-                            .addComponent(lblAvTotalTxt,110,110,110)
-                            .addComponent(lblHighestToFTxt,110,110,110))
+                            .addComponent(lblAvToFTxt,105,105,105)
+                            .addComponent(lblAvToNTxt,105,105,105)
+                            .addComponent(lblAvTotalTxt,105,105,105)
+                            .addComponent(lblHighestToFTxt,105,105,105))
                         .addGap(5,5,5)
                         .addGroup(pnlStatsLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
                             .addComponent(lblAvToFNo,50,50,50)
                             .addComponent(lblAvToNNo,50,50,50)
                             .addComponent(lblAvTotalNo,50,50,50)
                             .addComponent(lblHighestToFNo,50,50,50))
-                        .addGap(20,20,20)
+                        .addGap(10,10,10)
                         .addGroup(pnlStatsLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
                             .addComponent(lblOvToFTxt,100,100,100)
                             .addComponent(lblOvToNTxt,100,100,100)
@@ -3022,8 +3031,12 @@ public class TrampolineUI extends javax.swing.JFrame {
 
     private void btnCollectDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCollectDataActionPerformed
         this.btnClearDataActionPerformed(evt);
+        System.out.println("test if currentInterface is null in TrampolineUI.java");
         if(this.currentInterface_!=null){
+            System.out.println("currentinterface is not null TrampolineUI.java");
             this.currentInterface_.collectBounces(Integer.parseInt(txtNumberOfBounces.getText()), this.db_, ((ComboItem)drpSelectGymnast.getSelectedItem()).getNumericID());
+            
+            System.out.println("starting to collect bounces in TrampolineUI.java");
             refresh = REFRESH_TIME;
             nextJumpToFill = 1;
             btnSaveComments.setVisible(false);
@@ -3032,7 +3045,9 @@ public class TrampolineUI extends javax.swing.JFrame {
             txtComments.setVisible(false);
             lblComments.setVisible(false);
             jumpTimer.start();
+            System.out.println("got to the end of the if statement TrampolineUI.java");
         }
+        System.out.println("it is now after the if statement TrampolineUI.java");
     }//GEN-LAST:event_btnCollectDataActionPerformed
 
     private void txtNumberOfBouncesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumberOfBouncesActionPerformed
