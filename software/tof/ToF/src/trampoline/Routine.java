@@ -11,9 +11,13 @@ package trampoline;
 public class Routine {
     private double averageJumpTime_;
     private int highestJump_;
+    private int lowestJump_;
+    private int furthestFromCross_;
+    private double averageLocationDeduction_;
+    private double smallestLocationDeduction_;
+    private double largestLocationDeduction_;
     private int id_;
     private Jump[] jumpArray_;
-    private int lowestJump_;
     private int numberOfJumps_;
     private int numberOfJumpsUsed_;
     private double[] statsHeights_;
@@ -21,7 +25,6 @@ public class Routine {
     private double totalTime_;
     private double totalTof_;
     private double totalTon_;
-    private int worstJumpForLosingHeight_;
     private String dateTime_;
     private String comments_;
     private boolean routineComplete_;
@@ -69,20 +72,23 @@ public class Routine {
     
     //Called automatically when addJump fills in the last jump, this generates stats about the routine, to easily cache them. 
     private void generateStats() {
-        double worstHeightLossSoFar = 0.0;
-        double highestJumpHeight    = 0.0;
-        double lowestJumpHeight     = 0.0;
+        double highestJumpHeight    = jumpArray_[0].getTof();
+        double lowestJumpHeight     = jumpArray_[0].getTof();
+        largestLocationDeduction_    = jumpArray_[0].getLocationDeduction();
+        smallestLocationDeduction_   = jumpArray_[0].getLocationDeduction();
         
         for (int i = 0; i < numberOfJumps_; i++) {
             //s = ut+.5at^2
             statsHeights_[i] = jumpArray_[i].getHeight();
             statsTimes_[i]   = jumpArray_[i].getTof();
             
-            if (i > 0) {
-                if (jumpArray_[i-1].getTotal() - jumpArray_[i].getTotal() > worstHeightLossSoFar) {
-                    worstHeightLossSoFar = jumpArray_[i-1].getTotal() - jumpArray_[i].getTotal();
-                    worstJumpForLosingHeight_ = i;
-                }
+            if(largestLocationDeduction_ < jumpArray_[i].getLocationDeduction()){
+                largestLocationDeduction_ = jumpArray_[i].getLocationDeduction();
+                furthestFromCross_ = i;
+            }
+            
+            if(smallestLocationDeduction_ < jumpArray_[i].getLocationDeduction()){
+                smallestLocationDeduction_ = jumpArray_[i].getLocationDeduction();
             }
             
             if (highestJumpHeight < jumpArray_[i].getTof()) {
@@ -96,8 +102,29 @@ public class Routine {
             totalTime_ += jumpArray_[i].getTotal();
             totalTof_  += jumpArray_[i].getTof();
             totalTon_  += jumpArray_[i].getTon();
+            averageLocationDeduction_ += jumpArray_[i].getLocationDeduction();
         }
         averageJumpTime_ = totalTime_ / numberOfJumps_;
+        averageLocationDeduction_ /= numberOfJumps_;
+    }
+    
+    public double getAverageLocationDeduction(){
+        double temp = averageLocationDeduction_;
+        return roundToDecimals(temp,2);
+    }
+    
+    public double getSmallestLocationDeduction(){
+        double temp = smallestLocationDeduction_;
+        return roundToDecimals(temp,2);
+    }
+    
+    public double getLargestLocationDeduction(){
+        double temp = largestLocationDeduction_;
+        return roundToDecimals(temp,2);
+    }
+    
+    public int getJumpFurthestFromCross(){
+        return furthestFromCross_;
     }
     
     public double getAverageTime() {
@@ -149,6 +176,14 @@ public class Routine {
     
     public double getTotalTon() {
         return roundToDecimals(totalTon_, 3);
+    }
+    
+    public Jump getHighestJump() {
+        return jumpArray_[highestJump_];
+    }
+    
+    public Jump getLowestJump() {
+        return jumpArray_[lowestJump_];
     }
     
     public String getDateTime(){

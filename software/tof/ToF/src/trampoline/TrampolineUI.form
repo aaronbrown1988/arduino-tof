@@ -591,9 +591,9 @@
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="lblAvPositionTxt" min="-2" pref="140" max="-2" attributes="0"/>
+                                              <Component id="lblAvLocationTxt" min="-2" pref="140" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="lblAvPositionNo" min="-2" pref="83" max="-2" attributes="0"/>
+                                              <Component id="lblAvLocationNo" min="-2" pref="83" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="lblLowestToFTxt" min="-2" pref="80" max="-2" attributes="0"/>
@@ -601,14 +601,14 @@
                                               <Component id="lblLowestToFNo" min="-2" pref="83" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="lblLargestPositionTxt" min="-2" pref="140" max="-2" attributes="0"/>
+                                              <Component id="lblLargestLocationTxt" min="-2" pref="140" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="lblLargestPositionNo" min="-2" pref="83" max="-2" attributes="0"/>
+                                              <Component id="lblLargestLocationNo" min="-2" pref="83" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="lblSmallestPositionTxt" min="-2" pref="140" max="-2" attributes="0"/>
+                                              <Component id="lblSmallestLocationTxt" min="-2" pref="140" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="lblSmallestPositionNo" min="-2" pref="83" max="-2" attributes="0"/>
+                                              <Component id="lblSmallestLocationNo" min="-2" pref="83" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -672,18 +672,18 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblAvPositionTxt" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                                  <Component id="lblAvPositionNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblAvLocationTxt" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                                  <Component id="lblAvLocationNo" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblLargestPositionTxt" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                                  <Component id="lblLargestPositionNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblLargestLocationTxt" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                                  <Component id="lblLargestLocationNo" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblSmallestPositionNo" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblSmallestPositionTxt" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                                  <Component id="lblSmallestLocationNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblSmallestLocationTxt" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                           </Group>
@@ -736,14 +736,14 @@
                         <Property name="text" type="java.lang.String" value="Jump furthest from Cross:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="lblAvPositionTxt">
+                    <Component class="javax.swing.JLabel" name="lblAvLocationTxt">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Average position deduction:"/>
+                        <Property name="text" type="java.lang.String" value="Average location deduction:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="lblLargestPositionTxt">
+                    <Component class="javax.swing.JLabel" name="lblLargestLocationTxt">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Largest position deduction:"/>
+                        <Property name="text" type="java.lang.String" value="Largest location deduction:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="lblAvToFNo">
@@ -800,22 +800,22 @@
                         <Property name="text" type="java.lang.String" value="Jump 4"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="lblAvPositionNo">
+                    <Component class="javax.swing.JLabel" name="lblAvLocationNo">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="5"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="lblLargestPositionNo">
+                    <Component class="javax.swing.JLabel" name="lblLargestLocationNo">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="5"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="lblSmallestPositionTxt">
+                    <Component class="javax.swing.JLabel" name="lblSmallestLocationTxt">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Smallest position deduction:"/>
+                        <Property name="text" type="java.lang.String" value="Smallest location deduction:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="lblSmallestPositionNo">
+                    <Component class="javax.swing.JLabel" name="lblSmallestLocationNo">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="5"/>
                       </Properties>

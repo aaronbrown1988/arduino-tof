@@ -147,45 +147,33 @@ public class TrampolineUI extends javax.swing.JFrame {
                     System.out.println(thisJump.getLocation());
                     
                     // UPDATE BAR GRAPH
-                    /*pnlGraph.removeAll();
-                    chartObject_.addValue(thisJump.getTof());
+                    pnlGraph.removeAll();
+                    int i = nextJumpToFill-1;
+                    chartObject_.updateValue(thisJump.getTof(),"Bounce "+i,i);
                     JFreeChart jChart = chartObject_.createChart();
                     ChartPanel CP = new ChartPanel(jChart);
                     pnlGraph.add(CP);
-                    pnlGraph.validate();*/
+                    pnlGraph.validate();
                     
                     nextJumpToFill++;
                 }
                 
                 if(refresh==0){
-                    double lowestToF = thisJump.getTof();
-                    double highestToF = thisJump.getTof();
-
-                    for(Jump aJump : currentInterface_.getRoutine().getJumps()){
-                        if(aJump.getTof()<lowestToF){
-                            lowestToF = aJump.getTof();
-                        }
-                        
-                        if(aJump.getTof()>highestToF){
-                            highestToF = aJump.getTof();
-                        }
-                    }
-
                     for(int i=0;i<currentInterface_.getRoutine().getNumberOfJumps();i++){
-                        if(currentInterface_.getRoutine().getJumps()[i].getTof()==lowestToF){
+                        if(currentInterface_.getRoutine().getJumps()[i].getTof()==currentInterface_.getRoutine().getLowestJump().getTof()){
                             labelArray_[i*5].setForeground(new java.awt.Color(255, 0, 0));
                             labelArray_[i*5+1].setForeground(new java.awt.Color(255, 0, 0));
                             labelArray_[i*5+2].setForeground(new java.awt.Color(255, 0, 0));
                             labelArray_[i*5+3].setForeground(new java.awt.Color(255, 0, 0));
-                            lblLowestToFNo.setText(lowestToF + "");
+                            lblLowestToFNo.setText(currentInterface_.getRoutine().getLowestJump().getTof() + "");
                         }
                         
-                        if(currentInterface_.getRoutine().getJumps()[i].getTof()==highestToF){
+                        if(currentInterface_.getRoutine().getJumps()[i].getTof()==currentInterface_.getRoutine().getHighestJump().getTof()){
                             labelArray_[i*5].setForeground(new java.awt.Color(0, 0, 255));
                             labelArray_[i*5+1].setForeground(new java.awt.Color(0, 0, 255));
                             labelArray_[i*5+2].setForeground(new java.awt.Color(0, 0, 255));
                             labelArray_[i*5+3].setForeground(new java.awt.Color(0, 0, 255));
-                            lblHighestToFNo.setText(highestToF + "");                            
+                            lblHighestToFNo.setText(currentInterface_.getRoutine().getHighestJump().getTof() + "");                            
                         }
                     }
                     
@@ -195,6 +183,10 @@ public class TrampolineUI extends javax.swing.JFrame {
                     lblOvToFNo.setText(currentInterface_.getRoutine().getTotalTof()+"");
                     lblOvToNNo.setText(currentInterface_.getRoutine().getTotalTon()+"");
                     lblOvTotalNo.setText(currentInterface_.getRoutine().getTotalTime()+"");
+                    lblFurthestNo.setText("Jump "+currentInterface_.getRoutine().getJumpFurthestFromCross());
+                    lblAvLocationNo.setText(currentInterface_.getRoutine().getAverageLocationDeduction()+"");
+                    lblLargestLocationNo.setText(currentInterface_.getRoutine().getLargestLocationDeduction()+"");
+                    lblSmallestLocationNo.setText(currentInterface_.getRoutine().getSmallestLocationDeduction()+"");
 
                     btnSaveComments.setVisible(true);
                     btnClearComments.setVisible(true);
@@ -541,15 +533,15 @@ public class TrampolineUI extends javax.swing.JFrame {
                    .addGroup(pnlStatsLayout.createSequentialGroup()
                         .addGroup(pnlStatsLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
                             .addComponent(lblFurthestTxt,235,235,235)
-                            .addComponent(lblAvPositionTxt,235,235,235)
-                            .addComponent(lblLargestPositionTxt,235,235,235)
-                            .addComponent(lblSmallestPositionTxt,235,235,235))
+                            .addComponent(lblAvLocationTxt,235,235,235)
+                            .addComponent(lblLargestLocationTxt,235,235,235)
+                            .addComponent(lblSmallestLocationTxt,235,235,235))
                         .addGap(5,5,5)
                         .addGroup(pnlStatsLayout.createParallelGroup(GroupLayout.Alignment.LEADING,false)
                             .addComponent(lblFurthestNo,100,100,100)
-                            .addComponent(lblAvPositionNo,100,100,100)
-                            .addComponent(lblLargestPositionNo,100,100,100)
-                            .addComponent(lblSmallestPositionNo,100,100,100))))
+                            .addComponent(lblAvLocationNo,100,100,100)
+                            .addComponent(lblLargestLocationNo,100,100,100)
+                            .addComponent(lblSmallestLocationNo,100,100,100))))
              .addContainerGap(5,5)
         );
         pnlStatsLayout.setVerticalGroup(
@@ -584,16 +576,16 @@ public class TrampolineUI extends javax.swing.JFrame {
                 .addComponent(lblFurthestNo,25,25,25))
             .addGap(5,5,5)
             .addGroup(pnlStatsLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                .addComponent(lblAvPositionTxt,25,25,25)
-                .addComponent(lblAvPositionNo,25,25,25))
+                .addComponent(lblAvLocationTxt,25,25,25)
+                .addComponent(lblAvLocationNo,25,25,25))
             .addGap(5,5,5)
             .addGroup(pnlStatsLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                .addComponent(lblSmallestPositionTxt,25,25,25)
-                .addComponent(lblSmallestPositionNo,25,25,25))
+                .addComponent(lblSmallestLocationTxt,25,25,25)
+                .addComponent(lblSmallestLocationNo,25,25,25))
             .addGap(5,5,5)
             .addGroup(pnlStatsLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                .addComponent(lblLargestPositionTxt,25,25,25)
-                .addComponent(lblLargestPositionNo,25,25,25))
+                .addComponent(lblLargestLocationTxt,25,25,25)
+                .addComponent(lblLargestLocationNo,25,25,25))
             .addGap((((screenHeight-125)/2)-285)/2,(((screenHeight-125)/2)-285)/2,(((screenHeight-125)/2)-285)/2)
             .addContainerGap(5,5)
         );
@@ -627,15 +619,15 @@ public class TrampolineUI extends javax.swing.JFrame {
         lblFurthestTxt.setFont(getFont("statsPanelFont"));
         lblFurthestNo.setFont(getFont("statsPanelFont"));
         lblFurthestNo.setForeground(new java.awt.Color(0, 0, 255));
-        lblAvPositionTxt.setFont(getFont("statsPanelFont"));
-        lblAvPositionNo.setFont(getFont("statsPanelFont"));
-        lblAvPositionNo.setForeground(new java.awt.Color(0, 0, 255));
-        lblSmallestPositionTxt.setFont(getFont("statsPanelFont"));
-        lblSmallestPositionNo.setFont(getFont("statsPanelFont"));
-        lblSmallestPositionNo.setForeground(new java.awt.Color(0, 0, 255));
-        lblLargestPositionTxt.setFont(getFont("statsPanelFont"));
-        lblLargestPositionNo.setFont(getFont("statsPanelFont"));
-        lblLargestPositionNo.setForeground(new java.awt.Color(255, 0, 0));
+        lblAvLocationTxt.setFont(getFont("statsPanelFont"));
+        lblAvLocationNo.setFont(getFont("statsPanelFont"));
+        lblAvLocationNo.setForeground(new java.awt.Color(0, 0, 255));
+        lblSmallestLocationTxt.setFont(getFont("statsPanelFont"));
+        lblSmallestLocationNo.setFont(getFont("statsPanelFont"));
+        lblSmallestLocationNo.setForeground(new java.awt.Color(0, 0, 255));
+        lblLargestLocationTxt.setFont(getFont("statsPanelFont"));
+        lblLargestLocationNo.setFont(getFont("statsPanelFont"));
+        lblLargestLocationNo.setForeground(new java.awt.Color(255, 0, 0));
 
         heightTags = screenHeight - 665;
         GroupLayout pnlStartLayout = (GroupLayout)pnlStart.getLayout();  
@@ -1648,8 +1640,8 @@ public class TrampolineUI extends javax.swing.JFrame {
         lblLowestToFTxt = new javax.swing.JLabel();
         lblHighestToFTxt = new javax.swing.JLabel();
         lblFurthestTxt = new javax.swing.JLabel();
-        lblAvPositionTxt = new javax.swing.JLabel();
-        lblLargestPositionTxt = new javax.swing.JLabel();
+        lblAvLocationTxt = new javax.swing.JLabel();
+        lblLargestLocationTxt = new javax.swing.JLabel();
         lblAvToFNo = new javax.swing.JLabel();
         lblAvToNNo = new javax.swing.JLabel();
         lblAvTotalNo = new javax.swing.JLabel();
@@ -1659,10 +1651,10 @@ public class TrampolineUI extends javax.swing.JFrame {
         lblOvTotalNo = new javax.swing.JLabel();
         lblLowestToFNo = new javax.swing.JLabel();
         lblFurthestNo = new javax.swing.JLabel();
-        lblAvPositionNo = new javax.swing.JLabel();
-        lblLargestPositionNo = new javax.swing.JLabel();
-        lblSmallestPositionTxt = new javax.swing.JLabel();
-        lblSmallestPositionNo = new javax.swing.JLabel();
+        lblAvLocationNo = new javax.swing.JLabel();
+        lblLargestLocationNo = new javax.swing.JLabel();
+        lblSmallestLocationTxt = new javax.swing.JLabel();
+        lblSmallestLocationNo = new javax.swing.JLabel();
         pnlGraph = new javax.swing.JPanel();
         layBeamStatus = new javax.swing.JLayeredPane();
         lblTrampoline = new javax.swing.JLabel();
@@ -2029,9 +2021,9 @@ public class TrampolineUI extends javax.swing.JFrame {
 
         lblFurthestTxt.setText("Jump furthest from Cross:");
 
-        lblAvPositionTxt.setText("Average position deduction:");
+        lblAvLocationTxt.setText("Average location deduction:");
 
-        lblLargestPositionTxt.setText("Largest position deduction:");
+        lblLargestLocationTxt.setText("Largest location deduction:");
 
         lblAvToFNo.setForeground(new java.awt.Color(0, 51, 255));
         lblAvToFNo.setText("00.000");
@@ -2054,13 +2046,13 @@ public class TrampolineUI extends javax.swing.JFrame {
 
         lblFurthestNo.setText("Jump 4");
 
-        lblAvPositionNo.setText("5");
+        lblAvLocationNo.setText("5");
 
-        lblLargestPositionNo.setText("5");
+        lblLargestLocationNo.setText("5");
 
-        lblSmallestPositionTxt.setText("Smallest position deduction:");
+        lblSmallestLocationTxt.setText("Smallest location deduction:");
 
-        lblSmallestPositionNo.setText("5");
+        lblSmallestLocationNo.setText("5");
 
         javax.swing.GroupLayout pnlStatsLayout = new javax.swing.GroupLayout(pnlStats);
         pnlStats.setLayout(pnlStatsLayout);
@@ -2100,21 +2092,21 @@ public class TrampolineUI extends javax.swing.JFrame {
                     .addGroup(pnlStatsLayout.createSequentialGroup()
                         .addGroup(pnlStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlStatsLayout.createSequentialGroup()
-                                .addComponent(lblAvPositionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblAvLocationTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblAvPositionNo, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lblAvLocationNo, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlStatsLayout.createSequentialGroup()
                                 .addComponent(lblLowestToFTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblLowestToFNo, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlStatsLayout.createSequentialGroup()
-                                .addComponent(lblLargestPositionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblLargestLocationTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblLargestPositionNo, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lblLargestLocationNo, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlStatsLayout.createSequentialGroup()
-                                .addComponent(lblSmallestPositionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblSmallestLocationTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblSmallestPositionNo, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lblSmallestLocationNo, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         pnlStatsLayout.setVerticalGroup(
@@ -2160,16 +2152,16 @@ public class TrampolineUI extends javax.swing.JFrame {
                     .addComponent(lblFurthestNo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblAvPositionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblAvPositionNo))
+                    .addComponent(lblAvLocationTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAvLocationNo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblLargestPositionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblLargestPositionNo))
+                    .addComponent(lblLargestLocationTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLargestLocationNo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSmallestPositionNo)
-                    .addComponent(lblSmallestPositionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblSmallestLocationNo)
+                    .addComponent(lblSmallestLocationTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(4, 4, 4))
         );
 
@@ -3129,12 +3121,11 @@ public class TrampolineUI extends javax.swing.JFrame {
 		pnlGraph.removeAll();
 		i = random.nextInt(10);
 		j = 6+Math.random()*2;
-		chartObject_.setTitle("title+"+i+" num m= "+chartObject_.getNumberOfItems());
-		chartObject_.updateValue(j, i);
-		JFreeChart jChart = chartObject_.createChart();
-		ChartPanel CP = new ChartPanel(jChart);
-                pnlGraph.add(CP);
-		pnlGraph.validate();
+		chartObject_.updateValue(j,"Bounce "+i,i);
+                    JFreeChart jChart = chartObject_.createChart();
+                    ChartPanel CP = new ChartPanel(jChart);
+                    pnlGraph.add(CP);
+                    pnlGraph.validate();
     }//GEN-LAST:event_btnClearCommentsActionPerformed
 
     private void btnClearDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearDataActionPerformed
@@ -3158,9 +3149,9 @@ public class TrampolineUI extends javax.swing.JFrame {
         lblHighestToFNo.setText("");
         lblLowestToFNo.setText("");
         lblFurthestNo.setText("");
-        lblAvPositionNo.setText("");
-        lblLargestPositionNo.setText("");
-        lblSmallestPositionNo.setText("");
+        lblAvLocationNo.setText("");
+        lblLargestLocationNo.setText("");
+        lblSmallestLocationNo.setText("");
         
         lblComments.setVisible(false);
         sclComments.setVisible(false);
@@ -3949,8 +3940,8 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblAddNewTag;
     private javax.swing.JLabel lblAddress1;
     private javax.swing.JLabel lblAddress2;
-    private javax.swing.JLabel lblAvPositionNo;
-    private javax.swing.JLabel lblAvPositionTxt;
+    private javax.swing.JLabel lblAvLocationNo;
+    private javax.swing.JLabel lblAvLocationTxt;
     private javax.swing.JLabel lblAvToFNo;
     private javax.swing.JLabel lblAvToFTxt;
     private javax.swing.JLabel lblAvToNNo;
@@ -3971,8 +3962,8 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblHeadCoach;
     private javax.swing.JLabel lblHighestToFNo;
     private javax.swing.JLabel lblHighestToFTxt;
-    private javax.swing.JLabel lblLargestPositionNo;
-    private javax.swing.JLabel lblLargestPositionTxt;
+    private javax.swing.JLabel lblLargestLocationNo;
+    private javax.swing.JLabel lblLargestLocationTxt;
     private javax.swing.JLabel lblLocation;
     private javax.swing.JLabel lblLongName;
     private javax.swing.JLabel lblLowestToFNo;
@@ -3991,8 +3982,8 @@ public class TrampolineUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblSelectGymnast;
     private javax.swing.JLabel lblSelectTof;
     private javax.swing.JLabel lblShortName;
-    private javax.swing.JLabel lblSmallestPositionNo;
-    private javax.swing.JLabel lblSmallestPositionTxt;
+    private javax.swing.JLabel lblSmallestLocationNo;
+    private javax.swing.JLabel lblSmallestLocationTxt;
     private javax.swing.JLabel lblStatsGymnast;
     private javax.swing.JLabel lblStatsGymnast2;
     private javax.swing.JLabel lblStatsRoutine;

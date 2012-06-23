@@ -104,6 +104,47 @@ public class Jump {
         return this.location_;
     }
     
+    public double getLocationDeduction(){
+        double deduction=0;
+        char[] location = location_.toCharArray();
+        
+        if(location[0] == 'A'){
+            deduction+=3;
+        }else if(location[0] == 'B'){
+            deduction+=2;
+        }else if(location[0] == 'C'){
+            deduction+=1;
+        }else if(location[0] == 'D'){
+            deduction+=0;
+        }else if(location[0] == 'E'){
+            deduction+=1;
+        }else if(location[0] == 'F'){
+            deduction+=2;
+        }else if(location[0] == 'G'){
+            deduction+=3;
+        }
+        
+        switch(location[1]){
+            case 0:
+                deduction+=2;
+                break;
+            case 1:
+                deduction+=1;
+                break;
+            case 2:
+                deduction+=0;
+                break;
+            case 3:
+                deduction+=1;
+                break;
+            case 4:
+                deduction+=2;
+                break;
+        }
+        
+        return deduction;
+    }
+    
     public String toString(){
         return ("ToF: " + this.getTof() + 
                 " ToN: " + this.getTon() + " Total: " + this.getTotal());
