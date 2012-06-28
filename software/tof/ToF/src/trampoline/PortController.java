@@ -96,7 +96,7 @@ public class PortController implements SerialPortEventListener{
             CommPortIdentifier currPortId = (CommPortIdentifier) portEnum.nextElement();
             
             //String s = this.handshake(currPortId);
-            String s = "COM6 1 5 0";
+            String s = "COM6 1 1 0";
             //if(!(s.equals("Failed"))){
             if(currPortId.getName().equals("COM6")){
                 //Add it to our lists

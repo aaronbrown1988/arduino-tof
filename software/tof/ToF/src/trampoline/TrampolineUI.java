@@ -229,8 +229,8 @@ public class TrampolineUI extends javax.swing.JFrame {
         this.splashProgress(75);
         initHardware();
         this.setVisible(true);
-        //this.bounceCounter_ = new BounceCounter();
-        //this.bounceCounter_.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.bounceCounter_ = new BounceCounter();
+        this.bounceCounter_.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         if (mySplash_.isVisible())   // check if we really had a spash screen
             mySplash_.close();   // we're done with it
     }

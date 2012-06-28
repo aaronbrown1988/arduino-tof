@@ -48,7 +48,10 @@ public class BounceCounter extends JFrame {
     };
     
     public BounceCounter() {
+        
         this.setVisible(true);
+        setBackground(new java.awt.Color(0, 0, 0));
+        setForeground(new java.awt.Color(0, 0, 0));
         
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         this.setMaximizedBounds(env.getMaximumWindowBounds());
@@ -88,13 +91,39 @@ public class BounceCounter extends JFrame {
         lblHour1.setText("first");
         lblHour2.setText("second");
         lblHour.setText("Top Bouncers this Hour:");
+        lblTime.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
+        lblTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTime.setForeground(new java.awt.Color(255, 255, 255));
         
         int screenHeight = this.getMaximizedBounds().height;
         int screenWidth = this.getMaximizedBounds().width;
-        imageWidth_ = screenWidth - 270;
+        imageWidth_ = screenWidth - 20;
         imageHeight_ = screenHeight - 150;
-
+        
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createSequentialGroup()   
+                .addContainerGap(5,5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTime, screenWidth - 20,screenWidth - 20,screenWidth - 20)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblImage, imageWidth_, imageWidth_, imageWidth_)))
+                .addContainerGap(5,5)
+        );
+ 
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblTime, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblImage, imageHeight_, imageHeight_, imageHeight_))
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        
+        /*javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createSequentialGroup()   
@@ -153,7 +182,7 @@ public class BounceCounter extends JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblHour5)))
                 .addContainerGap(32, Short.MAX_VALUE))
-        );
+        );*/
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -191,7 +220,7 @@ public class BounceCounter extends JFrame {
 
         String timeLabel = "Time Remaining: ";
         int hours=(29-Integer.parseInt(timeArray[0]))*24;
-        hours += 12 - Integer.parseInt(timeArray[1]);
+        hours += 11 - Integer.parseInt(timeArray[1]);
         int mins=60 - Integer.parseInt(timeArray[2]);
 
         if(hours<10){
@@ -236,7 +265,12 @@ public class BounceCounter extends JFrame {
         lblHour = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 0));
+        setForeground(new java.awt.Color(0, 0, 0));
 
+        lblTime.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
+        lblTime.setForeground(new java.awt.Color(255, 255, 255));
+        lblTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTime.setText("Time Remaining");
 
         lblImage.setText("image");
@@ -299,7 +333,7 @@ public class BounceCounter extends JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblTime, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -326,7 +360,7 @@ public class BounceCounter extends JFrame {
                         .addComponent(lblHour4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblHour5)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
