@@ -120,7 +120,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="pnlStats" max="32767" attributes="0"/>
-                              <Component id="pnlGraph" pref="445" max="32767" attributes="0"/>
+                              <Component id="pnlGraph" pref="416" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -134,7 +134,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="pnlStats" min="-2" pref="318" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="pnlGraph" pref="313" max="32767" attributes="0"/>
+                                  <Component id="pnlGraph" pref="319" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="pnlStart" min="-2" max="-2" attributes="0"/>
@@ -143,7 +143,7 @@
                               </Group>
                               <Component id="pnlData" min="-2" pref="632" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="974" max="32767" attributes="0"/>
+                          <EmptySpace pref="968" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -250,7 +250,7 @@
                           <Font name="Calibri" size="18" style="1"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Collect Data"/>
-                        <Property name="name" type="java.lang.String" value=""/>
+                        <Property name="name" type="java.lang.String" value="" noResource="true"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCollectDataActionPerformed"/>
@@ -471,7 +471,7 @@
                           <Font name="Calibri" size="18" style="1"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Save Comments"/>
-                        <Property name="name" type="java.lang.String" value=""/>
+                        <Property name="name" type="java.lang.String" value="" noResource="true"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveCommentsActionPerformed"/>
@@ -557,7 +557,7 @@
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                           <Component id="lblAvToNTxt" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="lblAvTotalTxt" alignment="0" pref="80" max="32767" attributes="0"/>
+                                          <Component id="lblAvTotalTxt" alignment="0" pref="0" max="32767" attributes="0"/>
                                           <Component id="lblAvToFTxt" max="32767" attributes="0"/>
                                           <Component id="lblHighestToFTxt" max="32767" attributes="0"/>
                                       </Group>
@@ -572,7 +572,7 @@
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                           <Component id="lblOvToNTxt" alignment="0" max="32767" attributes="0"/>
                                           <Component id="lblOvToFTxt" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="lblOvTotalTxt" pref="78" max="32767" attributes="0"/>
+                                          <Component id="lblOvTotalTxt" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -839,12 +839,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="433" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="281" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -893,8 +893,8 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="pnlStatisticsData" alignment="0" pref="1255" max="32767" attributes="0"/>
-                              <Component id="pnlStatisticsButtons" alignment="0" pref="1255" max="32767" attributes="0"/>
+                              <Component id="pnlStatisticsData" alignment="0" pref="1251" max="32767" attributes="0"/>
+                              <Component id="pnlStatisticsButtons" alignment="0" pref="1251" max="32767" attributes="0"/>
                               <Component id="pnlStatisticsGraph" alignment="1" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -973,7 +973,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="614" max="32767" attributes="0"/>
+                              <EmptySpace pref="424" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1009,7 +1009,7 @@
                                       <Component id="btnStatisticsCompareGymnasts" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="119" max="32767" attributes="0"/>
+                              <EmptySpace pref="107" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1099,16 +1099,25 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="See Gymnast"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnStatisticsGymnastActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnStatisticsCompareRoutines">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Compare Routines"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnStatisticsCompareRoutinesActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnStatisticsCompareGymnasts">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Compare Gymnasts"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnStatisticsCompareGymnastsActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -1226,7 +1235,7 @@
                                   <Component id="rdoExportText" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="rdoExportExcel" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="625" max="32767" attributes="0"/>
+                              <EmptySpace pref="598" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1241,7 +1250,7 @@
                               <Component id="rdoExportText" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="rdoExportExcel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="1445" max="32767" attributes="0"/>
+                              <EmptySpace pref="1443" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1338,7 +1347,7 @@
                           <Component id="pnlRoutines" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="pnlAdmin" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="485" max="32767" attributes="0"/>
+                          <EmptySpace pref="486" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
